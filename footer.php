@@ -57,7 +57,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="blog.html">
+                                            <a href="about.php">
                                                 <i class="icofont-simple-right"></i>
                                                 About Us
                                             </a>

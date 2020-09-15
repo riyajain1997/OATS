@@ -1,10 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
-    <?php include_once('cssLinks.php');?> 
+        <?php include_once('cssLinks.php');?>
     </head>
     <body>
+
+
         <!-- Start Navbar Area -->
         <?php include_once('headerAlumni.php');?> 
         <!-- End Navbar Area -->
@@ -245,12 +246,12 @@
         <!-- End Upcoming event -->      
 
         <!-- Footer -->
-      <?php include_once('footer.php');?>
+        <?php include_once('footer.php');?>
         <!-- End Footer -->
 
-        <!-- Start scripts -->
+        <!-- Start script -->
         <?php include_once('scriptsLinks.php');?>
-        <!-- End scripts -->
+        <!-- End script -->
 
     </body>
 </html>
