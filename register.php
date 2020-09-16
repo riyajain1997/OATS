@@ -1,5 +1,5 @@
 <?php 
-    include_once('DbConnection.php') 
+    include_once('DbConnection.php');
 
     if(isset($_POST['submit']))
     {
@@ -12,16 +12,15 @@
         $conpass=$_POST['conpass'];
         $gen=$_POST['gender'];
         $user=$_POST['user'];
+        $Sprn=$_POST['Sprn'];
+        $Sdepart=$_POST['Departmentdropdown'];
+        $Scourse=$_POST['Coursedropdown'];
+        $joinyear=$_POST['joinyear'];
+        $passyear=$_POST['passyear'];
 
-        if($user=="Student")
-        {
-            $Sprn=$_POST['Sprn'];
-            $Sdepart=$_POST['Departmentdropdown'];
-            $Scourse=$_POST['Coursedropdown'];
-            $joinyear=$_POST['joinyear'];
-            $passyear=$_POST['passyear'];
-
-            $query_student="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Courseid,Deptid,Desigid,About,IsActive)values('$Sprn','$first','$last','$email','$pass','$gen','$dob','$phone','$user','$joinyear','$passyear','$Scourse','$Sdepart',null,null,1)"; 
+        // if($user=="Student")
+        // {
+            $query_student="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Courseid,Deptid,Desigid,About,IsActive)values($Sprn,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',$joinyear,$passyear,$Scourse,$Sdepart,0,null,1)"; 
             $runstudent=mysqli_query($con,$query_student);
 
             if($runstudent)
@@ -33,7 +32,7 @@
                 echo "error".mysqli_error($con);
             }
 
-        }
+        // }
     }
 ?>
 <!DOCTYPE html>
@@ -196,11 +195,11 @@
     <body>
 
         <!-- Start Navbar Area -->
-        <?php include_once('headerAlumni.php');?>
+        
         <!-- End Navbar Area -->
 
         <!-- Page Title -->
-        <div class="page-title-area">
+        <!-- <div class="page-title-area">
             <div class="d-table">
                 <div class="d-table-cell">
                     <div class="container">
@@ -219,7 +218,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- End Page Title -->
 
         <!-- Create Account -->
@@ -230,7 +229,7 @@
                         <span>Already have an account?</span>
                         <a href="login.php">Log In</a>
                     </div>
-                    <form name="myform" method="POST" action=""> 
+                    <form name="myform" method="POST" action="register.php"> 
             
                         <div class="create-information">
                             <h3>Basic Information</h3>
@@ -289,9 +288,9 @@
                                         <div class="gender-area">
                                             <span>Gender</span>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <input type="radio" name="gender" id="male" value="Male">
+                                            <input type="radio" name="gender" value="Male">
                                             <label for="male">Male</label>
-                                            <input type="radio" name="gender" id="female" value="Female">
+                                            <input type="radio" name="gender" value="Female">
                                             <label for="female">Female</label>
                                             <span id="genderspan" style="color: red"></span>
                                         </div>
@@ -478,9 +477,7 @@
                             </div>
                         </div>
 
-                        <div class="text-center">
-                            <button type="submit" name="submit" onclick=" return validate();" class="btn create-ac-btn">Save</button>
-                        </div>
+                        <input type="submit" name="submit" class="btn btn-success" onclick="return validate();">
                     </form>
                 </div>
             </div>
