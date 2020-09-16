@@ -20,7 +20,7 @@
 
         // if($user=="Student")
         // {
-            $query_student="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Courseid,Deptid,Desigid,About,IsActive)values($Sprn,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',$joinyear,$passyear,$Scourse,$Sdepart,0,null,1)"; 
+            $query_student="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($Sprn,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',$joinyear,$passyear,$Scourse,$Sdepart,0,null,1)"; 
             $runstudent=mysqli_query($con,$query_student);
 
             if($runstudent)
