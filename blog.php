@@ -41,14 +41,14 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="blog-item wow fadeInUp" data-wow-delay=".3s">
                             <div class="blog-top">
-                                <a href="blog-details.html">
+                                <a href="blog-details.php">
                                     <img src="assets/img/home-1/blog/1.jpg" alt="Blog">
                                 </a>
                                 <span>21 May, 2020</span>
                             </div>
                             <div class="blog-bottom">
                                 <h3>
-                                    <a href="blog-details.html">The next genaration IT will change the world</a>
+                                    <a href="blog-details.php">The next genaration IT will change the world</a>
                                 </h3>
                                 <ul>
                                     <li>
@@ -56,7 +56,7 @@
                                         Aikin Ward
                                     </li>
                                     <li>
-                                        <a href="blog-details.html">Read More
+                                        <a href="blog-details.php">Read More
                                             <i class="icofont-simple-right"></i>
                                         </a>
                                     </li>
@@ -67,14 +67,14 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="blog-item wow fadeInUp" data-wow-delay=".4s">
                             <div class="blog-top">
-                                <a href="blog-details.html">
+                                <a href="blog-details.php">
                                     <img src="assets/img/home-1/blog/2.jpg" alt="Blog">
                                 </a>
                                 <span>22 May, 2020</span>
                             </div>
                             <div class="blog-bottom">
                                 <h3>
-                                    <a href="blog-details.html">IT is the most important sector in the world</a>
+                                    <a href="blog-details.php">IT is the most important sector in the world</a>
                                 </h3>
                                 <ul>
                                     <li>
@@ -82,7 +82,7 @@
                                         Daniel Henry
                                     </li>
                                     <li>
-                                        <a href="blog-details.html">Read More
+                                        <a href="blog-details.php">Read More
                                             <i class="icofont-simple-right"></i>
                                         </a>
                                     </li>
@@ -93,14 +93,14 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="blog-item wow fadeInUp" data-wow-delay=".5s">
                             <div class="blog-top">
-                                <a href="blog-details.html">
+                                <a href="blog-details.php">
                                     <img src="assets/img/home-1/blog/3.jpg" alt="Blog">
                                 </a>
                                 <span>23 May, 2020</span>
                             </div>
                             <div class="blog-bottom">
                                 <h3>
-                                    <a href="blog-details.html">Nowadays IT is being most popular</a>
+                                    <a href="blog-details.php">Nowadays IT is being most popular</a>
                                 </h3>
                                 <ul>
                                     <li>
@@ -108,7 +108,7 @@
                                         Lucas Mason
                                     </li>
                                     <li>
-                                        <a href="blog-details.html">Read More
+                                        <a href="blog-details.php">Read More
                                             <i class="icofont-simple-right"></i>
                                         </a>
                                     </li>
@@ -119,14 +119,14 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="blog-item wow fadeInUp" data-wow-delay=".3s">
                             <div class="blog-top">
-                                <a href="blog-details.html">
+                                <a href="blog-details.php">
                                     <img src="assets/img/home-1/blog/4.jpg" alt="Blog">
                                 </a>
                                 <span>26 May, 2020</span>
                             </div>
                             <div class="blog-bottom">
                                 <h3>
-                                    <a href="blog-details.html">IT job is an smart profession in the world</a>
+                                    <a href="blog-details.php">IT job is an smart profession in the world</a>
                                 </h3>
                                 <ul>
                                     <li>
@@ -134,7 +134,7 @@
                                         William James
                                     </li>
                                     <li>
-                                        <a href="blog-details.html">Read More
+                                        <a href="blog-details.php">Read More
                                             <i class="icofont-simple-right"></i>
                                         </a>
                                     </li>
@@ -145,14 +145,14 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="blog-item wow fadeInUp" data-wow-delay=".4s">
                             <div class="blog-top">
-                                <a href="blog-details.html">
+                                <a href="blog-details.php">
                                     <img src="assets/img/home-1/blog/5.jpg" alt="Blog">
                                 </a>
                                 <span>27 May, 2020</span>
                             </div>
                             <div class="blog-bottom">
                                 <h3>
-                                    <a href="blog-details.html">Economy growth is being increased by IT sectors</a>
+                                    <a href="blog-details.php">Economy growth is being increased by IT sectors</a>
                                 </h3>
                                 <ul>
                                     <li>
@@ -160,7 +160,7 @@
                                         Liam Noah
                                     </li>
                                     <li>
-                                        <a href="blog-details.html">Read More
+                                        <a href="blog-details.php">Read More
                                             <i class="icofont-simple-right"></i>
                                         </a>
                                     </li>
@@ -171,14 +171,14 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="blog-item wow fadeInUp" data-wow-delay=".5s">
                             <div class="blog-top">
-                                <a href="blog-details.html">
+                                <a href="blog-details.php">
                                     <img src="assets/img/home-1/blog/6.jpg" alt="Blog">
                                 </a>
                                 <span>28 May, 2020</span>
                             </div>
                             <div class="blog-bottom">
                                 <h3>
-                                    <a href="blog-details.html">Every country is giving priority in IT sector</a>
+                                    <a href="blog-details.php">Every country is giving priority in IT sector</a>
                                 </h3>
                                 <ul>
                                     <li>
@@ -186,7 +186,7 @@
                                         Tom Potter
                                     </li>
                                     <li>
-                                        <a href="blog-details.html">Read More
+                                        <a href="blog-details.php">Read More
                                             <i class="icofont-simple-right"></i>
                                         </a>
                                     </li>

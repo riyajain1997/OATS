@@ -19,7 +19,7 @@
                             <h2>My Blog</h2>
                             <ul>
                                 <li>
-                                    <a href="index.html">Blogs</a>
+                                    <a href="index.php">Blogs</a>
                                 </li>
                                 <li>
                                     <i class="icofont-simple-right"></i>
@@ -40,14 +40,14 @@
                     <div class="col-sm-6 col-lg-4">
                         <div class="blog-item wow fadeInUp" data-wow-delay=".3s">
                             <div class="blog-top">
-                                <a href="blog-details.html">
+                                <a href="blog-details.php">
                                     <img src="assets/img/home-1/blog/1.jpg" alt="Blog">
                                 </a>
                                 <span>21 May, 2020</span>
                             </div>
                             <div class="blog-bottom">
                                 <h3>
-                                    <a href="blog-details.html">The next genaration IT will change the world</a>
+                                    <a href="blog-details.php">The next genaration IT will change the world</a>
                                 </h3>
                                 <ul>
                                     <li>
@@ -55,7 +55,7 @@
                                         Aikin Ward
                                     </li>
                                     <li>
-                                        <a href="blog_post.html">Edit
+                                        <a href="blog_post.php">Edit
                                             <i class="icofont-simple-right"></i>
                                         </a>
 

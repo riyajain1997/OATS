@@ -18,26 +18,26 @@
             <div class="collapse navbar-collapse mean-menu">
                 <ul class="navbar-nav" style="width:100%; margin-left:40%;">
                     <li class="nav-item">
-                        <a href="homepage.html" class="nav-link dropdown-toggle">Home </i></a>
+                        <a href="homepage.php" class="nav-link dropdown-toggle">Home </i></a>
                     </li>
                     
                     <li class="nav-item">
                         <a href="#" class="nav-link dropdown-toggle">Blogs <i class="icofont-simple-down"></i></a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
-                                <a href="blog.html" class="nav-link">View</a>
+                                <a href="blog.php" class="nav-link">View</a>
                             </li>
                             <li class="nav-item">
-                                <a href="blog_post.html" class="nav-link">Post a Blog</a>
+                                <a href="blog_post.php" class="nav-link">Post a Blog</a>
                             </li>
                             <li class="nav-item">
-                                <a href="ownblog.html" class="nav-link">Own Blogs</a>
+                                <a href="ownblog.php" class="nav-link">Own Blogs</a>
                             </li>
                             
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="view_events.html" class="nav-link dropdown-toggle">Events </a>
+                        <a href="view_events.php" class="nav-link dropdown-toggle">Events </a>
                         
                     </li>
                     <li class="nav-item">
