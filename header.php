@@ -34,7 +34,7 @@
                                     <i class="icofont-plus-square"></i>
                                     Login
                                 </a>
-                                <a class="sign-up-btn" href="regiter.php">
+                                <a class="sign-up-btn" href="register.php">
                                     <i class="icofont-user-alt-4"></i>
                                     Register
                                 </a>

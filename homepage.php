@@ -1,3 +1,6 @@
+<?php 
+    include_once("DbConnection.php");
+?>
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -7,7 +10,20 @@
     <body>
 
         <!-- Start Navbar Area -->
-        <?php include_once('headerAlumni.php');?>
+        <?php 
+        
+            if($_SESSION['Type']=="Student")
+            {
+                include_once('headerStudent.php');
+            }
+            else if($_SESSION['Type']=="Alumni")
+            {
+                include_once('headerAlumni.php');
+            }
+            else{
+                include_once('headerHod.php');
+            }
+        ?>
         <!-- End Navbar Area -->
 
         <!-- Banner -->
@@ -37,7 +53,6 @@
                 </div>
                 <div id="container">
                     <div class="row">
-
                         <div class="col-lg-6 mix web ui">
                             <div class="job-item">
                                 <img src="assets/img/home-1/jobs/1.png" alt="Job">
