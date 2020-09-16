@@ -13,64 +13,118 @@
         $gen=$_POST['gender'];
         $user=$_POST['user'];
 
-        if($user=="Student")
+        $sel="SELECT * FROM tblregister 
+			WHERE Email='".$_REQUEST['email']."' or Phone='".$_REQUEST['phone']."' ";
+
+        $result=mysqli_query($con,$sel) or die(mysqli_error($con));
+        $row=mysqli_fetch_array($result);
+
+        if(mysqli_num_rows($result)>0)
         {
-            $Sprn=$_POST['Sprn'];
-            $Sdepart=$_POST['Departmentdropdown'];
-            $Scourse=$_POST['Coursedropdown'];
-            $joinyear=$_POST['joinyear'];
-            $passyear=$_POST['passyear'];
-
-            $query_student="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($Sprn,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',$joinyear,$passyear,$Scourse,$Sdepart,0,null,1)"; 
-            $runstudent=mysqli_query($con,$query_student);
-
-            if($runstudent)
-            {
-                echo '<script type="text/javascript">alert("Data inserted successfully... Go to login Page...");</script>';
-            }
-            else
-            {
-                echo "error".mysqli_error($con);
-            }
-
+            echo '<script type="text/javascript" id="error">alert("Registration Unsuccessful... \n Email Address or Mobile number is already in use. \n Please Register Again..");</script>';
         }
-        else if($user=="Alumni")
-        {
-            $aprn=$_POST['Aprn'];
-            $acourse=$_POST['ACoursedrop'];
-            $apass=$_POST['Apassyear'];
-            $adesig=$_POST['Adesignation'];
-            $aorgan=$_POST['Aorganisation'];
 
-            $query_alumni="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($aprn,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',0,$apass,$acourse,0,$acourse,null,1)"; 
-            $runalumni=mysqli_query($con,$query_alumni);
+        else{
 
-            if($runalumni)
+            if($user=="Student")
             {
-                echo '<script type="text/javascript">alert("Data inserted successfully... Go to login Page...");</script>';
+                $Sprn=$_POST['Sprn'];
+                $Sdepart=$_POST['Departmentdropdown'];
+                $Scourse=$_POST['Coursedropdown'];
+                $joinyear=$_POST['joinyear'];
+                $passyear=$_POST['passyear'];
+
+                $checkStud = "SELECT * FROM tblstudent
+                    WHERE StudentPrn ='".$_REQUEST['Sprn']."' and StudentPassYear = '".$_REQUEST['passyear']."' ";
+                
+                $resultStudCheck = mysqli_query($con,$checkStud) or die(mysqli_error($con));
+                $row = mysqli_fetch_array($resultStudCheck);
+
+                if(mysqli_num_rows($resultStudCheck)>0)
+                {
+
+                    $query_student="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($Sprn,'$first','$last','$email','$pass','$gen','$dob',$phone,'$user',$joinyear,$passyear,$Scourse,$Sdepart,0,null,1)"; 
+                    $runstudent=mysqli_query($con,$query_student);
+
+                    if($runstudent)
+                    {
+                        echo '<script type="text/javascript">alert("Data inserted successfully... Go to login Page...");</script>';
+                    }
+                    else
+                    {
+                        echo "error".mysqli_error($con);
+                    }
+                }
+                else{
+                    echo '<script type="text/javascript" id="error">alert("Student not present in our college \n Please Register Again..");</script>';
+                }
+
+            }
+            else if($user=="Alumni")
+            {
+                $aprn=$_POST['Aprn'];
+                $acourse=$_POST['ACoursedrop'];
+                $apass=$_POST['Apassyear'];
+                $adesig=$_POST['Adesignation'];
+                $aorgan=$_POST['Aorganisation'];
+
+                $checkAlumni = "SELECT * FROM tblstudent
+                    WHERE StudentPrn ='".$_REQUEST['Aprn']."' and StudentPassYear = '".$_REQUEST['Apassyear']."' ";
+                
+                $resultAlumniCheck = mysqli_query($con,$checkAlumni) or die(mysqli_error($con));
+                $row = mysqli_fetch_array($resultAlumniCheck);
+
+                if(mysqli_num_rows($resultAlumniCheck)>0)
+                {
+                    $query_alumni="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($aprn,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',0,$apass,$acourse,0,$acourse,null,1)"; 
+                    $runalumni=mysqli_query($con,$query_alumni);
+
+                    if($runalumni)
+                    {
+                        echo '<script type="text/javascript">alert("Data inserted successfully... Go to login Page...");</script>';
+                    }
+                    else
+                    {
+                        echo "error".mysqli_error($con);
+                    }
+                }
+
+                else{
+                    echo '<script type="text/javascript" id="error">alert("Alumni is not from our college \n Please Register Again..");</script>';
+                }
+
             }
             else
             {
-                echo "error".mysqli_error($con);
-            }
+                $empno=$_POST['Empno'];
+                $desig=$_POST['Sdesigdrop'];
+                $depart=$_POST['Sdepart'];
 
-        }
-        else
-        {
-            $empno=$_POST['Empno'];
-            $desig=$_POST['Sdesigdrop'];
-            $depart=$_POST['Sdepart'];
+                $checkStaff = "SELECT * FROM tblstaff
+                    WHERE EmpNo ='".$_REQUEST['Empno']."' and Desigid = '".$_REQUEST['Sdesigdrop']."' ";
+                
+                $resultStaffCheck = mysqli_query($con,$checkStaff) or die(mysqli_error($con));
+                $row = mysqli_fetch_array($resultStaffCheck);
 
-            $query_staff="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($empno,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',0,0,0,$depart,$desig,null,1)"; 
-            $runstaff=mysqli_query($con,$query_staff);
+                if(mysqli_num_rows($resultStaffCheck)>0)
+                {
+                    $query_staff="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($empno,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',0,0,0,$depart,$desig,null,1)"; 
+                    $runstaff=mysqli_query($con,$query_staff);
 
-            if($runstaff)
-            {
-                echo '<script type="text/javascript">alert("Data inserted successfully... Go to login Page...");</script>';
-            }
-            else
-            {
-                echo "error".mysqli_error($con);
+                    if($runstaff)
+                    {
+                        echo '<script type="text/javascript">alert("Data inserted successfully... Go to login Page...");</script>';
+                    }
+                    else
+                    {
+                        echo "error".mysqli_error($con);
+                    }
+                }
+
+                else{
+                    echo '<script type="text/javascript" id="error">alert("Only HOD can login....\n Please try again");</script>';
+                }
+
             }
 
         }
