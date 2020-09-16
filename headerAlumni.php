@@ -41,16 +41,16 @@
                         
                     </li>
                     <li class="nav-item">
-                        <a href="invitations.html" class="nav-link dropdown-toggle">Invitations</a>
+                        <a href="invitations.php" class="nav-link dropdown-toggle">Invitations</a>
                         
                     <li class="nav-item">
-                        <a href="contact.html" class="nav-link dropdown-toggle">Contact</a>
+                        <a href="contact.php" class="nav-link dropdown-toggle">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a href="notifications.html" class="nav-link">Notifications</a>
+                        <a href="notifications.php" class="nav-link">Notifications</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link dropdown-toggle">User <i class="icofont-simple-down"></i> </a>
+                        <a href="#" class="nav-link dropdown-toggle">Hi,&nbsp;<?php echo $_SESSION['Firstname']." ".$_SESSION['Firstname']; ?><i class="icofont-simple-down"></i> </a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
                                 <a href="profileAlumni.html" class="nav-link">Profile</a>

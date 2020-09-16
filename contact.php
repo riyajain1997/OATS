@@ -7,7 +7,7 @@
     <body>
 
         <!-- Start Navbar Area -->
-        <?php include_once('headerAlumni.php');?>
+        <?php include_once('header.php');?>
         <!-- End Navbar Area -->
 
         <!-- Page Title -->
@@ -19,7 +19,7 @@
                             <h2>Contact</h2>
                             <ul>
                                 <li>
-                                    <a href="homepage.html">Home</a>
+                                    <a href="homepage.php">Home</a>
                                 </li>
                                 <li>
                                     <i class="icofont-simple-right"></i>

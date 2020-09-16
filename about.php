@@ -7,7 +7,7 @@
     <body>
 
         <!-- Start Navbar Area -->
-       <?php include_once('headerAlumni.php');?>
+       <?php include_once('header.php');?>
         <!-- End Navbar Area -->
 
         <!-- Page Title -->

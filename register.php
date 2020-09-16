@@ -12,14 +12,15 @@
         $conpass=$_POST['conpass'];
         $gen=$_POST['gender'];
         $user=$_POST['user'];
-        $Sprn=$_POST['Sprn'];
-        $Sdepart=$_POST['Departmentdropdown'];
-        $Scourse=$_POST['Coursedropdown'];
-        $joinyear=$_POST['joinyear'];
-        $passyear=$_POST['passyear'];
 
-        // if($user=="Student")
-        // {
+        if($user=="Student")
+        {
+            $Sprn=$_POST['Sprn'];
+            $Sdepart=$_POST['Departmentdropdown'];
+            $Scourse=$_POST['Coursedropdown'];
+            $joinyear=$_POST['joinyear'];
+            $passyear=$_POST['passyear'];
+
             $query_student="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($Sprn,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',$joinyear,$passyear,$Scourse,$Sdepart,0,null,1)"; 
             $runstudent=mysqli_query($con,$query_student);
 
@@ -32,7 +33,47 @@
                 echo "error".mysqli_error($con);
             }
 
-        // }
+        }
+        else if($user=="Alumni")
+        {
+            $aprn=$_POST['Aprn'];
+            $acourse=$_POST['ACoursedrop'];
+            $apass=$_POST['Apassyear'];
+            $adesig=$_POST['Adesignation'];
+            $aorgan=$_POST['Aorganisation'];
+
+            $query_alumni="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($aprn,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',0,$apass,$acourse,0,$acourse,null,1)"; 
+            $runalumni=mysqli_query($con,$query_alumni);
+
+            if($runalumni)
+            {
+                echo '<script type="text/javascript">alert("Data inserted successfully... Go to login Page...");</script>';
+            }
+            else
+            {
+                echo "error".mysqli_error($con);
+            }
+
+        }
+        else
+        {
+            $empno=$_POST['Empno'];
+            $desig=$_POST['Sdesigdrop'];
+            $depart=$_POST['Sdepart'];
+
+            $query_staff="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($empno,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',0,0,0,$depart,$desig,null,1)"; 
+            $runstaff=mysqli_query($con,$query_staff);
+
+            if($runstaff)
+            {
+                echo '<script type="text/javascript">alert("Data inserted successfully... Go to login Page...");</script>';
+            }
+            else
+            {
+                echo "error".mysqli_error($con);
+            }
+
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -195,11 +236,11 @@
     <body>
 
         <!-- Start Navbar Area -->
-        
+        <?php include_once('header.php');?>
         <!-- End Navbar Area -->
 
         <!-- Page Title -->
-        <!-- <div class="page-title-area">
+        <div class="page-title-area" style= "height:320px;">
             <div class="d-table">
                 <div class="d-table-cell">
                     <div class="container">
@@ -218,17 +259,13 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
         <!-- End Page Title -->
 
         <!-- Create Account -->
             <div class="container">
                 <div class="create-photo">
                 <br><br><br>
-                    <div class="already-create">
-                        <span>Already have an account?</span>
-                        <a href="login.php">Log In</a>
-                    </div>
                     <form name="myform" method="POST" action="register.php"> 
             
                         <div class="create-information">
@@ -383,7 +420,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Prn No:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" name="Aprn" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -432,7 +469,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Emp No:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" name="Empno" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -477,7 +514,11 @@
                             </div>
                         </div>
 
-                        <input type="submit" name="submit" class="btn btn-success" onclick="return validate();">
+                        <div class="text-center">
+                            <input type="submit" name="submit" class="btn btn-success" style="width:200px;" onclick="return validate();">
+                        </div>
+                        <br>
+                        <p class="col-md-12 col-lg-12 text-center" style="color:black;">Already have an Account ? <a href="login.php"><u>SignIn Here</u></a></p>
                     </form>
                 </div>
             </div>

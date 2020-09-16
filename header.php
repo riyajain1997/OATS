@@ -20,7 +20,7 @@
                                     <a href="index.php" class="nav-link">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="features.html" class="nav-link">Features</a>
+                                    <a href="features.php" class="nav-link">Features</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="about.php" class="nav-link">About </a>
@@ -30,11 +30,11 @@
                                 </li>
                             </ul>
                             <div class="common-btn">
-                                <a class="login-btn" href="login.html">
+                                <a class="login-btn" href="login.php">
                                     <i class="icofont-plus-square"></i>
                                     Login
                                 </a>
-                                <a class="sign-up-btn" href="create-account.html">
+                                <a class="sign-up-btn" href="regiter.php">
                                     <i class="icofont-user-alt-4"></i>
                                     Register
                                 </a>
