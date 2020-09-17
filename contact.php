@@ -1,13 +1,114 @@
+<!-- Start Database value Insertion-->
+<?php include_once("DbConnection.php");
+    
+    if(isset($_REQUEST['submit']))
+    { 
+        if(isset($_SESSION['UserID']))
+        { 
+            $insert_query="insert into tblcontact values(null,'".$_SESSION['UserID']."','".$_REQUEST['name']."','".$_REQUEST['email']."','".$_REQUEST['phone_number']."','".$_REQUEST['msg_subject']."','".$_REQUEST['message']."',1)";
+            $Execute_Q=mysqli_query($con,$insert_query) or die(mysqli_error($con));
+            
+            echo "<script type='text/javascript'>alert('Your Message send Successfully Done..');</script>";
+        }
+        else{
+            $insert_query="insert into tblcontact values(null,0,'".$_REQUEST['name']."','".$_REQUEST['email']."','".$_REQUEST['phone_number']."','".$_REQUEST['msg_subject']."','".$_REQUEST['message']."',1)";
+            $Execute_Q=mysqli_query($con,$insert_query) or die(mysqli_error($con));
+            
+            echo "<script type='text/javascript'>alert('Your Message send Successfully Done..');</script>";
+        }
+    }
+ ?>
+<!-- End Database value Insertion-->
+
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
-    <?php include_once('cssLinks.php');?>
+        <?php include 'cssLinks.php' ?>
         <title>Contact Us</title>
+
+        <script type="text/javascript">
+            function validate()
+            {
+                var name = document.forms["myform"]["name"].value;
+                var phone = document.forms["myform"]["phone_number"].value;
+                var email = document.forms["myform"]["email"].value;
+                var subject = document.forms["myform"]["msg_subject"].value;
+                var description = document.forms["myform"]["message"].value;
+
+
+                if(name == "")
+                {
+                    document.getElementById('span_name').innerHTML =" ** Please fill the name";
+                    return false;
+                }else{
+                    document.getElementById('span_name').innerHTML ="";
+                }
+
+                if(email == "")
+                {
+                    document.getElementById('span_email').innerHTML =" ** Please fill the email";
+                    return false;
+                }else{
+                    document.getElementById('span_email').innerHTML ="";
+                }
+
+                if(email.indexOf('@') <= 0)
+                {
+                    document.getElementById('span_email').innerHTML =" ** @ Invalid Position";
+                    return false;
+                }
+
+                if((email.charAt(email.length-4)!='.') && (email.charAt(email.length-3)!='.'))
+                {
+                    document.getElementById('span_email').innerHTML =" ** . Invalid Position";
+                    return false;
+                }
+
+                if(phone == "")
+                {
+                    document.getElementById('span_phone').innerHTML =" ** Please fill the number";
+                    return false;
+                }else{
+                    document.getElementById('span_phone').innerHTML ="";
+                }
+
+                if (phone.length!=10) 
+                {
+                    document.getElementById('span_phone').innerHTML =" ** Mobile number must be 10 digits only.";
+                    return false;
+                }
+
+                if (isNaN(phone)) 
+                {
+                    document.getElementById('span_phone').innerHTML =" ** Digits only not characters";
+                    return false;
+                }
+
+                if(subject == "")
+                {
+                    document.getElementById('span_subject').innerHTML =" ** Please fill the Subject";
+                    return false;
+                }else{
+                    document.getElementById('span_subject').innerHTML ="";
+                }
+
+                if(description == "")
+                {
+                    document.getElementById('span_message').innerHTML =" ** Please fill the description";
+                    return false;
+                }else{
+                    document.getElementById('span_message').innerHTML ="";
+                }
+             
+                return true;
+            }
+        </script>
+
     </head>
     <body>
 
         <!-- Start Navbar Area -->
-        <?php include_once('header.php');?>
+        <?php include 'header.php' ?>
         <!-- End Navbar Area -->
 
         <!-- Page Title -->
@@ -19,7 +120,7 @@
                             <h2>Contact</h2>
                             <ul>
                                 <li>
-                                    <a href="homepage.php">Home</a>
+                                    <a href="homepage.html">Home</a>
                                 </li>
                                 <li>
                                     <i class="icofont-simple-right"></i>
@@ -91,46 +192,46 @@
             <div class="container-fluid">
                 <center><h4>Contact Form</h4></center>
                 <br><br>
-                <form id="contactForm">
+                <form method="POST" action="contact.php" name="myform">
                     <div class="row contact-wrap">
                         <div class="col-sm-6 col-lg-6">
                             <div class="form-group">
-                                <input type="text" name="name" id="name" class="form-control" required data-error="Please enter your name" placeholder="Your Full Name">
-                                <div class="help-block with-errors"></div>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Your Full Name">
+                                <span id="span_name" style="color: red"></span>
                             </div>
                         </div>
     
                         <div class="col-sm-6 col-lg-6">
                             <div class="form-group">
-                                <input type="email" name="email" id="email" class="form-control" required data-error="Please enter your email" placeholder="Your Email">
-                                <div class="help-block with-errors"></div>
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Your Email">
+                                <span id="span_email" style="color: red"></span>
                             </div>
                         </div>
     
                         <div class="col-sm-6 col-lg-6">
                             <div class="form-group">
-                                <input type="text" name="phone_number" id="phone_number" required data-error="Please enter your number" class="form-control" placeholder="Your Phone">
-                                <div class="help-block with-errors"></div>
+                                <input type="number" name="phone_number" id="phone_number" class="form-control" placeholder="Your Phone">
+                                <span id="span_phone" style="color: red"></span>
                             </div>
                         </div>
     
                         <div class="col-sm-6 col-lg-6"> 
                             <div class="form-group">
-                                <input type="text" name="msg_subject" id="msg_subject" class="form-control" required data-error="Please enter your subject" placeholder="Subject">
-                                <div class="help-block with-errors"></div>
+                                <input type="text" name="msg_subject" id="msg_subject" class="form-control" placeholder="Subject">
+                                <span id="span_subject" style="color: red"></span>
                             </div>
                         </div>
     
                         <div class="col-md-12 col-lg-12">
                             <div class="form-group">
-                                <textarea name="message" class="form-control" id="message" cols="30" rows="8" required data-error="Write your message" placeholder="Description"></textarea>
-                                <div class="help-block with-errors"></div>
+                                <textarea name="message" class="form-control" id="message" cols="30" rows="8" placeholder="Description"></textarea>
+                                <span id="span_message" style="color: red"></span>
                             </div>
                         </div>
     
                         <div class="col-md-12 col-lg-12">
                             <div class="text-center">
-                                <button type="submit" class="btn contact-btn">Submit</button>
+                                <button type="submit" name="submit" onclick=" return validate();" class="btn contact-btn">Submit</button>
                             </div>
                         </div>
                     </div>
@@ -140,11 +241,11 @@
         <!-- End Contact Form -->
         
         <!-- Footer -->
-        <?php include_once('footer.php');?>
+        <?php include "footer.php" ?>
         <!-- End Footer -->
 
         <!-- Start scripts -->
-        <?php include_once('scriptsLinks.php');?>
+        <?php include "scriptsLinks.php" ?> 
         <!-- End scripts -->
 
     </body>
