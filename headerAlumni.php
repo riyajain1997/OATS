@@ -41,7 +41,7 @@
                         
                     </li>
                     <li class="nav-item">
-                        <a href="invitations.html" class="nav-link dropdown-toggle">Invitations</a>
+                        <a href="invitations.php" class="nav-link dropdown-toggle">Invitations</a>
                         
                     <li class="nav-item">
                         <a href="contact.html" class="nav-link dropdown-toggle">Contact</a>

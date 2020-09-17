@@ -1,5 +1,5 @@
 <?php 
-    include_once('DbConnection.php') 
+    include_once('DbConnection.php');
 
     if(isset($_POST['submit']))
     {
@@ -230,7 +230,7 @@
                         <span>Already have an account?</span>
                         <a href="login.php">Log In</a>
                     </div>
-                    <form name="myform" method="POST" action=""> 
+                    <form name="myform" method="post"> 
             
                         <div class="create-information">
                             <h3>Basic Information</h3>
@@ -485,6 +485,10 @@
                 </div>
             </div>
         <!-- End Create Account -->
+
+        <!-- Footer -->
+        <?php include_once('footer.php');?>
+        <!-- End Footer -->
 
         <!-- Start scripts -->
         <?php include_once('scriptsLinks.php');?>
