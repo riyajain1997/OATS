@@ -1,6 +1,4 @@
-
-        
-        <footer>
+            <footer>
                 <div class="copyright-area">
                     <div class="row" style="margin-left:40px; margin-top:20px;">
                         <div class="col-sm-6 col-lg-3">
@@ -18,19 +16,19 @@
                                     <h3>Quick Links</h3>
                                     <ul>
                                         <li>
-                                            <a href="#">
+                                            <a href="login.php">
                                                 <i class="icofont-simple-right"></i>
                                                 Login
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="register.php">
                                                 <i class="icofont-simple-right"></i>
                                                 Register
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
+                                            <a href="contact.php">
                                                 <i class="icofont-simple-right"></i>
                                                 Contact Us
                                             </a>
@@ -45,13 +43,13 @@
                                     <h3><br></h3>
                                     <ul>
                                         <li>
-                                            <a href="index.html">
+                                            <a href="index.php">
                                                 <i class="icofont-simple-right"></i>
                                                 Home
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="about.html">
+                                            <a href="features.php">
                                                 <i class="icofont-simple-right"></i>
                                                 Features
                                             </a>

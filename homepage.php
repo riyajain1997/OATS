@@ -131,28 +131,48 @@
                     <div class="col-6 col-sm-3 col-lg-3">
                         <div class="counter-item">
                             <i class="flaticon-employee"></i>
-                            <h3><span class="counter">14</span>k+</h3>
+                            <?php
+                                $AlumniCount="Select count(*) as alumnicount from tblregister where Usertype='Alumni' AND IsActive=1";
+                                $ExeAlumniCount=mysqli_query($con,$AlumniCount) or die(mysqli_error($con));
+                                $FetchAlumniCount=mysqli_fetch_array($ExeAlumniCount);
+                            ?>
+                            <h3><span class="counter"><?php echo $FetchAlumniCount['alumnicount'];?></span></h3>
                             <p>Alumni Registered</p>
                         </div>
                     </div>
                     <div class="col-6 col-sm-3 col-lg-3">
                         <div class="counter-item">
                             <i class="flaticon-enterprise"></i>
-                            <h3><span class="counter">18</span>k+</h3>
+                            <?php
+                                $StudentCount="Select count(*) as studentcount from tblregister where Usertype='Student' AND IsActive=1";
+                                $ExeStudentCount=mysqli_query($con,$StudentCount) or die(mysqli_error($con));
+                                $FetchStudentCount=mysqli_fetch_array($ExeStudentCount);
+                            ?>
+                            <h3><span class="counter"><?php echo $FetchStudentCount['studentcount'];?></span></h3>
                             <p>Students Registered</p>
                         </div>
                     </div>
                     <div class="col-6 col-sm-3 col-lg-3">
                         <div class="counter-item">
                             <i class="flaticon-curriculum"></i>
-                            <h3><span class="counter">9</span>k+</h3>
+                            <?php
+                                $EventCount="Select count(*) as eventcount from tblevent";
+                                $ExeEventCount=mysqli_query($con,$EventCount) or die(mysqli_error($con));
+                                $FetchEventCount=mysqli_fetch_array($ExeEventCount);
+                            ?>
+                            <h3><span class="counter"><?php echo $FetchEventCount['eventcount'];?></span></h3>
                             <p>Events Occured</p>
                         </div>
                     </div>
                     <div class="col-6 col-sm-3 col-lg-3">
                         <div class="counter-item">
                             <i class="flaticon-businessman-paper-of-the-application-for-a-job"></i>
-                            <h3><span class="counter">35</span>+</h3>
+                            <?php
+                                $BlogCount="Select count(*) as blogcount from tblblogs";
+                                $ExeBlogCount=mysqli_query($con,$BlogCount) or die(mysqli_error($con));
+                                $FetchBlogCount=mysqli_fetch_array($ExeBlogCount);
+                            ?>
+                            <h3><span class="counter"><?php echo $FetchBlogCount['blogcount'];?></span></h3>
                             <p>Blogs Posted</p>
                         </div>
                     </div>
