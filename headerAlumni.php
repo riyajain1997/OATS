@@ -16,7 +16,7 @@
                 <img src="assets/img/logo.png" alt="Logo">
             </a>
             <div class="collapse navbar-collapse mean-menu">
-                <ul class="navbar-nav" style="width:100%; margin-left:40%;">
+                <ul class="navbar-nav" style="width:100%; margin-left:25%;">
                     <li class="nav-item">
                         <a href="homepage.php" class="nav-link dropdown-toggle">Home </i></a>
                     </li>
@@ -44,19 +44,19 @@
                         <a href="invitations.php" class="nav-link dropdown-toggle">Invitations</a>
                         
                     <li class="nav-item">
-                        <a href="contact.html" class="nav-link dropdown-toggle">Contact</a>
+                        <a href="contact.php" class="nav-link dropdown-toggle">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a href="notifications.html" class="nav-link">Notifications</a>
+                        <a href="notifications.php" class="nav-link">Notifications</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link dropdown-toggle">User <i class="icofont-simple-down"></i> </a>
+                        <a href="#" class="nav-link dropdown-toggle active">Hi,&nbsp;<?php echo $_SESSION['Firstname']." ".$_SESSION['Lastname']; ?><i class="icofont-simple-down"></i></a>
                         <ul class="dropdown-menu">
                             <li class="nav-item">
-                                <a href="profileAlumni.html" class="nav-link">Profile</a>
+                                <a href="profileAlumni.php" class="nav-link">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Logout</a>
+                                <a href="logout.php" class="nav-link">Logout</a>
                             </li>
                         </ul>
                 </ul>

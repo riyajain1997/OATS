@@ -13,24 +13,118 @@
         $gen=$_POST['gender'];
         $user=$_POST['user'];
 
-        if($user=="Student")
+        $sel="SELECT * FROM tblregister 
+			WHERE Email='".$_REQUEST['email']."' or Phone='".$_REQUEST['phone']."' ";
+
+        $result=mysqli_query($con,$sel) or die(mysqli_error($con));
+        $row=mysqli_fetch_array($result);
+
+        if(mysqli_num_rows($result)>0)
         {
-            $Sprn=$_POST['Sprn'];
-            $Sdepart=$_POST['Departmentdropdown'];
-            $Scourse=$_POST['Coursedropdown'];
-            $joinyear=$_POST['joinyear'];
-            $passyear=$_POST['passyear'];
+            echo '<script type="text/javascript" id="error">alert("Registration Unsuccessful... \n Email Address or Mobile number is already in use. \n Please Register Again..");</script>';
+        }
 
-            $query_student="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Courseid,Deptid,Desigid,About,IsActive)values('$Sprn','$first','$last','$email','$pass','$gen','$dob','$phone','$user','$joinyear','$passyear','$Scourse','$Sdepart',null,null,1)"; 
-            $runstudent=mysqli_query($con,$query_student);
+        else{
 
-            if($runstudent)
+            if($user=="Student")
             {
-                echo '<script type="text/javascript">alert("Data inserted successfully... Go to login Page...");</script>';
+                $Sprn=$_POST['Sprn'];
+                $Sdepart=$_POST['Departmentdropdown'];
+                $Scourse=$_POST['Coursedropdown'];
+                $joinyear=$_POST['joinyear'];
+                $passyear=$_POST['passyear'];
+
+                $checkStud = "SELECT * FROM tblstudent
+                    WHERE StudentPrn ='".$_REQUEST['Sprn']."' and StudentPassYear = '".$_REQUEST['passyear']."' ";
+                
+                $resultStudCheck = mysqli_query($con,$checkStud) or die(mysqli_error($con));
+                $row = mysqli_fetch_array($resultStudCheck);
+
+                if(mysqli_num_rows($resultStudCheck)>0)
+                {
+
+                    $query_student="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($Sprn,'$first','$last','$email','$pass','$gen','$dob',$phone,'$user',$joinyear,$passyear,$Scourse,$Sdepart,0,null,1)"; 
+                    $runstudent=mysqli_query($con,$query_student);
+
+                    if($runstudent)
+                    {
+                        echo '<script type="text/javascript">alert("Data inserted successfully... Go to login Page...");</script>';
+                    }
+                    else
+                    {
+                        echo "error".mysqli_error($con);
+                    }
+                }
+                else{
+                    echo '<script type="text/javascript" id="error">alert("Student not present in our college \n Please Register Again..");</script>';
+                }
+
+            }
+            else if($user=="Alumni")
+            {
+                $aprn=$_POST['Aprn'];
+                $acourse=$_POST['ACoursedrop'];
+                $apass=$_POST['Apassyear'];
+                $adesig=$_POST['Adesignation'];
+                $aorgan=$_POST['Aorganisation'];
+
+                $checkAlumni = "SELECT * FROM tblstudent
+                    WHERE StudentPrn ='".$_REQUEST['Aprn']."' and StudentPassYear = '".$_REQUEST['Apassyear']."' ";
+                
+                $resultAlumniCheck = mysqli_query($con,$checkAlumni) or die(mysqli_error($con));
+                $row = mysqli_fetch_array($resultAlumniCheck);
+
+                if(mysqli_num_rows($resultAlumniCheck)>0)
+                {
+                    $query_alumni="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($aprn,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',0,$apass,$acourse,0,$acourse,null,1)"; 
+                    $runalumni=mysqli_query($con,$query_alumni);
+
+                    if($runalumni)
+                    {
+                        echo '<script type="text/javascript">alert("Data inserted successfully... Go to login Page...");</script>';
+                    }
+                    else
+                    {
+                        echo "error".mysqli_error($con);
+                    }
+                }
+
+                else{
+                    echo '<script type="text/javascript" id="error">alert("Alumni is not from our college \n Please Register Again..");</script>';
+                }
+
             }
             else
             {
-                echo "error".mysqli_error($con);
+                $empno=$_POST['Empno'];
+                $desig=$_POST['Sdesigdrop'];
+                $depart=$_POST['Sdepart'];
+
+                $checkStaff = "SELECT * FROM tblstaff
+                    WHERE EmpNo ='".$_REQUEST['Empno']."' and Desigid = '".$_REQUEST['Sdesigdrop']."' ";
+                
+                $resultStaffCheck = mysqli_query($con,$checkStaff) or die(mysqli_error($con));
+                $row = mysqli_fetch_array($resultStaffCheck);
+
+                if(mysqli_num_rows($resultStaffCheck)>0)
+                {
+                    $query_staff="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($empno,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',0,0,0,$depart,$desig,null,1)"; 
+                    $runstaff=mysqli_query($con,$query_staff);
+
+                    if($runstaff)
+                    {
+                        echo '<script type="text/javascript">alert("Data inserted successfully... Go to login Page...");</script>';
+                    }
+                    else
+                    {
+                        echo "error".mysqli_error($con);
+                    }
+                }
+
+                else{
+                    echo '<script type="text/javascript" id="error">alert("Only HOD can login....\n Please try again");</script>';
+                }
+
             }
 
         }
@@ -196,11 +290,11 @@
     <body>
 
         <!-- Start Navbar Area -->
-        <?php include_once('headerAlumni.php');?>
+        <?php include_once('header.php');?>
         <!-- End Navbar Area -->
 
         <!-- Page Title -->
-        <div class="page-title-area">
+        <div class="page-title-area" style= "height:320px;">
             <div class="d-table">
                 <div class="d-table-cell">
                     <div class="container">
@@ -226,11 +320,15 @@
             <div class="container">
                 <div class="create-photo">
                 <br><br><br>
+<<<<<<< HEAD
                     <div class="already-create">
                         <span>Already have an account?</span>
                         <a href="login.php">Log In</a>
                     </div>
                     <form name="myform" method="post"> 
+=======
+                    <form name="myform" method="POST" action="register.php"> 
+>>>>>>> b51fba4b3c46e9b698198d92a5bebbf2e36bd4c3
             
                         <div class="create-information">
                             <h3>Basic Information</h3>
@@ -289,9 +387,9 @@
                                         <div class="gender-area">
                                             <span>Gender</span>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <input type="radio" name="gender" id="male" value="Male">
+                                            <input type="radio" name="gender" value="Male">
                                             <label for="male">Male</label>
-                                            <input type="radio" name="gender" id="female" value="Female">
+                                            <input type="radio" name="gender" value="Female">
                                             <label for="female">Female</label>
                                             <span id="genderspan" style="color: red"></span>
                                         </div>
@@ -384,7 +482,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Prn No:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" name="Aprn" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -433,7 +531,7 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label>Emp No:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" name="Empno" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -479,8 +577,10 @@
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" name="submit" onclick=" return validate();" class="btn create-ac-btn">Save</button>
+                            <input type="submit" name="submit" class="btn btn-success" style="width:200px;" onclick="return validate();">
                         </div>
+                        <br>
+                        <p class="col-md-12 col-lg-12 text-center" style="color:black;">Already have an Account ? <a href="login.php"><u>SignIn Here</u></a></p>
                     </form>
                 </div>
             </div>

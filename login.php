@@ -1,3 +1,35 @@
+<?php 
+    include_once("DbConnection.php");
+
+    if(isset($_REQUEST['submit'])) 
+    {
+
+        $sel="SELECT * FROM tblregister 
+                WHERE Email='".$_REQUEST['email']."'
+                 AND Password='".$_REQUEST['pass']."' limit 1";
+
+        $result=mysqli_query($con,$sel) or die(mysqli_error($con));
+
+        $row=mysqli_fetch_array($result);
+
+        if(mysqli_num_rows($result)==1)
+        {
+            $_SESSION['UserID']=$row['Uid'];
+            $_SESSION['Firstname']=$row['Fname'];
+            $_SESSION['Lastname']=$row['Lname'];
+            $_SESSION['Emailid']=$row['Email'];
+            $_SESSION['Pass']=$row['Password'];
+            $_SESSION['Mobileno']=$row['Phone'];
+            $_SESSION['Type']=$row['Usertype'];
+
+            header('location: homepage.php');
+        }
+        else
+        {
+            echo '<script type="text/javascript">alert("Invalid Credentials");</script>';
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -45,7 +77,7 @@
     <body>
 
         <!-- Start Navbar Area -->
-        <?php include_once('headerAlumni.php');?>
+        <?php include_once('header.php');?>
         <!-- End Navbar Area -->
 
         <!-- Page Title -->
@@ -88,11 +120,11 @@
 
                     <div class="col-md-12 col-lg-12">
                         <div class="text-center">
-                            <button type="submit" onclick=" return validate();" class="btn contact-btn">Submit</button>
+                            <button type="submit" name="submit" onclick=" return validate();" class="btn contact-btn">Submit</button>
                         </div>
                     </div>
                     <br>
-                    <p class="col-md-12 col-lg-12 text-center" style="color:black;">Don't have an Account ? <a href="register.php">Signup Here</a></p>
+                    <p class="col-md-12 col-lg-12 text-center" style="color:black;">Don't have an Account ? <a href="register.php"><u>Signup Here</u></a></p>
                 </form>
             </div>
         </div>
