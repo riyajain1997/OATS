@@ -1,4 +1,6 @@
-
+<?php 
+    include_once("DbConnection.php");
+?>s
 <div class="navbar-area fixed-top">
 
 <!-- Menu For Mobile Device -->
