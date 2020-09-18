@@ -577,6 +577,10 @@
         </div>
         <!-- End Create Account -->
 
+        <!-- Footer -->
+        <?php include_once('footer.php');?>
+        <!-- End Footer -->
+
         <!-- Start scripts -->
         <?php include_once('scriptsLinks.php');?>
         <!-- End scripts -->
