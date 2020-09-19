@@ -319,16 +319,13 @@
             <div class="container">
                 <div class="create-photo">
                 <br><br><br>
-<<<<<<< HEAD
                     <div class="already-create">
                         <span>Already have an account?</span>
                         <a href="login.php">Log In</a>
                     </div>
                     <form name="myform" method="post"> 
                     <form name="myform" method="POST" action="register.php"> 
-=======
                     <form name="myform" method="POST" action="" enctype="multipart/form-data"> 
->>>>>>> db821d38eee23d8cb60fde36ea00727628d50c81
             
                         <div class="create-information">
                             <h3>Basic Information</h3>

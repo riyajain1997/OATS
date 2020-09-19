@@ -1,4 +1,8 @@
-
+<?php 
+    include_once("DbConnection.php");
+    $Uid = $_GET['Uid'];
+    $userid=$_SESSION['UserID'];
+?>
         <div class="navbar-area fixed-top">
             <!-- Menu For Mobile Device -->
             <div class="mobile-nav">
@@ -24,6 +28,23 @@
                                 </li>&nbsp;
                                 <li class="nav-item">
                                     <a href="view_events.php" class="nav-link">Events</a>
+                                    <?php
+                                        $select_student = "SELECT * from tblstudentgroup WHERE Uid=$userid AND IsActive=1";
+                                        $Execute_student=mysqli_query($con,$select_student)or die(mysqli_error($con));
+                                        $res=mysqli_fetch_array($Execute_student);
+                                        $uid1=$res['Uid'];
+
+                                        if($uid1==$userid)
+                                        {
+                                    ?>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item">
+                                            <a href="event_create.php" class="nav-link">Create Event</a>
+                                        </li>
+                                    </ul>
+                                    <?php
+                                        }
+                                    ?>
                                 </li>&nbsp;
                                 <li class="nav-item">
                                     <a href="aluminiList.php" class="nav-link">Alumni</a>
