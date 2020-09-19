@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2020 at 11:07 AM
+-- Generation Time: Sep 19, 2020 at 04:31 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -162,6 +162,17 @@ CREATE TABLE `tblcontact` (
   `IsActive` tinyint(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tblcontact`
+--
+
+INSERT INTO `tblcontact` (`Cid`, `Uid`, `Name`, `Email`, `Phone`, `Subject`, `Description`, `IsActive`) VALUES
+(1, 0, 'Abhilasha Kumari', 'poojakusingh1234@gmail.com', 5566778899, 'new', 'first try', 1),
+(2, 0, 'Abhilasha Kumari', 'poojakusingh1234@gmail.com', 5566778899, 'new', 'first try', 1),
+(3, 0, 'Abhilasha Kumari', 'poojakusingh1234@gmail.com', 5566778899, 'new', 'first try', 1),
+(4, 0, 'Abhilasha Kumari', 'poojakusingh1234@gmail.com', 5566778899, 'new', 'first try', 1),
+(5, 2, 'riya jain', 'riyajain@gmail.com', 2233114433, 'alumni test', 'is it working?', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -286,34 +297,11 @@ CREATE TABLE `tblevent` (
   `Edate` date NOT NULL,
   `Etime` time NOT NULL,
   `Edescription` text NOT NULL,
-  `Uid` int(11) NOT NULL,
+  `CreatedUid` int(11) NOT NULL,
+  `AlumniUid` int(11) NOT NULL,
+  `Deptid` int(11) NOT NULL,
   `IsAccepted` tinyint(7) NOT NULL,
   `IsActive` tinyint(7) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbleventalumni`
---
-
-CREATE TABLE `tbleventalumni` (
-  `Eaid` int(11) NOT NULL,
-  `Eid` int(11) NOT NULL,
-  `Uid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbleventdepartment`
---
-
-CREATE TABLE `tbleventdepartment` (
-  `Edid` int(11) NOT NULL,
-  `Eid` int(11) NOT NULL,
-  `Courseid` int(11) NOT NULL,
-  `Deptid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -325,8 +313,18 @@ CREATE TABLE `tbleventdepartment` (
 CREATE TABLE `tblgroupmember` (
   `Gmid` int(11) NOT NULL,
   `Sgid` int(11) NOT NULL,
-  `Uid` int(11) NOT NULL
+  `Uid` int(11) NOT NULL,
+  `LeaderMember` varchar(100) NOT NULL,
+  `IsActive` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblgroupmember`
+--
+
+INSERT INTO `tblgroupmember` (`Gmid`, `Sgid`, `Uid`, `LeaderMember`, `IsActive`) VALUES
+(1, 18, 1, 'Leader', 1),
+(2, 18, 2, 'Member', 1);
 
 -- --------------------------------------------------------
 
@@ -353,6 +351,15 @@ CREATE TABLE `tblregister` (
   `About` text DEFAULT NULL,
   `IsActive` tinyint(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblregister`
+--
+
+INSERT INTO `tblregister` (`Uid`, `PrnEmpno`, `Fname`, `Lname`, `Email`, `Password`, `Gender`, `Dob`, `Phone`, `Usertype`, `JoinYear`, `PassYear`, `Cousreid`, `Deptid`, `Desigid`, `About`, `IsActive`) VALUES
+(1, 1042180522, 'Abhilasha', 'oso', 'ppoo@gmail.com', 'abhi', 'Female', '0000-00-00', 1112221112, 'Student', 2019, 2022, 1, 1, 0, NULL, 1),
+(2, 1223112211, 'Riya', 'Jain', 'riya@jain.com', 'riya', 'Female', '0000-00-00', 1122334455, 'Alumni', 0000, 2011, 1, 0, 11, NULL, 1),
+(4, 1104, 'Jignesh', 'Mahadik', 'jignesh@gmail.com', 'jignesh', 'Male', '0000-00-00', 2211334455, 'Staff', 0000, 0000, 0, 1, 2, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -569,6 +576,13 @@ CREATE TABLE `tblstudentgroup` (
   `IsActive` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tblstudentgroup`
+--
+
+INSERT INTO `tblstudentgroup` (`Sgid`, `Sgname`, `Courseid`, `Deptid`, `Sgyear`, `Uid`, `IsAccpeted`, `IsActive`) VALUES
+(18, 'Group MCA', 1, 1, 3, 1, 0, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -581,7 +595,6 @@ CREATE TABLE `tbluserskill` (
   `Uid` int(11) NOT NULL,
   `IsActive` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
--- Error reading data for table dbalumni.tbluserskill: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `dbalumni`.`tbluserskill`' at line 1
 
 -- --------------------------------------------------------
 
@@ -599,7 +612,6 @@ CREATE TABLE `tblwork` (
   `Uid` int(11) NOT NULL,
   `IsActive` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
--- Error reading data for table dbalumni.tblwork: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `dbalumni`.`tblwork`' at line 1
 
 -- --------------------------------------------------------
 
@@ -611,7 +623,18 @@ CREATE TABLE `tbuniversity` (
   `Universityid` int(11) NOT NULL,
   `UniversityName` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
--- Error reading data for table dbalumni.tbuniversity: #1064 - You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM `dbalumni`.`tbuniversity`' at line 1
+
+--
+-- Dumping data for table `tbuniversity`
+--
+
+INSERT INTO `tbuniversity` (`Universityid`, `UniversityName`) VALUES
+(1, 'MIT-WPU'),
+(2, 'Barkatullah University'),
+(3, 'University of Calcutta'),
+(4, 'Delhi University'),
+(5, 'Savitribai phule pune university'),
+(6, 'Madras university');
 
 --
 -- Indexes for dumped tables
@@ -676,18 +699,6 @@ ALTER TABLE `tbleducation`
 --
 ALTER TABLE `tblevent`
   ADD PRIMARY KEY (`Eid`);
-
---
--- Indexes for table `tbleventalumni`
---
-ALTER TABLE `tbleventalumni`
-  ADD PRIMARY KEY (`Eaid`);
-
---
--- Indexes for table `tbleventdepartment`
---
-ALTER TABLE `tbleventdepartment`
-  ADD PRIMARY KEY (`Edid`);
 
 --
 -- Indexes for table `tblgroupmember`
@@ -775,7 +786,7 @@ ALTER TABLE `tblcollege`
 -- AUTO_INCREMENT for table `tblcontact`
 --
 ALTER TABLE `tblcontact`
-  MODIFY `Cid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tblcourse`
@@ -808,28 +819,16 @@ ALTER TABLE `tblevent`
   MODIFY `Eid` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tbleventalumni`
---
-ALTER TABLE `tbleventalumni`
-  MODIFY `Eaid` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tbleventdepartment`
---
-ALTER TABLE `tbleventdepartment`
-  MODIFY `Edid` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `tblgroupmember`
 --
 ALTER TABLE `tblgroupmember`
-  MODIFY `Gmid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Gmid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tblregister`
 --
 ALTER TABLE `tblregister`
-  MODIFY `Uid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tblskill`
@@ -853,7 +852,7 @@ ALTER TABLE `tblstudent`
 -- AUTO_INCREMENT for table `tblstudentgroup`
 --
 ALTER TABLE `tblstudentgroup`
-  MODIFY `Sgid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Sgid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `tbluserskill`

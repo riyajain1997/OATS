@@ -3,10 +3,24 @@
 
     if(isset($_REQUEST['submit']))
     { 
+
         $insert_query="insert into tblstudentgroup values(null,'".$_REQUEST['Grp_name']."','".$_REQUEST['cid']."','".$_REQUEST['did']."','".$_REQUEST['year']."','".$_SESSION['UserID']."',0,1)";
         $Execute_Q=mysqli_query($con,$insert_query) or die(mysqli_error($con));
-        
-        header('location: group_create.php');
+        $leader_query= mysqli_insert_id($con);
+
+        if($Execute_Q)
+        {
+            if ($leader_query) 
+            {
+                $insert_leader="insert into tblgroupmember values(null,'$leader_query','".$_REQUEST['leaderdropdown']."','Leader',1)";
+                $Execute_leader=mysqli_query($con,$insert_leader) or die(mysqli_error($con));
+
+                header('location: group_create.php');
+            }
+        }
+        else{
+            echo "error".mysqli_error($con);   
+        } 
     }
 ?>
 <!DOCTYPE html>
