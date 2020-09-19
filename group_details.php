@@ -1,3 +1,7 @@
+<?php 
+    include_once("DbConnection.php");
+?>
+
 <html lang="zxx">
     <head>
        <?php include_once('cssLinks.php');?>
@@ -6,16 +10,53 @@
 
 
         <!-- Start Navbar Area -->
-        <?php include_once('headerStudent.php');?>
+        <?php 
+            if($_SESSION['Type']=="Student")
+            {
+                include_once('headerStudent.php');
+            }
+            else if($_SESSION['Type']=="Alumni")
+            {
+                include_once('headerAlumni.php');
+            }
+            else{
+                include_once('headerHod.php');
+            }
+        ?>
         <!-- End Navbar Area -->
 
         <!-- Page Title -->
-        <div class="page-title-area">
+        <div class="page-title-area" style= "height:350px;">
             <div class="d-table">
                 <div class="d-table-cell">
                     <div class="container">
                         <div class="page-title-text">
-                            <h2>Group Details</h2>
+                         <?php 
+                            if($_SESSION['Type']=="Student")
+                            { 
+                                $groupname_query="SELECT * FROM tblregister WHERE Uid='".$_SESSION['UserID']."' ";
+                                $result_group=mysqli_query($con,$groupname_query) or die(mysqli_error($con));
+                                $rowgroup=mysqli_fetch_array($result_group);
+
+                                if(mysqli_num_rows($result_group)==1)
+                                {
+                                    $selgroupname="SELECT * FROM tblstudentgroup WHERE Deptid='".$rowgroup['Deptid']."' AND Courseid='".$rowgroup['Cousreid']."' AND IsAccpeted=1 ";
+                                    $result=mysqli_query($con,$selgroupname) or die(mysqli_error($con));
+                                    $row=mysqli_fetch_array($result);
+                                    if(mysqli_num_rows($result)>0)
+                                    {
+                        ?>  
+                                        <h2><?php echo $row['Sgname']; ?></h2>
+                        <?php
+                                    }
+                                    else{
+                        ?>
+                                        <h2>Group Name</h2>
+                        <?php
+                                    }
+                                }
+                            }
+                        ?>
                             <ul>
                                 <li>
                                     <a href="index.php">Home</a>
@@ -33,71 +74,156 @@
         <!-- End Page Title -->
 
         <!-- Profile -->
-        <section class="profile-area profile-area-two pt-100">
-            <div class="container">
-                <div class="section-title">
-                    <h2>TYMCA(Science)</h2><h2> Group</h2>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 col-lg-3">
-                        <div class="profile-item wow fadeInUp" data-wow-delay=".3s">
-                            <img src="assets/img/dashboard/1.jpg" alt="Profile">
-                            <div class="profile-inner">
-                                <h3>Abhilasha Kumari</h3>
-                                <span><b>Class:</b> TYMCA(Science)</span>
-                                <span><b>Leader/Member: </b>Leader</span>
-                                <a href="candidate-details.html"><b>Delete /</b>
-                                </a>
-                                <a href="candidate-details.html"><b>Remove</b>
-                                </a>
+        <div class="container" style="padding-bottom: 10px; padding-top: 85px;">
+            <div class="section-title">
+                <?php
+                    $seldept="SELECT * FROM tblregister WHERE Uid='".$_SESSION['UserID']."' ";
+
+                    $result=mysqli_query($con,$seldept) or die(mysqli_error($con));
+                    $row=mysqli_fetch_array($result);
+
+                    if(mysqli_num_rows($result)==1)
+                    {
+                        $selname="SELECT d.DeptName as dept, c.CourseName as course FROM tbldepartment as d,tblcourse as c WHERE c.Deptid='".$row['Deptid']."' AND c.Courseid='".$row['Cousreid']."' AND c.Deptid=d.Deptid";
+
+                        $resname=mysqli_query($con,$selname) or die(mysqli_error($con));
+                        $rowselname=mysqli_fetch_array($resname);
+
+                        if(mysqli_num_rows($resname)==1)
+                        {
+                            $selyear="SELECT * from tblgroupmember where LeaderMember='Leader'";
+                            $resyear=mysqli_query($con,$selyear) or die(mysqli_error($con));
+                            while($rowyear=mysqli_fetch_array($resyear))
+                            {
+                                $selleader="SELECT * from tblregister where Uid='".$rowyear['Uid']."' AND PassYear='".$row['PassYear']."' ";
+                                $resleader=mysqli_query($con,$selleader) or die(mysqli_error($con));
+                                $rowleader=mysqli_fetch_array($resleader);
+
+                                if(mysqli_num_rows($resleader)==1)
+                                {
+                                    $yearquery="SELECT * from tblstudentgroup where Sgid='".$rowyear['Sgid']."' ";
+                                    $yearresult=mysqli_query($con,$yearquery) or die(mysqli_error($con));
+                                    $yearrow=mysqli_fetch_array($yearresult);
+                ?>
+                                    <h2>
+                                        <?php 
+                                            echo $rowselname['course'];
+                                        ?>
+                                        (
+                                        <?php
+                                            if($yearrow['Sgyear']==1)
+                                            {
+                                                echo "1st Year";
+                                            }
+                                            elseif ($yearrow['Sgyear']==2) 
+                                            {
+                                                echo "2nd Year";
+                                            }
+                                            elseif ($yearrow['Sgyear']==3) 
+                                            {
+                                                echo "3rd Year";
+                                            }
+                                            else
+                                            {
+                                                echo "4th Year";
+                                            }
+                                        ?>
+                                        )
+                                    </h2>
+                                    <h4><?php echo $rowselname['dept'];?></h4>
+                
+            </div><br>
+
+            <div class="row">
+                <?php 
+                    $teamleader="SELECT * from tblgroupmember where Sgid='".$rowyear['Sgid']."' AND LeaderMember='Leader' ";
+                    $teamresult=mysqli_query($con,$teamleader) or die(mysqli_error($con));
+                    $rowteamleader=mysqli_fetch_array($teamresult);
+
+                    if(mysqli_num_rows($teamresult)==1)
+                    {
+                ?>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="profile-item wow fadeInUp" data-wow-delay=".3s">
+                                <img src="assets/img/dashboard/1.jpg" alt="Profile">
+                                <div class="profile-inner">
+                                    <h3><?php echo $rowleader['Fname']." ".$rowleader['Lname'];?></h3>
+                                    <span><b><a href="#">Team Leader</a></b></span>
+                                    <span><b>Class:</b><?php echo $rowselname['course']; ?></span>
+                                    <span><b>Contact:</b><?php echo $rowleader['Phone'];?></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3">
-                        <div class="profile-item wow fadeInUp" data-wow-delay=".3s">
-                            <img src="assets/img/dashboard/1.jpg" alt="Profile">
-                            <div class="profile-inner">
-                                <h3>Riya Jain</h3>
-                                <span><b>Class:</b> TYMCA(Science)</span>
-                                <span><b>Leader/Member: </b>Member</span>
-                                <a href="candidate-details.html"><b>Delete /</b>
-                                </a>
-                                <a href="candidate-details.html"><b>Remove</b>
-                                </a>
+
+                    <?php
+                        $member="SELECT * from tblgroupmember where Sgid='".$rowyear['Sgid']."' AND LeaderMember='Member' ";
+                        $memberresult=mysqli_query($con,$member) or die(mysqli_error($con));
+                        while($rowmember=mysqli_fetch_array($memberresult))
+                        {
+                    ?>
+                            <div class="col-sm-6 col-lg-4">
+                                <?php
+                                    $memberdetail="SELECT * from tblregister where Uid='".$rowmember['Uid']."' ";
+                                    $resultdetail=mysqli_query($con,$memberdetail) or die(mysqli_error($con));
+                                    $rowdetail=mysqli_fetch_array($resultdetail);
+
+                                    if(mysqli_num_rows($resultdetail)==1)
+                                    {
+                                ?>
+                                        <div class="profile-item wow fadeInUp" data-wow-delay=".3s">
+                                            <img src="assets/img/dashboard/1.jpg" alt="Profile">
+                                            <div class="profile-inner">
+                                                <h3><?php echo $rowdetail['Fname']." ".$rowdetail['Lname']; ?></h3>
+                                                <span><b><a href="#">Team Member</a></b></span>
+                                                <span><b>Class:</b><?php echo $rowselname['course']; ?></span>
+                                                <span>
+                                                    <b>Contact:</b><?php echo $rowdetail['Phone'];?>
+                                                    <div style="float: right;">
+                                                        <a href="#">
+                                                            <i class='fas fa-trash-alt'></i>
+                                                        </a>
+                                                    </div>
+                                                </span>
+                                            </div>
+                                        </div>
+                                <?php
+                                    }
+                                    else{}
+                                ?>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3">
-                        <div class="profile-item wow fadeInUp" data-wow-delay=".3s">
-                            <img src="assets/img/dashboard/1.jpg" alt="Profile">
-                            <div class="profile-inner">
-                                <h3>Sneha Patil</h3>
-                                <span><b>Class:</b> TYMCA(Science)</span>
-                                <span><b>Leader/Member: </b>Member</span>
-                                <a href="candidate-details.html"><b>Delete /</b>
-                                </a>
-                                <a href="candidate-details.html"><b>Remove</b>
-                                </a>
+                <?php
+                        }
+                    }
+                    else
+                    {
+                ?>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="profile-item wow fadeInUp" data-wow-delay=".3s">
+                                <img src="assets/img/dashboard/1.jpg" alt="Profile">
+                                <div class="profile-inner">
+                                    <h3>Group Not Found..</h3>
+                                    <h4>Placement Staff didnot Accepted the Group Request..</h4>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3">
-                        <div class="profile-item wow fadeInUp" data-wow-delay=".3s">
-                            <img src="assets/img/dashboard/1.jpg" alt="Profile">
-                            <div class="profile-inner">
-                                <h3>Jignesh Mahadik</h3>
-                                <span><b>Class:</b> TYMCA(Science)</span>
-                                <span><b>Leader/Member: </b>Member</span>
-                                <a href="candidate-details.html"><b>Delete /</b>
-                                </a>
-                                <a href="candidate-details.html"><b>Remove</b>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        </div>  
+                <?php
+                    }
+                ?>
             </div>
-        </section>
+        
+            <?php
+                                }
+                                else{
+            ?>
+                                    <h2><?php echo $rowselname['course'];?></h2>
+                                    <h4><?php echo $rowselname['dept'];?></h4>
+                <?php
+                                }
+                            }
+                        }
+                    }
+                ?>
+        </div>
         <!-- End Profile -->
 
         <!-- Footer -->
