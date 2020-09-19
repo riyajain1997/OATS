@@ -1,15 +1,29 @@
+<?php 
+    include_once("DbConnection.php");
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
         <?php include_once('cssLinks.php');?>
         <title>Student List</title>
-        <!-- {% comment %} <style>
-            small {
-                color: black;
-            } 
-        </style> {% endcomment %} -->
     </head>
     <body>
+        <!-- Start Navbar Area -->
+        <?php
+            if($_SESSION['Type']=="Student")
+            {
+                include_once('headerStudent.php');
+            }
+            else if($_SESSION['Type']=="Alumni")
+            {
+                include_once('headerAlumni.php');
+            }
+            else{
+                include_once('headerHod.php');
+            }
+        ?>
+        <!-- End Navbar Area -->
 
         <!-- Page Title -->
         <div class="page-title-area">
@@ -140,10 +154,8 @@
         </section>
         <!-- End Profile -->
 
-        <!-- Start Navbar Area -->
-        <?php include_once('headerStudent.php');?>
-        <!-- End Navbar Area -->
-     <!-- Footer -->
+        
+        <!-- Footer -->
         <?php include_once('footer.php');?>
         <!-- End Footer -->
 
