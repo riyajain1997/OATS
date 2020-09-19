@@ -191,84 +191,65 @@
                 </div>
                 <br>
                 <div class="row">
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="blog-item wow fadeInUp">
-                            <div class="blog-top">
-                                <a href="blog-details.html">
-                                    <img src="assets/img/home-1/blog/1.jpg" alt="Blog">
-                                </a>
-                                <span>21 May, 2020</span>
-                            </div>
-                            <div class="blog-bottom">
-                                <h3>
-                                    <a href="blog-details.html">The next genaration IT will change the world</a>
-                                </h3>
-                                <ul>
-                                    <li>
-                                        <img src="assets/img/home-1/blog/1.png" alt="Blog">
-                                        Aikin Ward
-                                    </li>
-                                    <li>
-                                        <a href="blog-details.html">Read More
-                                            <i class="icofont-simple-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="blog-item wow fadeInUp">
-                            <div class="blog-top">
-                                <a href="blog-details.html">
-                                    <img src="assets/img/home-1/blog/1.jpg" alt="Blog">
-                                </a>
-                                <span>21 May, 2020</span>
-                            </div>
-                            <div class="blog-bottom">
-                                <h3>
-                                    <a href="blog-details.html">The next genaration IT will change the world</a>
-                                </h3>
-                                <ul>
-                                    <li>
-                                        <img src="assets/img/home-1/blog/1.png" alt="Blog">
-                                        Aikin Ward
-                                    </li>
-                                    <li>
-                                        <a href="blog-details.html">Read More
-                                            <i class="icofont-simple-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="blog-item wow fadeInUp">
-                            <div class="blog-top">
-                                <a href="blog-details.html">
-                                    <img src="assets/img/home-1/blog/1.jpg" alt="Blog">
-                                </a>
-                                <span>21 May, 2020</span>
-                            </div>
-                            <div class="blog-bottom">
-                                <h3>
-                                    <a href="blog-details.html">The next genaration IT will change the world</a>
-                                </h3>
-                                <ul>
-                                    <li>
-                                        <img src="assets/img/home-1/blog/1.png" alt="Blog">
-                                        Aikin Ward
-                                    </li>
-                                    <li>
-                                        <a href="blog-details.html">Read More
-                                            <i class="icofont-simple-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                    <?php
+                        $select="SELECT * from tblblogs ORDER BY Bid DESC LIMIT 3";
+                        $res=mysqli_query($con,$select);
+
+                        if($res->num_rows!=0)
+                        {
+                            while($data=$res->fetch_array())
+                            {
+                                $bid=$data['Bid'];
+                                $userid=$data['Uid'];
+                                $title=$data['Title'];
+                                $cont=$data['Content'];
+                                $date=$data['CreatedDate'];
+                                $file=$data['File'];
+
+                                if($file=="" || !file_exists("Uploaded/Images/$file"))
+                                {
+                                    $file="blog1.JFIF";
+                                }
+
+                                #For printing user name
+                                $select="SELECT * from tblregister where Uid=$userid";
+                                $Execute_sel_User=mysqli_query($con,$select) or die(mysqli_error($con));
+                                $fetch=mysqli_fetch_array($Execute_sel_User);
+                                $uname=$fetch['Fname']." ".$fetch['Lname'];
+                                #For printing user name
+                    ?>
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="blog-item wow fadeInUp">
+                                <div class="blog-top">
+                                    <a href="blog-details.php?bid=<?php echo $bid; ?>&name=<?php echo $uname ?>">
+                                        <img src="Uploaded/Images/<?php echo $file; ?>" alt="Blog">
+                                    </a>
+                                    <span><?php echo $date; ?></span>
+                                </div>
+                                <div class="blog-bottom">
+                                    <h3>
+                                        <a href="blog-details.php?bid=<?php echo $bid; ?>&name=<?php echo $uname ?>"><?php echo $title; ?></a>
+                                    </h3>
+                                    <ul>
+                                        <li>
+                                            <img src="assets/img/home-1/blog/1.png" alt="Blog">
+                                            <?php
+                                                echo $fetch['Fname']." ".$fetch['Lname'];
+                                            ?>
+                                        </li>
+                                        <li>
+                                            <a href="blog-details.php?bid=<?php echo $bid; ?>&name=<?php echo $uname ?>">Read More
+                                                <i class="icofont-simple-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php
+                            }
+                        }
+                    ?>
                 </div>
         </section>
         <!-- End Blog -->

@@ -26,7 +26,7 @@
                                             <a href="blog.php" class="nav-link">View Blogs</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="blog_post.php" class="nav-link">Post a Blog</a>
+                                            <a href="blog_post.php?bid=0" class="nav-link">Post a Blog</a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="ownblog.php" class="nav-link">Own Blogs</a>
@@ -43,7 +43,10 @@
                                             <a href="studentList.php" class="nav-link">Student List</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="group_list.php" class="nav-link">Student Group</a>
+                                            <a href="group_list.php" class="nav-link">Student Groups</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">Group Request</a>
                                         </li>
                                     </ul>
                                 </li>
