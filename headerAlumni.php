@@ -30,7 +30,7 @@
                                 <a href="blog.php" class="nav-link">View</a>
                             </li>
                             <li class="nav-item">
-                                <a href="blog_post.php" class="nav-link">Post a Blog</a>
+                                <a href="blog_post.php?bid=0" class="nav-link">Post a Blog</a>
                             </li>
                             <li class="nav-item">
                                 <a href="ownblog.php" class="nav-link">Own Blogs</a>
