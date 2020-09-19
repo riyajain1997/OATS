@@ -1,4 +1,6 @@
-
+<?php
+    include_once("DbConnection.php");
+?>
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -20,7 +22,7 @@
                             <h2>Blog</h2>
                             <ul>
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="index.php">Home</a>
                                 </li>
                                 <li>
                                     <i class="icofont-simple-right"></i>
@@ -38,25 +40,58 @@
         <section class="blog-area pt-100">
             <div class="container">
                 <div class="row">
+                    <?php
+                        $select="SELECT * from tblblogs where IsActive=1";
+                        $res=mysqli_query($con,$select);
+                        
+                        if($res->num_rows!=0)
+                        {
+                            while($data=$res->fetch_array()) 
+                            {
+                                $bid=$data['Bid'];
+                                $userid=$data['Uid'];
+                                $title=$data['Title'];
+                                $cont=$data['Content'];
+                                $file=$data['File'];
+                                $date=$data['CreatedDate'];
+                                
+
+                                if($file=="" || !file_exists("Uploaded/Images/$file"))
+                                {
+                                    $file="blog1.JFIF";
+                                }
+
+                                #For printing user name
+                                $select="SELECT * from tblregister where Uid=$userid";
+                                $Execute_sel_User=mysqli_query($con,$select) or die(mysqli_error($con));
+                                $fetch=mysqli_fetch_array($Execute_sel_User);
+                                $uname=$fetch['Fname']." ".$fetch['Lname'];
+                                #For printing user name
+                    ?>
                     <div class="col-sm-6 col-lg-4">
                         <div class="blog-item wow fadeInUp" data-wow-delay=".3s">
                             <div class="blog-top">
-                                <a href="blog-details.php">
-                                    <img src="assets/img/home-1/blog/1.jpg" alt="Blog">
+                                <a href="blog-details.php?bid=<?php echo $bid; ?>&name=<?php echo $uname ?>">
+                                    <img src="Uploaded/Images/<?php echo $file; ?>" alt="Blog">
                                 </a>
-                                <span>21 May, 2020</span>
+                                <span><?php echo $date; ?></span>
                             </div>
                             <div class="blog-bottom">
                                 <h3>
-                                    <a href="blog-details.php">The next genaration IT will change the world</a>
+                                    <a href="blog-details.php?bid=<?php echo $bid; ?>&name=<?php echo $uname ?>"><?php echo $title; ?></a>
                                 </h3>
                                 <ul>
                                     <li>
                                         <img src="assets/img/home-1/blog/1.png" alt="Blog">
-                                        Aikin Ward
+                                        <?php
+                                            /*$select="SELECT * from tblregister where Uid=$userid";
+                                            $Execute_sel_User=mysqli_query($con,$select) or die(mysqli_error($con));
+                                            $fetch=mysqli_fetch_array($Execute_sel_User);*/
+                                            echo $fetch['Fname']." ".$fetch['Lname'];
+                                        ?>
                                     </li>
                                     <li>
-                                        <a href="blog-details.php">Read More
+                                        <a href="blog-details.php?bid=<?php echo $bid; ?>&name=<?php echo $uname ?>">Read More
                                             <i class="icofont-simple-right"></i>
                                         </a>
                                     </li>
@@ -64,136 +99,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="blog-item wow fadeInUp" data-wow-delay=".4s">
-                            <div class="blog-top">
-                                <a href="blog-details.php">
-                                    <img src="assets/img/home-1/blog/2.jpg" alt="Blog">
-                                </a>
-                                <span>22 May, 2020</span>
-                            </div>
-                            <div class="blog-bottom">
-                                <h3>
-                                    <a href="blog-details.php">IT is the most important sector in the world</a>
-                                </h3>
-                                <ul>
-                                    <li>
-                                        <img src="assets/img/home-1/blog/1.png" alt="Blog">
-                                        Daniel Henry
-                                    </li>
-                                    <li>
-                                        <a href="blog-details.php">Read More
-                                            <i class="icofont-simple-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="blog-item wow fadeInUp" data-wow-delay=".5s">
-                            <div class="blog-top">
-                                <a href="blog-details.php">
-                                    <img src="assets/img/home-1/blog/3.jpg" alt="Blog">
-                                </a>
-                                <span>23 May, 2020</span>
-                            </div>
-                            <div class="blog-bottom">
-                                <h3>
-                                    <a href="blog-details.php">Nowadays IT is being most popular</a>
-                                </h3>
-                                <ul>
-                                    <li>
-                                        <img src="assets/img/home-1/blog/1.png" alt="Blog">
-                                        Lucas Mason
-                                    </li>
-                                    <li>
-                                        <a href="blog-details.php">Read More
-                                            <i class="icofont-simple-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="blog-item wow fadeInUp" data-wow-delay=".3s">
-                            <div class="blog-top">
-                                <a href="blog-details.php">
-                                    <img src="assets/img/home-1/blog/4.jpg" alt="Blog">
-                                </a>
-                                <span>26 May, 2020</span>
-                            </div>
-                            <div class="blog-bottom">
-                                <h3>
-                                    <a href="blog-details.php">IT job is an smart profession in the world</a>
-                                </h3>
-                                <ul>
-                                    <li>
-                                        <img src="assets/img/home-1/blog/1.png" alt="Blog">
-                                        William James
-                                    </li>
-                                    <li>
-                                        <a href="blog-details.php">Read More
-                                            <i class="icofont-simple-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="blog-item wow fadeInUp" data-wow-delay=".4s">
-                            <div class="blog-top">
-                                <a href="blog-details.php">
-                                    <img src="assets/img/home-1/blog/5.jpg" alt="Blog">
-                                </a>
-                                <span>27 May, 2020</span>
-                            </div>
-                            <div class="blog-bottom">
-                                <h3>
-                                    <a href="blog-details.php">Economy growth is being increased by IT sectors</a>
-                                </h3>
-                                <ul>
-                                    <li>
-                                        <img src="assets/img/home-1/blog/1.png" alt="Blog">
-                                        Liam Noah
-                                    </li>
-                                    <li>
-                                        <a href="blog-details.php">Read More
-                                            <i class="icofont-simple-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="blog-item wow fadeInUp" data-wow-delay=".5s">
-                            <div class="blog-top">
-                                <a href="blog-details.php">
-                                    <img src="assets/img/home-1/blog/6.jpg" alt="Blog">
-                                </a>
-                                <span>28 May, 2020</span>
-                            </div>
-                            <div class="blog-bottom">
-                                <h3>
-                                    <a href="blog-details.php">Every country is giving priority in IT sector</a>
-                                </h3>
-                                <ul>
-                                    <li>
-                                        <img src="assets/img/home-1/blog/1.png" alt="Blog">
-                                        Tom Potter
-                                    </li>
-                                    <li>
-                                        <a href="blog-details.php">Read More
-                                            <i class="icofont-simple-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                            }
+                        }
+                    ?>
                 </div>
             </div>
         </section>

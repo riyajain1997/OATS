@@ -56,7 +56,7 @@
                     }
                 }
                 else{
-                    echo '<script type="text/javascript" id="error">alert("Student not present in our college \n Please Register Again..");</script>';
+                    echo '<script type="text/javascript" id="error">alert("Registration Unsuccessful... \n Student Data Not Found in Our Records... \n Please Register Again..");</script>';
                 }
 
             }
@@ -65,8 +65,6 @@
                 $aprn=$_POST['Aprn'];
                 $acourse=$_POST['ACoursedrop'];
                 $apass=$_POST['Apassyear'];
-                $adesig=$_POST['Adesignation'];
-                $aorgan=$_POST['Aorganisation'];
 
                 $checkAlumni = "SELECT * FROM tblstudent
                     WHERE StudentPrn ='".$_REQUEST['Aprn']."' and StudentPassYear = '".$_REQUEST['Apassyear']."' ";
@@ -76,7 +74,7 @@
 
                 if(mysqli_num_rows($resultAlumniCheck)>0)
                 {
-                    $query_alumni="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($aprn,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',0,$apass,$acourse,0,$acourse,null,1)"; 
+                    $query_alumni="insert into tblregister(PrnEmpno,Fname,Lname,Email,Password,Gender,Dob,Phone,Usertype,JoinYear,PassYear,Cousreid,Deptid,Desigid,About,IsActive)values($aprn,'$first','$last','$email','$pass','$gen',$dob,$phone,'$user',0,$apass,$acourse,0,0,null,1)"; 
                     $runalumni=mysqli_query($con,$query_alumni);
 
                     if($runalumni)
@@ -90,7 +88,7 @@
                 }
 
                 else{
-                    echo '<script type="text/javascript" id="error">alert("Alumni is not from our college \n Please Register Again..");</script>';
+                    echo '<script type="text/javascript" id="error">alert("Registration Unsuccessful... \n Alumni Data Not Found in Our Records... \n Please Register Again..");</script>';
                 }
 
             }
@@ -317,15 +315,20 @@
         <!-- End Page Title -->
 
         <!-- Create Account -->
+        <div class="post-job-area pt-100">
             <div class="container">
                 <div class="create-photo">
                 <br><br><br>
+<<<<<<< HEAD
                     <div class="already-create">
                         <span>Already have an account?</span>
                         <a href="login.php">Log In</a>
                     </div>
                     <form name="myform" method="post"> 
                     <form name="myform" method="POST" action="register.php"> 
+=======
+                    <form name="myform" method="POST" action="" enctype="multipart/form-data"> 
+>>>>>>> db821d38eee23d8cb60fde36ea00727628d50c81
             
                         <div class="create-information">
                             <h3>Basic Information</h3>
@@ -410,7 +413,7 @@
                             </div>
                         </div>
 
-                        <div class="create-information" id="studentform" style="display: none;">
+                        <div class="create-information post-job-item" id="studentform" style="display: none;">
                             <h3>Student Information</h3>
                             
                             <div class="row">
@@ -423,40 +426,45 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Department</label>
-                                        <select name = "Departmentdropdown" class="form-control">
-                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
-                                            <?php 
-                                                $select_sdept="SELECT * from tbldepartment";
-                                                $Execute_select_sdept=mysqli_query($con,$select_sdept)or die(mysqli_error($con));
-                                                while($fetch_sdept=mysqli_fetch_array($Execute_select_sdept))
-                                                {
+                                        <div class="job-category-area" >
+                                            <select name = "Departmentdropdown">
+                                                <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
+                                                <?php 
+                                                    $select_sdept="SELECT * from tbldepartment";
+                                                    $Execute_select_sdept=mysqli_query($con,$select_sdept)or die(mysqli_error($con));
+                                                    while($fetch_sdept=mysqli_fetch_array($Execute_select_sdept))
+                                                    {
 
-                                            ?>
-                                                    <option style="font-size: 14px;" value = "<?php echo $fetch_sdept['Deptid'];?>"><?php echo $fetch_sdept['DeptName'];?></option>
-                                            <?php
-                                                }
-                                            ?>
-                                        </select>
+                                                ?>
+                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_sdept['Deptid'];?>"><?php echo $fetch_sdept['DeptName'];?></option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label>Course</label>
-                                        <select name = "Coursedropdown" class="form-control">
-                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
-                                            <?php 
-                                                $select_scourse="SELECT * from tblcourse";
-                                                $Execute_select_scourse=mysqli_query($con,$select_scourse)or die(mysqli_error($con));
-                                                while($fetch_scourse=mysqli_fetch_array($Execute_select_scourse))
-                                                {
-                                            ?>
-                                                    <option style="font-size: 14px;" value = "<?php echo $fetch_scourse['Courseid'];?>"><?php echo $fetch_scourse['CourseName'];?></option>
-                                            <?php
-                                                }
-                                            ?>
-                                        </select>
+                                        <label style="float: left;">Course</label>
+                                        <div class="job-category-area">
+                                            <select name = "Coursedropdown">
+                                                <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
+                                                <?php 
+                                                    $select_scourse="SELECT * from tblcourse";
+                                                    $Execute_select_scourse=mysqli_query($con,$select_scourse)or die(mysqli_error($con));
+                                                    while($fetch_scourse=mysqli_fetch_array($Execute_select_scourse))
+                                                    {
+                                                ?>
+                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_scourse['Courseid'];?>"><?php echo $fetch_scourse['CourseName'];?></option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
+                                <br><br><br><br><br>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Joining Year</label>
@@ -472,7 +480,7 @@
                             </div>
                         </div>
 
-                        <div class="create-information" id="alumniform" style="display: none;">
+                        <div class="create-information post-job-item" id="alumniform" style="display: none;">
                             <h3>Alumni Information</h3>
                             
                             <div class="row">
@@ -485,19 +493,21 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Course</label>
-                                        <select name = "ACoursedrop" class="form-control">
-                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
-                                            <?php 
-                                                $select_acourse="SELECT * from tblcourse";
-                                                $Execute_select_acourse=mysqli_query($con,$select_acourse)or die(mysqli_error($con));
-                                                while($fetch_acourse=mysqli_fetch_array($Execute_select_acourse))
-                                                {
-                                            ?>
-                                                    <option style="font-size: 14px;" value = "<?php echo $fetch_acourse['Courseid'];?>"><?php echo $fetch_acourse['CourseName'];?></option>
-                                            <?php
-                                                }
-                                            ?>
-                                        </select>
+                                        <div class="job-category-area" >
+                                            <select name = "ACoursedrop">
+                                                <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
+                                                <?php 
+                                                    $select_acourse="SELECT * from tblcourse";
+                                                    $Execute_select_acourse=mysqli_query($con,$select_acourse)or die(mysqli_error($con));
+                                                    while($fetch_acourse=mysqli_fetch_array($Execute_select_acourse))
+                                                    {
+                                                ?>
+                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_acourse['Courseid'];?>"><?php echo $fetch_acourse['CourseName'];?></option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -506,22 +516,10 @@
                                         <input type="number" min="1950" max="2050" name="Apassyear" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Designation</label>
-                                        <input type="text" name="Adesignation" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Organisation</label>
-                                        <input type="text" name="Aorganisation" class="form-control">
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
-                        <div class="create-information" id="staffform" style="display: none;">
+                        <div class="create-information post-job-item" id="staffform" style="display: none;">
                             <h3>Placement Staff Information</h3>
                             
                             <div class="row">
@@ -531,42 +529,46 @@
                                         <input type="text" name="Empno" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Designation</label>
-                                        <select name = "Sdesigdrop" class="form-control">
-                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
-                                            <?php 
-                                                $select_desig="SELECT * from tbldesignation";
-                                                $Execute_select_desig=mysqli_query($con,$select_desig)or die(mysqli_error($con));
-                                                while($fetch_desig=mysqli_fetch_array($Execute_select_desig))
-                                                {
+                                        <div class="job-category-area" >
+                                            <select name = "Sdesigdrop" class="form-control">
+                                                <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
+                                                <?php 
+                                                    $select_desig="SELECT * from tbldesignation";
+                                                    $Execute_select_desig=mysqli_query($con,$select_desig)or die(mysqli_error($con));
+                                                    while($fetch_desig=mysqli_fetch_array($Execute_select_desig))
+                                                    {
 
-                                            ?>
-                                                    <option style="font-size: 14px;" value = "<?php echo $fetch_desig['Desigid'];?>"><?php echo $fetch_desig['DesigName'];?></option>
-                                            <?php
-                                                }
-                                            ?>
-                                        </select>
+                                                ?>
+                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_desig['Desigid'];?>"><?php echo $fetch_desig['DesigName'];?></option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Department</label>
-                                        <select name = "Sdepart" class="form-control">
-                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
-                                            <?php 
-                                                $select_dept="SELECT * from tbldepartment";
-                                                $Execute_select_dept=mysqli_query($con,$select_dept)or die(mysqli_error($con));
-                                                while($fetch_dept=mysqli_fetch_array($Execute_select_dept))
-                                                {
+                                        <div class="job-category-area" >
+                                            <select name = "Sdepart" class="form-control">
+                                                <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
+                                                <?php 
+                                                    $select_dept="SELECT * from tbldepartment";
+                                                    $Execute_select_dept=mysqli_query($con,$select_dept)or die(mysqli_error($con));
+                                                    while($fetch_dept=mysqli_fetch_array($Execute_select_dept))
+                                                    {
 
-                                            ?>
-                                                    <option style="font-size: 14px;" value = "<?php echo $fetch_dept['Deptid'];?>"><?php echo $fetch_dept['DeptName'];?></option>
-                                            <?php
-                                                }
-                                            ?>
-                                        </select>
+                                                ?>
+                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_dept['Deptid'];?>"><?php echo $fetch_dept['DeptName'];?></option>
+                                                <?php
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                 
@@ -581,6 +583,7 @@
                     </form>
                 </div>
             </div>
+        </div>
         <!-- End Create Account -->
 
         <!-- Footer -->
