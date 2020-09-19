@@ -42,7 +42,7 @@
                                             <a href="profileStudent.php" class="nav-link">Profile</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="group_create.html" class="nav-link">Group</a>
+                                            <a href="group_create.php" class="nav-link">Group</a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="logout.php" class="nav-link">Logout</a>
