@@ -320,15 +320,12 @@
             <div class="container">
                 <div class="create-photo">
                 <br><br><br>
-<<<<<<< HEAD
                     <div class="already-create">
                         <span>Already have an account?</span>
                         <a href="login.php">Log In</a>
                     </div>
                     <form name="myform" method="post"> 
-=======
                     <form name="myform" method="POST" action="register.php"> 
->>>>>>> b51fba4b3c46e9b698198d92a5bebbf2e36bd4c3
             
                         <div class="create-information">
                             <h3>Basic Information</h3>

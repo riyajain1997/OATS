@@ -1,3 +1,7 @@
+<?php 
+    include_once("DbConnection.php");
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -8,7 +12,20 @@
     <body>
 
         <!-- Start Navbar Area -->
-        <?php include_once('headerStudent.php');?>
+        <?php 
+        
+            if($_SESSION['Type']=="Student")
+            {
+                include_once('headerStudent.php');
+            }
+            else if($_SESSION['Type']=="Alumni")
+            {
+                include_once('headerAlumni.php');
+            }
+            else{
+                include_once('headerHod.php');
+            }
+        ?>
         <!-- End Navbar Area -->
 
         <!-- Page Title -->
@@ -57,7 +74,23 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>For Department</label>
-                                    <input type="text" class="form-control">
+                                    <div class="job-category-area">
+                                        <select name = "Departmentdropdown" class="form-control">
+                                                <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
+                                                <?php 
+                                                    $select_sdept="SELECT * from tbldepartment";
+                                                    $Execute_select_sdept=mysqli_query($con,$select_sdept)or die(mysqli_error($con));
+                                                    while($fetch_sdept=mysqli_fetch_array($Execute_select_sdept))
+                                                    {
+
+                                                ?>
+                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_sdept['Deptid'];?>"><?php echo $fetch_sdept['DeptName'];?></option>
+                                                <?php
+                                                    }
+                                                ?>
+                                        </select>
+                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -90,11 +123,21 @@
                                 <div class="form-group">
                                     <label>Alumni Invited</label>
                                     <div class="job-category-area">
-                                        <select>
-                                            <option>Alumni 1</option>
-                                            <option>Alumni 2</option>
-                                            <option>Alumni 3</option>
-                                            <option>Alumni 4</option>
+                                    <select name = "Alumnidropdown" class="form-control">
+                                                <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
+                                                <?php 
+                                                    
+                                                    $select_alumni="SELECT * from tblregister where Usertype='Alumni' ";
+                                                    $Execute_select_alumni=mysqli_query($con,$select_alumni)or die(mysqli_error($con));
+                                                    while($fetch_alumni=mysqli_fetch_array($Execute_select_alumni))
+                                                    {
+
+                                                ?>
+                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_alumni['Uid'];?>"><?php echo $fetch_alumni['Fname'];?> <?php echo $fetch_alumni['Lname'];?></option>
+                                                <?php
+                                                    
+                                                    }
+                                                ?>
                                         </select>	
                                     </div>
                                 </div>
