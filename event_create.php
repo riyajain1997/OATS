@@ -1,8 +1,11 @@
 <?php 
     include_once("DbConnection.php");
+    $Eid=$_GET['Eid'];
+    
 
     if(isset($_POST['eventSubmit']))
     {
+        
         $uid=$_SESSION['UserID'];
         $eventName = $_POST['eventName'];
         $Department = $_POST['Departmentdropdown'];
@@ -16,20 +19,39 @@
         // $image = $_FILES['eventLogo']['name'];
         // $tmp_img=$_FILES['eventLogo']['tmp_img'];
         // $path="assets/img/eventLOGO/".$image;
-
         // move_uploaded_file($tmp_img,$path);
-        $event_query = "Insert into tblevent(Ename,Location,Elink,Edate,Etime,Edescription,CreatedUid,AlumniUid,Deptid,IsAccepted,IsActive) values
-        ('$eventName','$eventLocation','$eventLink','$eventDate','$eventTime','$eventDesc',$uid,$Alumnidropdown,$Department,1,1)";
-        // $execute_event = mysqli_query($con,$event_query)or die(mysqli_error($con));
-        $execute_event=mysqli_query($con,$event_query);
-        
-        if($execute_event)
+
+        if($Eid>0)
         {
-            echo '<script type="text/javascript">alert("Event created successfully...");</script>';
+            $update="UPDATE tblevent set Ename='".$_POST['eventName']."',Location='".$_POST['eventLocation']."',Elink='".$_POST['eventLink']."',
+            Edate='".$_POST['eventDate']."', Etime ='".$_POST['eventTime']."',Edescription='".$_POST['eventDesc']."',CreatedUid ='".$_SESSION['UserID']."',AlumniUid='".$_POST['Alumnidropdown']."',Deptid='".$_POST['Departmentdropdown']."' WHERE Eid=$Eid";
+            $exe=mysqli_query($con,$update);
+
+            if($exe)
+            {
+                echo '<script type="text/javascript">alert("Event updated successfully...");</script>';
+                /*header("Location:blog.php");*/
+            }
+            else
+            {
+                echo "error".mysqli_error($con);
+            }
         }
-        else
-        {
-            echo "error".mysqli_error($con);
+        
+        elseif($Eid==0){
+
+            $event_query = "Insert into tblevent(Ename,Location,Elink,Edate,Etime,Edescription,CreatedUid,AlumniUid,Deptid,IsAccepted,IsActive) values
+            ('$eventName','$eventLocation','$eventLink','$eventDate','$eventTime','$eventDesc',$uid,$Alumnidropdown,$Department,1,1)";
+            $execute_event=mysqli_query($con,$event_query);
+            
+            if($execute_event)
+            {
+                echo '<script type="text/javascript">alert("Event created successfully...");</script>';
+            }
+            else
+            {
+                echo "error".mysqli_error($con);
+            }
         }
     }
 ?>
@@ -54,8 +76,7 @@
                 var eventLink = document.forms["myForm"]["eventLink"].value;
                 var Alumnidropdown = document.forms["myForm"]["Alumnidropdown"].value;
                 var eventDesc = document.forms["myForm"]["eventDesc"].value;
-
-                
+                alert($Department);
                 if(EventName == ""){
                     document.getElementById('span_eventName').innerHTML =" ** Please fill Event name";
                     return false;
@@ -172,6 +193,164 @@
 
         <!-- Post A Job -->
             <div class="container" style="margin-top:100px;">
+
+                <!-- Filling input box -->
+                <?php
+                    if($Eid>0)
+                    {
+                        $update_event = "SELECT * FROM tblevent where Eid=$Eid AND IsActive=1";
+                        $exe = mysqli_query($con,$update_event) or die(mysqli_error($con));
+                        $fetch_event = mysqli_fetch_array($exe);
+
+                        $eventName = $fetch_event['Ename'];
+                        $eventLocation = $fetch_event['Location'];
+                        $eventLink = $fetch_event['Elink'];
+                        $eventDate = $fetch_event['Edate'];
+                        $eventTime = $fetch_event['Etime'];
+                        $eventDesc = $fetch_event['Edescription'];
+                        $alumni = $fetch_event['AlumniUid'];
+                        $dept = $fetch_event['Deptid'];
+                        $host = $fetch_event['CreatedUid'];
+
+                    
+                ?>
+
+                <!-- ----------------------Update Data --------------------- -->
+
+                <div class="post-job-item">
+                    <form method="POST" name="myForm">
+                        <div class="row">
+                            <!-- <div>
+                                <a href="#" style="background-color:green;">  
+                                    <img src="#" class="avatar-img rounded" alt="..." style="width:100%;height:100%;">
+                                </a>
+                                <div class="media-body" style="float:right;">
+                                    <input type="file" name="eventLogo" name="eventLogo" class="btn btn-sm dz-clickable" value="">
+                                </div>
+                            </div> -->
+                            <br><br>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Event Name</label>
+                                    <input type="text" name="eventName" value="<?php echo $eventName; ?>" class="form-control">
+                                    <span id="span_eventName" style="color: red"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>For Department</label>
+                                    <div class="job-category-area">
+                                        <select name = "Departmentdropdown" class="form-control">
+                                                <?php 
+                                                    $select_sdept="SELECT * from tbldepartment";
+                                                    $Execute_select_sdept=mysqli_query($con,$select_sdept)or die(mysqli_error($con));
+                                                    while($fetch_sdept=mysqli_fetch_array($Execute_select_sdept))
+                                                    {
+
+                                                ?>
+                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_sdept['Deptid'];?>" 
+                                                        <?php if($fetch_sdept['Deptid'] == $dept){echo("selected");}?>>
+                                                        <?php echo $fetch_sdept['DeptName'];?>
+                                                    </option>
+                                                <?php
+                                                    }
+                                                ?>
+                                        </select>
+                                        <span id="span_eventDept" style="color: red"></span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Date</label>
+                                    <input type="date" name="eventDate" value="<?php echo $eventDate; ?>" class="form-control">
+                                    <span id="span_eventDate" style="color: red"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <div class="job-currency-area">
+                                        <label>Time</label>
+                                        <input type="time" name="eventTime" value="<?php echo $eventTime; ?>" class="form-control" >	
+                                        <span id="span_eventTime" style="color: red"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Location</label>
+                                    <input type="text" name="eventLocation" value="<?php echo $eventLocation; ?>" class="form-control">
+                                    <span id="span_eventLoc" style="color: red"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Link</label>
+                                    <input type="text" name="eventLink" value="<?php echo $eventLink; ?>" class="form-control">
+                                    <span id="span_eventLink" style="color: red"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Alumni Invited</label>
+                                    <div class="job-category-area">
+                                    <select name = "Alumnidropdown" class="form-control">
+                                                
+                                                <?php 
+                                                    
+                                                    $select_alumni="SELECT * from tblregister where Usertype='Alumni' ";
+                                                    $Execute_select_alumni=mysqli_query($con,$select_alumni)or die(mysqli_error($con));
+                                                    while($fetch_alumni=mysqli_fetch_array($Execute_select_alumni))
+                                                    {
+
+                                                ?>
+                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_alumni['Uid'];?>" <?php if($fetch_alumni['Uid'] == $alumni){echo("selected");}?>><?php echo $fetch_alumni['Fname'];?> <?php echo $fetch_alumni['Lname'];?></option>
+                                                <?php
+                                                    
+                                                    }
+                                                ?>
+                                        </select>	
+                                        <span id="span_eventAlumni" style="color: red"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Hosted By</label>
+                                    <?php
+                                                $hostnm = "SELECT * from tblregister where Uid=$host AND IsActive=1 ";
+                                                $host_exe = mysqli_query($con,$hostnm) or die(mysqli_error($con));
+                                                $select_host = mysqli_fetch_array($host_exe);
+                                                $hostFnm = $select_host['Fname'];
+                                                $hostLnm = $select_host['Lname'];
+                                            ?>
+                                    <input type="text" name="eventHost" value="<?php echo $hostFnm; ?> <?php echo $hostLnm; ?>" class="form-control">
+                                    <span id="span_eventHost" style="color: red"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea id="your_message" rows="8" name="eventDesc" class="form-control"><?php echo $eventDesc; ?></textarea>
+                                    <span id="span_eventDesc" style="color: red"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" name="eventSubmit" class="btn create-ac-btn" onclick="return validate();" style="width:500px;">Create</button>
+                        </div>
+                    </form>
+                </div>
+
+                <?php
+                    }
+                    else
+                    {
+                ?>
+
+                <!-- ---------------- Insert Data --------------------------- -->
+
                 <div class="post-job-item">
                     <form method="POST" name="myForm">
                         <div class="row">
@@ -288,6 +467,10 @@
                         </div>
                     </form>
                 </div>
+
+                <?php
+                    }
+                ?>
             </div>
         <!-- End Post A Job -->
 

@@ -1,6 +1,15 @@
 <?php 
     include_once("DbConnection.php");
     $eid = $_GET['Eid'];
+    //$Uid = $_GET['Uid'];
+    $userid=$_SESSION['UserID'];
+
+    if (isset($_REQUEST['deleteYes'])) 
+    {
+        $delete_event = "DELETE FROM tblevent WHERE Eid='$eid'";
+        $Exe_delete_event=mysqli_query($con,$delete_event)or die(mysqli_error($con));
+        header("location:view_events.php");
+    } 
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +74,22 @@
             </div>
         </div>
         <!-- End Page Title -->
+
+        <!-- start show menu delete popup -->
+        <div id="deleteboard" class="modal">
+            <div class="modal-content" style="width: 50%; height: 250px;margin-left: 400px;margin-top: 250px;">
+                <form method="POST" enctype="multipart/form-data" action="" class="form-container">
+                    <div style="text-align: center;margin-top: 30px;">
+                        <h3><strong>Are you sure ?</strong></h3>
+                    </div><br><br>
+                    <center><div >
+                        <button type="submit" class="btn create-ac-btn" name="deleteYes" >Yes</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button type="button" class="btn create-ac-btn" onclick="deleteclose()" >No</button>
+                    </div></center>
+                </form>
+            </div>
+        </div>
+        <!-- End show menu delete popup -->
 
         <!-- Candidate Details -->
         <div class="single-profile-area pt-100">
@@ -136,12 +161,34 @@
                                 <div class="single-profile-name">
                                     <h2><?php echo $eventName;?></h2>
                                     <span><i class="icofont-location-pin"><?php echo $eventLocation;?></i></span><br></bt>
-                                    <a href="#">
+                                    <?php
+                                        $select_student = "SELECT * from tblstudentgroup WHERE Uid=$userid AND IsActive=1";
+                                        $Execute_student=mysqli_query($con,$select_student)or die(mysqli_error($con));
+                                        $res=mysqli_fetch_array($Execute_student);
+                                        $uid1=$res['Uid'];
+
+                                        if($uid1==$userid)
+                                        {
+                                    ?>
+                                    <a href="event_create.php?Eid=<?php echo $eid; ?>">
                                         Edit
                                     </a>
-                                    <a href="#">
+                                    <button type="submit" name="eventSubmit" class="btn create-ac-btn" onclick="deleteopen()" style="height:54px;">
                                         Cancel Event
-                                    </a>
+                                    </button>
+                                        <!-- Start card details popup fuction-->
+                                        <script>
+                                            function deleteopen() {
+                                                document.getElementById("deleteboard").style.display = "flex";
+                                            }
+                                            function deleteclose() {
+                                                document.getElementById("deleteboard").style.display = "none";
+                                            }
+                                        </script>
+                                        <!-- End card details popup fuction-->
+                                    <?php
+                                        }
+                                    ?>
                                 </div>
                                 <div class="single-profile-textarea">
                                     <div class="single-profile-heading">

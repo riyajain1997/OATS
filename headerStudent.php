@@ -1,6 +1,6 @@
 <?php 
     include_once("DbConnection.php");
-    $Uid = $_GET['Uid'];
+    //$Uid = $_GET['Uid'];
     $userid=$_SESSION['UserID'];
 ?>
         <div class="navbar-area fixed-top">
@@ -38,8 +38,11 @@
                                         {
                                     ?>
                                     <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                            <a href="view_events.php?Eid=0" class="nav-link">View Event</a>
+                                        </li>
                                         <li class="nav-item">
-                                            <a href="event_create.php" class="nav-link">Create Event</a>
+                                            <a href="event_create.php?Eid=0" class="nav-link">Create Event</a>
                                         </li>
                                     </ul>
                                     <?php
@@ -47,7 +50,7 @@
                                     ?>
                                 </li>&nbsp;
                                 <li class="nav-item">
-                                    <a href="aluminiList.php" class="nav-link">Alumni</a>
+                                    <a href="alumniList.php" class="nav-link">Alumni</a>
                                 </li>&nbsp;
                                 <li class="nav-item">
                                     <a href="contact.php" class="nav-link">Contact</a>
