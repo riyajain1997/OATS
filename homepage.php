@@ -49,36 +49,61 @@
             <div class="container">
                 <div class="section-title">
                     <h2>Upcoming Events</h2>
-                    <a href="#">View All</a>
+                    <a href="view_events.php">View All</a>
                 </div>
                 <div id="container">
                     <div class="row">
+
+                        <?php
+                            $eventSelectQuery = "SELECT * from tblevent where IsActive=1 and IsAccepted=1 ORDER BY Eid DESC LIMIT 2";
+                            $result_event = mysqli_query($con,$eventSelectQuery);
+                            if($result_event->num_rows!=0)
+                            {
+                                while($row_event=$result_event->fetch_array())
+                                {
+                                    $eventId = $row_event['Eid'];
+                                    $eventName = $row_event['Ename'];
+                                    $eventDate = $row_event['Edate'];
+                                    $eventTime = $row_event['Etime'];
+                                    $eventLocation = $row_event['Location'];
+                                    $dept = $row_event['Deptid'];
+                                    
+                               
+                        ?>
+
                         <div class="col-lg-6 mix web ui">
                             <div class="job-item">
-                                <img src="assets/img/home-1/jobs/1.png" alt="Job">
+                                <img src="assets/img/home-1/jobs/2.png" alt="Job">
                                 <div class="job-inner align-items-center">
                                     <div class="job-inner-left">
-                                        <h3>Event Name</h3>
-                                        <a href="company-details.html">Department</a>
+                                        <h3><?php echo $eventName; ?></h3>
+
+                                        <?php 
+                                            $deptQry = "SELECT * from tbldepartment where Deptid=$dept";
+                                            $dept_exe = mysqli_query($con,$deptQry) or die(mysqli_error($con));
+                                            $select_dept = mysqli_fetch_array($dept_exe);
+                                            $deptName = $select_dept['DeptName'];
+                                        ?>
+                                        <a href="company-details.html"><?php echo $deptName?></a>
                                         <ul>
                                             <li>
                                                 <i class="far fa-calendar-check"></i>
-                                                Date: 03-09-2020
+                                                Date: <?php echo $eventDate; ?>
                                             </li>
                                             <li>
                                                 <i class="far fa-clock"></i>
-                                                Time: 11:00 a.m.
+                                                Time: <?php echo $eventTime; ?>
                                             </li>
                                             <li>
                                                 <i class="icofont-location-pin"></i>
-                                                Location: 210-27 Quadra, Market Street, Victoria Canada
+                                                Location: <?php echo $eventLocation; ?>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="job-inner-right">
                                         <ul>
                                             <li>
-                                                <a href="create-account.html">More Details</a>
+                                                <a href="eventDetails.php?Eid=<?php echo $eventId; ?>">More Details</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -86,38 +111,10 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 mix web ui">
-                            <div class="job-item">
-                                <img src="assets/img/home-1/jobs/2.png" alt="Job">
-                                <div class="job-inner align-items-center">
-                                    <div class="job-inner-left">
-                                        <h3>Event Name</h3>
-                                        <a href="company-details.html">Department</a>
-                                        <ul>
-                                            <li>
-                                                <i class="far fa-calendar-check"></i>
-                                                Date: 03-09-2020
-                                            </li>
-                                            <li>
-                                                <i class="far fa-clock"></i>
-                                                Time: 11:00 a.m.
-                                            </li>
-                                            <li>
-                                                <i class="icofont-location-pin"></i>
-                                                Location: 210-27 Quadra, Market Street, Victoria Canada
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="job-inner-right">
-                                        <ul>
-                                            <li>
-                                                <a href="create-account.html">More Details</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php 
+                                }
+                            }
+                        ?>
                     </div>
                 </div>
             </div>

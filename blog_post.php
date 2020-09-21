@@ -233,12 +233,22 @@
                                                 <span id="filespan" style="color: red"></span>
                                             </div>
                                         </div>
+<<<<<<< HEAD
+                                    </div>-->
+                                </div>
+                                <div class="text-left">
+                                    
+                                    <button type="submit" name="btnsubmit" class="btn create-ac-btn">Submit</button>
+                                </div>
+                            </form>
+=======
                                     </div>
                                     <div class="text-left">
                                         <button type="submit" name="btnsubmit" class="btn create-ac-btn" onclick="return validate();">Submit</button>
                                     </div>
                                 </form>
                             </div>
+>>>>>>> 5f8370a9b377c807bfda5d0d154b82a6e94a1543
                         </div>
                     </div>
                 <?php
