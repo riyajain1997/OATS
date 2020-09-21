@@ -1,3 +1,6 @@
+<?php
+    include_once("DbConnection.php");
+?>
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -12,7 +15,19 @@
     <body>
 
         <!-- Start Navbar Area -->
-        <?php include_once('headerAlumni.php');?> 
+        <?php 
+            if($_SESSION['Type']=="Student")
+            {
+                include_once('headerStudent.php');
+            }
+            else if($_SESSION['Type']=="Alumni")
+            {
+                include_once('headerAlumni.php');
+            }
+            else{
+                include_once('headerHod.php');
+            }
+        ?> 
         <!-- End Navbar Area -->
 
         <!--Start delete popup -->
@@ -63,58 +78,115 @@
 
         <!-- Dashboard -->
         <div class="container" style="margin-top:80px;">
-            <form>
+            <?php
+                $uid=$_SESSION['UserID'];
+                $select="SELECT * from tblregister WHERE Uid=$uid";
+                $exe=mysqli_query($con,$select);
+                $fetch=mysqli_fetch_array($exe);
+                $fname=$fetch['Fname'];
+                $lname=$fetch['Lname'];
+                $email=$fetch['Email'];
+                $phone=$fetch['Phone'];
+                $dob=$fetch['Dob'];
+                $gender=$fetch['Gender'];
+                $about=$fetch['About'];
+                /*$prnno=$fetch['PrnEmpno'];
+                $dept=$fetch['Deptid'];
+                $course=$fetch['Cousreid'];
+                $jyear=$fetch['JoinYear'];
+                $pyear=$fetch['PassYear'];*/
+            ?>
+            <form method="POST">
                 <!-- {% comment %}START BASIC INFORMATION {% endcomment %} -->
                 <div class="create-information">
                     <h3>Basic Information</h3>
                     <div class="create-information-btn">
                         <a href="#">  
-                            <img src="#" class="avatar-img rounded" alt="...">
+                            <img src="Uploaded/Images/blog1.jfif" class="avatar-img rounded" alt="...">
                         </a>
                         <div class="media-body" style="float:right; margin-right:40%;">
-                            <input type="file" name="userpic" class="btn btn-sm dz-clickable" value="">
+                            <input type="file" name="userpic" value="<?php echo  ?>" class="btn btn-sm dz-clickable" value="">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>First Name</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" name="txtfname" value="<?php echo $fname; ?>" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" name="txtlname" value="<?php echo $lname; ?>" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" class="form-control" placeholder="">
+                                <input type="email" name="txtemail" value="<?php echo $email; ?>" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Contact Number</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <input type="text" name="txtphone" value="<?php echo $phone; ?>" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Date of Birth</label>
-                                <input type="date" class="form-control" placeholder="">
+                                <input type="date" name="txtdob" value="<?php echo $dob; ?>" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <div class="gender-area">
                                     <span>Gender</span>
-                                    <input type="radio" name="gender" id="male" value="male">
+                                    <?php
+                                        if($gender=="Male")
+                                        {
+                                    ?>
+                                    <input type="radio" name="gender" id="male" checked="true">
+                                    <?php
+                                        }
+                                        else
+                                        {
+                                    ?>
+                                    <input type="radio" name="gender" id="male">
+                                    <?php
+                                        }
+                                    ?>
                                     <label for="male">Male</label>
+                                    <?php
+                                        if($gender=="Female")
+                                        {
+                                    ?>
+                                    <input type="radio" name="gender" id="female" value="female" checked="true">
+                                    <?php
+                                        }
+                                        else
+                                        {
+                                    ?>
                                     <input type="radio" name="gender" id="female" value="female">
+                                    <?php
+                                        }
+                                    ?>
                                     <label for="female">Female</label>
+                                    <?php
+                                        if($gender=="Others")
+                                        {
+                                    ?>
+                                    <input type="radio" name="gender" id="others" value="others" checked="true">
+                                    <?php
+                                        }
+                                        else
+                                        {
+                                    ?>
                                     <input type="radio" name="gender" id="others" value="others">
+                                    <?php
+                                        }
+                                    ?>
                                     <label for="others">Others</label>
                                 </div>
                             </div>
@@ -122,14 +194,21 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label>About</label>
-                                <textarea id="your_message" class="form-control" rows="8" ></textarea>
+                                <textarea id="your_message" name="your_message" class="form-control" rows="8" ><?php echo $about; ?></textarea>
                             </div>
                         </div>
                     </div>
+                    <div class="text-center">
+                        <button type="submit" name="btnsubmit" class="btn create-ac-btn" style="width:400px;">Save</button>
+                    </div>
                 </div>
+                <?php
+                ?>
+            </form>
                 <!-- {% comment %}END BASIC INFORMATION {% endcomment %}
-
+        
                 {% comment %}START EDUCATION DETAILS{% endcomment %} -->
+            <form>
                 <div class="create-education create-education-two">
                     <div class="create-education-wrap container">
                         <div class="create-education-left">
@@ -491,12 +570,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn create-ac-btn" style="width:400px;">Save</button>
+                    </div>
                 </div>
                 <!-- {% comment %}END CHANGE PASSWORD{% endcomment %} -->
-
-                <div class="text-center">
-                    <button type="submit" class="btn create-ac-btn" style="width:400px;">Save</button>
-                </div>
             </form>
         </div>
         <!-- End Dashboard -->
