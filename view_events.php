@@ -1,3 +1,7 @@
+<?php 
+    include_once("DbConnection.php");
+    
+?>
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -7,7 +11,20 @@
 
 
         <!-- Start Navbar Area -->
-        <?php include_once('headerAlumni.php');?> 
+        <?php 
+        
+            if($_SESSION['Type']=="Student")
+            {
+                include_once('headerStudent.php');
+            }
+            else if($_SESSION['Type']=="Alumni")
+            {
+                include_once('headerAlumni.php');
+            }
+            else{
+                include_once('headerHod.php');
+            }
+        ?>
         <!-- End Navbar Area -->
 
         <!-- Banner -->
@@ -33,213 +50,51 @@
                 </div>
                 <div id="container">
                     <div class="row">
+                        <?php
+                            $eventSelectQuery = "SELECT * from tblevent where IsActive=1 and IsAccepted=1";
+                            $result_event = mysqli_query($con,$eventSelectQuery);
+                            if($result_event->num_rows!=0)
+                            {
+                                while($row_event=$result_event->fetch_array())
+                                {
+                                    $eventId = $row_event['Eid'];
+                                    $eventName = $row_event['Ename'];
+                                    $eventDate = $row_event['Edate'];
+                                    $eventTime = $row_event['Etime'];
+                                    $isactive = $row_event['IsActive'];
+                               
+                        ?>
                         <div class="col-lg-6 mix ui ux">
                             <div class="job-item">
                                 <img src="assets/img/home-1/jobs/2.png" alt="Job">
                                 <div class="job-inner align-items-center">
                                     <div class="job-inner-left">
-                                        <h3>UX/UI Design</h3>
+                                        <h3><?php echo $eventName; ?></h3>
                                         <ul>
                                             <li>
-                                                Date: 12/01/2021
+                                                <?php echo $eventDate; ?>
                                             </li>
                                             <li>
-                                                Time: 1:30 PM
+                                                <?php echo $eventTime; ?>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="job-inner-right">
                                         <ul>
                                             <li>
-                                                <a href="event_details.html">Details</a>
+                                                <a href="eventDetails.php?Eid=<?php echo $eventId; ?>">Details</a>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 mix ui ux">
-                            <div class="job-item">
-                                <img src="assets/img/home-1/jobs/2.png" alt="Job">
-                                <div class="job-inner align-items-center">
-                                    <div class="job-inner-left">
-                                        <h3>Android Development</h3>
-                                        <ul>
-                                            <li>
-                                                Date: 12/01/2021
-                                            </li>
-                                            <li>
-                                                Time: 1:30 PM
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="job-inner-right">
-                                        <ul>
-                                            <li>
-                                                <a href="#">Details</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mix branding web"> 
-                            <div class="job-item">
-                                <img src="assets/img/home-1/jobs/3.png" alt="Job">
-                                <div class="job-inner align-items-center">
-                                    <div class="job-inner-left">
-                                        <h3>Cloud Technology</h3>
-                                        <ul>
-                                            <li>
-                                                Date: 23/12/2021
-                                            </li>
-                                            <li>
-                                                Time: 4:00 PM
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="job-inner-right">
-                                        <ul>
-                                            <li>
-                                                <a href="">Details</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mix ux wp">
-                            <div class="job-item">
-                                <img src="assets/img/home-1/jobs/2.png" alt="Job">
-                                <div class="job-inner align-items-center">
-                                    <div class="job-inner-left">
-                                        <h3>Web Development</h3>
-                                        <ul>
-                                            <li>
-                                                Date: 12/01/2021
-                                            </li>
-                                            <li>
-                                                Time: 1:30 PM
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="job-inner-right">
-                                        <ul>
-                                            <li>
-                                                <a href="#">Details</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php
+                        }
+                    }
+                    ?>
                     </div>
-                    <br><br><br>
-                    <div class="section-title">
-                        <h2>Previous Events</h2>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 mix ui ux">
-                            <div class="job-item">
-                                <img src="assets/img/home-1/jobs/2.png" alt="Job">
-                                <div class="job-inner align-items-center">
-                                    <div class="job-inner-left">
-                                        <h3>UX/UI Design</h3>
-                                        <ul>
-                                            <li>
-                                                Date: 12/01/2021
-                                            </li>
-                                            <li>
-                                                Time: 1:30 PM
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="job-inner-right">
-                                        <ul>
-                                            <li>
-                                                <a href="#">Details</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mix ui ux">
-                            <div class="job-item">
-                                <img src="assets/img/home-1/jobs/2.png" alt="Job">
-                                <div class="job-inner align-items-center">
-                                    <div class="job-inner-left">
-                                        <h3>Android Development</h3>
-                                        <ul>
-                                            <li>
-                                                Date: 12/01/2021
-                                            </li>
-                                            <li>
-                                                Time: 1:30 PM
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="job-inner-right">
-                                        <ul>
-                                            <li>
-                                                <a href="#">Details</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mix branding web">
-                            <div class="job-item">
-                                <img src="assets/img/home-1/jobs/3.png" alt="Job">
-                                <div class="job-inner align-items-center">
-                                    <div class="job-inner-left">
-                                        <h3>Cloud Technology</h3>
-                                        <ul>
-                                            <li>
-                                                Date: 23/12/2021
-                                            </li>
-                                            <li>
-                                                Time: 4:00 PM
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="job-inner-right">
-                                        <ul>
-                                            <li>
-                                                <a href="">Details</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mix ux wp">
-                            <div class="job-item">
-                                <img src="assets/img/home-1/jobs/2.png" alt="Job">
-                                <div class="job-inner align-items-center">
-                                    <div class="job-inner-left">
-                                        <h3>Web Development</h3>
-                                        <ul>
-                                            <li>
-                                                Date: 12/01/2021
-                                            </li>
-                                            <li>
-                                                Time: 1:30 PM
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="job-inner-right">
-                                        <ul>
-                                            <li>
-                                                <a href="#">Details</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </section>

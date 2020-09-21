@@ -15,7 +15,7 @@
                 $insert_leader="insert into tblgroupmember values(null,'$leader_query','".$_REQUEST['leaderdropdown']."','Leader',1)";
                 $Execute_leader=mysqli_query($con,$insert_leader) or die(mysqli_error($con));
 
-                header('location: group_create.php');
+                header('location: groupmember.php?Sgid='.$leader_query);
             }
         }
         else{
@@ -119,31 +119,21 @@
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
-                                    <label>Team Leader&nbsp;&nbsp;&nbsp;<span id="leaderspan" style="color: red"></span></label>
-                                    <div class="job-category-area">
-                                        <select name = "leaderdropdown">
-                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
-                                            <?php
-                                                $selleader="SELECT * FROM tblregister WHERE Uid='".$_SESSION['UserID']."' ";
+                                    <label>Team Leader</label>
+                                    <?php
+                                        $selleader="SELECT * FROM tblregister WHERE Uid='".$_SESSION['UserID']."' ";
 
-                                                $result=mysqli_query($con,$selleader) or die(mysqli_error($con));
-                                                $row=mysqli_fetch_array($result);
+                                        $result=mysqli_query($con,$selleader) or die(mysqli_error($con));
+                                        $row=mysqli_fetch_array($result);
 
-                                                if(mysqli_num_rows($result)==1)
-                                                {
-                                                    $selleadername="SELECT * FROM tblregister WHERE PassYear='".$row['PassYear']."' AND Cousreid='".$row['Cousreid']."' ";
-
-                                                    $resultname=mysqli_query($con,$selleadername) or die(mysqli_error($con));
-                                                    while($rowname=mysqli_fetch_array($resultname))
-                                                    {
-                                            ?>
-                                                        <option style="font-size: 16px;" value="<?php echo $rowname['Uid']; ?>"><?php echo $rowname['Fname']." ".$rowname['Lname'];?></option>
-                                            <?php
-                                                    }
-                                                }
-                                            ?>
-                                        </select>
-                                    </div>
+                                        if(mysqli_num_rows($result)==1)
+                                        {
+                                    ?>
+                                            <input type="text" name="Grp_name" value="<?php echo $row['Fname']." ".$row['Lname']; ?>" class="form-control" disabled>
+                                            <span id="leaderspan" style="color: red"></span>
+                                    <?php
+                                        }
+                                    ?>
                                 </div>
                             </div>
                             <div class="col-lg-12">

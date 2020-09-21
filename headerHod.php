@@ -43,7 +43,10 @@
                                             <a href="studentList.php" class="nav-link">Student List</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="group_list.php" class="nav-link">Student Group</a>
+                                            <a href="group_list.php" class="nav-link">Student Groups</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">Group Request</a>
                                         </li>
                                     </ul>
                                 </li>

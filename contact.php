@@ -108,7 +108,23 @@
     <body>
 
         <!-- Start Navbar Area -->
-        <?php include 'header.php' ?>
+        <?php
+            if($_SESSION['Type']=="Student")
+            {
+                include_once('headerStudent.php');
+            }
+            else if($_SESSION['Type']=="Alumni")
+            {
+                include_once('headerAlumni.php');
+            }
+            else if($_SESSION['Type']=="Staff")
+            {
+                include_once('headerHod.php');
+            }
+            else{
+                include_once('header.php');
+            }
+        ?>
         <!-- End Navbar Area -->
 
         <!-- Page Title -->
