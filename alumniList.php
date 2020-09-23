@@ -47,7 +47,7 @@
             </div>
         </div>
         <!-- End Page Title -->
-        <div class="container mt-5" >
+        <!-- <div class="container mt-5" >
             <div class="subscribe-item">
                 <form class="newsletter-form" data-toggle="validator">
                     <input type="text" class="form-control" placeholder="Job Profile" name="jobProfile" required autocomplete="off">
@@ -59,7 +59,7 @@
                 </form>
             </div>
         </div>
-        
+         -->
 
          <!-- Profile -->
         <section class="profile-area profile-area-two pt-100">
@@ -82,14 +82,14 @@
                             <div class="profile-inner">
                                 <h3><?php echo $Fnm; ?> <?php echo $Lnm; ?></h3>
                                 <span>Business Consultant</span>
-                                <a href="candidate-details.html">View Profile
+                                <!-- <a href="candidate-details.html">View Profile
                                     <i class="icofont-swoosh-right"></i>
                                 </a>
                                 <div class="profile-heart">
                                     <a href="candidate-details.html">
                                         <i class="icofont-heart-alt"></i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

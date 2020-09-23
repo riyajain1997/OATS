@@ -12,7 +12,7 @@
         {
             if ($leader_query) 
             {
-                $insert_leader="insert into tblgroupmember values(null,'$leader_query','".$_REQUEST['leaderdropdown']."','Leader',1)";
+                $insert_leader="insert into tblgroupmember values(null,'$leader_query','".$_REQUEST['lid']."','Leader',1)";
                 $Execute_leader=mysqli_query($con,$insert_leader) or die(mysqli_error($con));
 
                 header('location: groupmember.php?Sgid='.$leader_query);
@@ -39,32 +39,22 @@
             function validate()
             {
                 var gname = document.forms["myform"]["Grp_name"].value;
-                var leader = document.forms["myform"]["leaderdropdown"].value;
                 var year = document.forms["myform"]["year"].value;
 
 
                 if(gname == ""){
                     document.getElementById('groupspan').innerHTML =" ** Please fill the Group name";
                     return false;
-                }else{
+                }
+                else{
                     document.getElementById('groupspan').innerHTML ="";
-
                 }
 
-                if(leader == 0){
-                    document.getElementById('leaderspan').innerHTML ="( ** Please enter correct name)";
-                    return false;
-                }else{
-                    document.getElementById('leaderspan').innerHTML ="";
-
-                }
-
-                if(year == ""){
+                if(year == 0){
                     document.getElementById('yearspan').innerHTML =" ** Please fill the Year";
                     return false;
                 }else{
                     document.getElementById('yearspan').innerHTML ="";
-
                 }
                 
                 return true;
@@ -113,7 +103,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Group Name</label>
-                                    <input type="text" name="Grp_name" class="form-control" placeholder="">
+                                    <input type="text" name="Grp_name" class="form-control">
                                     <span id="groupspan" style="color: red"></span>
                                 </div>
                             </div>
@@ -129,8 +119,8 @@
                                         if(mysqli_num_rows($result)==1)
                                         {
                                     ?>
-                                            <input type="text" name="Grp_name" value="<?php echo $row['Fname']." ".$row['Lname']; ?>" class="form-control" disabled>
-                                            <span id="leaderspan" style="color: red"></span>
+                                            <input type="text" name="leadername" value="<?php echo $row['Fname']." ".$row['Lname']; ?>" class="form-control" disabled>
+                                            <input type="text" name="lid" class="form-control" value="<?php echo $row['Uid'];?>" hidden>
                                     <?php
                                         }
                                     ?>
@@ -166,6 +156,7 @@
                                     ?>
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Course</label> <br>
@@ -196,6 +187,7 @@
                                     ?>
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <div class="gender-area">
@@ -216,8 +208,8 @@
                     </div>
                     <!-- END DETAILS  -->
 
-                    <div class="text-center">
-                        <button type="submit" name="submit" onclick=" return validate();" class="btn create-ac-btn" style="width:400px;">Create</button>
+                    <div class="text-right">
+                        <button type="submit" name="submit" onclick=" return validate();" class="btn create-ac-btn" style="width:200px;">Next</button>
                     </div>
                 </form>
             </div>
