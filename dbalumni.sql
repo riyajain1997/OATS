@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 19, 2020 at 04:31 PM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.6
+-- Generation Time: Sep 23, 2020 at 11:26 AM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -280,7 +280,8 @@ CREATE TABLE `tbleducation` (
   `Year` year(4) NOT NULL,
   `Percentage` float NOT NULL,
   `Uid` int(11) NOT NULL,
-  `IsActive` tinyint(4) NOT NULL
+  `IsActive` tinyint(4) NOT NULL,
+  `Specialization` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -349,17 +350,18 @@ CREATE TABLE `tblregister` (
   `Deptid` int(11) DEFAULT NULL,
   `Desigid` int(11) DEFAULT NULL,
   `About` text DEFAULT NULL,
-  `IsActive` tinyint(7) NOT NULL
+  `IsActive` tinyint(7) NOT NULL,
+  `ProfilePic` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tblregister`
 --
 
-INSERT INTO `tblregister` (`Uid`, `PrnEmpno`, `Fname`, `Lname`, `Email`, `Password`, `Gender`, `Dob`, `Phone`, `Usertype`, `JoinYear`, `PassYear`, `Cousreid`, `Deptid`, `Desigid`, `About`, `IsActive`) VALUES
-(1, 1042180522, 'Abhilasha', 'oso', 'ppoo@gmail.com', 'abhi', 'Female', '0000-00-00', 1112221112, 'Student', 2019, 2022, 1, 1, 0, NULL, 1),
-(2, 1223112211, 'Riya', 'Jain', 'riya@jain.com', 'riya', 'Female', '0000-00-00', 1122334455, 'Alumni', 0000, 2011, 1, 0, 11, NULL, 1),
-(4, 1104, 'Jignesh', 'Mahadik', 'jignesh@gmail.com', 'jignesh', 'Male', '0000-00-00', 2211334455, 'Staff', 0000, 0000, 0, 1, 2, NULL, 1);
+INSERT INTO `tblregister` (`Uid`, `PrnEmpno`, `Fname`, `Lname`, `Email`, `Password`, `Gender`, `Dob`, `Phone`, `Usertype`, `JoinYear`, `PassYear`, `Cousreid`, `Deptid`, `Desigid`, `About`, `IsActive`, `ProfilePic`) VALUES
+(1, 1042180522, 'Abhilasha', 'oso', 'ppoo@gmail.com', 'abhi', 'Female', '0000-00-00', 1112221112, 'Student', 2019, 2022, 1, 1, 0, NULL, 1, NULL),
+(2, 1223112211, 'Riya', 'Jain', 'riya@gmail.com', 'riya', 'Female', '2011-11-11', 123456, 'Alumni', 0000, 2011, 1, 0, 11, 'riya here', 1, 'Marksheet.jpg'),
+(4, 1104, 'Jignesh', 'Mahadik', 'jignesh@gmail.com', 'jignesh', 'Male', '0000-00-00', 2211334455, 'Staff', 0000, 0000, 0, 1, 2, NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -610,7 +612,8 @@ CREATE TABLE `tblwork` (
   `leavingDate` date NOT NULL,
   `Experience` text NOT NULL,
   `Uid` int(11) NOT NULL,
-  `IsActive` tinyint(4) NOT NULL
+  `IsActive` tinyint(4) NOT NULL,
+  `CurrentComp` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
