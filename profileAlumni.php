@@ -1,5 +1,27 @@
 <?php
     include_once("DbConnection.php");
+
+    /*Basic Information*/
+    if(isset($_POST['btnsubmit']))
+    {
+        $update="UPDATE tblregister set Fname='".$_POST['txtfname']."',Lname='".$_POST['txtlname']."',Phone='".$_POST['txtphone']."',Email='".$_POST['txtemail']."',Dob='".$_POST['txtdob']."',Gender='".$_POST['gender']."',About='".$_POST['your_message']."',ProfilePic='".$_POST['userpic']."' WHERE Uid='".$_SESSION['UserID']."'";
+        $exe=mysqli_query($con,$update);
+
+        if($exe)
+        {
+            echo '<script type="text/javascript">alert("Profile updated successfully...");</script>';
+            /*header("Location:blog.php");*/
+        }
+        else
+        {
+            echo "error".mysqli_error($con);
+        }
+    }
+    /*Basic Information*/
+    /*if(isset($_POST['btnwork']))
+    {
+        $insert="INSERT into tblwork(Designation,Organization,CurrentComp,JoinDate,LeavingDate,Experience)values('".$_POST['txtdes']."','".$_POST['txtorg']."','".$_POST['txtccomp']."','".$_POST['txtjdate']."','".$_POST['txtldate']."','".$_POST['your_message']."')";
+    }*/
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -90,22 +112,35 @@
                 $dob=$fetch['Dob'];
                 $gender=$fetch['Gender'];
                 $about=$fetch['About'];
-                /*$prnno=$fetch['PrnEmpno'];
-                $dept=$fetch['Deptid'];
+                $profile=$fetch['ProfilePic'];
+                /*$dept=$fetch['Deptid'];
                 $course=$fetch['Cousreid'];
                 $jyear=$fetch['JoinYear'];
                 $pyear=$fetch['PassYear'];*/
+
+                if($profile=="" || !file_exists("Uploaded/Images/$profile"))
+                {
+                    $profile="blog1.JFIF";
+                }
             ?>
-            <form method="POST">
+            <form method="POST" name="myform">
                 <!-- {% comment %}START BASIC INFORMATION {% endcomment %} -->
                 <div class="create-information">
                     <h3>Basic Information</h3>
                     <div class="create-information-btn">
                         <a href="#">  
-                            <img src="Uploaded/Images/blog1.jfif" class="avatar-img rounded" alt="...">
+                            <img src="Uploaded/Images/<?php echo $profile; ?>" class="avatar-img rounded" alt="...">
                         </a>
                         <div class="media-body" style="float:right; margin-right:40%;">
-                            <input type="file" name="userpic" value="<?php echo  ?>" class="btn btn-sm dz-clickable" value="">
+                            <input type="file" name="userpic" class="btn btn-sm dz-clickable">
+                            <?php
+                                if($profile!="blog1.JFIF")
+                                {
+                            ?>
+                            <p style="color:red;"><?php echo $profile; ?></p>
+                            <?php
+                                }
+                            ?>
                         </div>
                     </div>
                     <div class="row">
@@ -147,13 +182,13 @@
                                         if($gender=="Male")
                                         {
                                     ?>
-                                    <input type="radio" name="gender" id="male" checked="true">
+                                    <input type="radio" name="gender" value="Male" id="male" checked="true">
                                     <?php
                                         }
                                         else
                                         {
                                     ?>
-                                    <input type="radio" name="gender" id="male">
+                                    <input type="radio" name="gender" id="male" value="Male">
                                     <?php
                                         }
                                     ?>
@@ -162,13 +197,13 @@
                                         if($gender=="Female")
                                         {
                                     ?>
-                                    <input type="radio" name="gender" id="female" value="female" checked="true">
+                                    <input type="radio" name="gender" id="female" value="Female" checked="true">
                                     <?php
                                         }
                                         else
                                         {
                                     ?>
-                                    <input type="radio" name="gender" id="female" value="female">
+                                    <input type="radio" name="gender" id="female" value="Female">
                                     <?php
                                         }
                                     ?>
@@ -177,13 +212,13 @@
                                         if($gender=="Others")
                                         {
                                     ?>
-                                    <input type="radio" name="gender" id="others" value="others" checked="true">
+                                    <input type="radio" name="gender" id="others" value="Others" checked="true">
                                     <?php
                                         }
                                         else
                                         {
                                     ?>
-                                    <input type="radio" name="gender" id="others" value="others">
+                                    <input type="radio" name="gender" id="others" value="Others">
                                     <?php
                                         }
                                     ?>
@@ -229,24 +264,69 @@
                                     <!--Start Modal body -->
                                     <div class="modal-body">
                                         <div class="row">
-                                            <div class="col-lg-12">
+                                            <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Education</label>
-                                                    <input type="text" class="form-control" placeholder="Under Graduate">
+                                                    <!-- <input type="text" class="form-control" placeholder="Under Graduate"> -->
+                                                    <div class="job-category-area" >
+                                                        <select name = "Departmentdropdown">
+                                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
+                                                            <?php 
+                                                                $select_class="SELECT * from tblclass";
+                                                                $Execute_select_class=mysqli_query($con,$select_class)or die(mysqli_error($con));
+                                                                while($fetch_class=mysqli_fetch_array($Execute_select_class))
+                                                                {
+
+                                                                ?>  
+                                                                <option style="font-size: 14px;" value = "<?php echo $fetch_class['Classid'];?>"><?php echo $fetch_class['ClassName'];?></option>
+                                                                <?php
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12">
+                                            <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Board/University</label>
-                                                    <input type="text" class="form-control" placeholder="MIT-WPU">
+                                                    <label>Board</label>
+                                                    <!-- <input type="text" class="form-control" placeholder="MIT-WPU"> -->
+                                                    <select name = "Departmentdropdown">
+                                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
+                                                            <?php 
+                                                                $select_board="SELECT * from tblboard";
+                                                                $Execute_select_board=mysqli_query($con,$select_board)or die(mysqli_error($con));
+                                                                while($fetch_board=mysqli_fetch_array($Execute_select_board))
+                                                                {
+
+                                                                ?>  
+                                                                <option style="font-size: 14px;" value = "<?php echo $fetch_board['Boardid'];?>"><?php echo $fetch_board['BoardName'];?></option>
+                                                                <?php
+                                                                }
+                                                            ?>
+                                                        </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-12">
+                                            <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Institute Name</label>
-                                                    <input type="text" class="form-control" placeholder="MIT-World Peace University">
+                                                    <label>College</label>
+                                                    <!-- <input type="text" class="form-control" placeholder="MIT-World Peace University"> -->
+                                                    <select name = "Departmentdropdown">
+                                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
+                                                            <?php 
+                                                                $select_clg="SELECT * from tblcollege";
+                                                                $Execute_select_clg=mysqli_query($con,$select_clg)or die(mysqli_error($con));
+                                                                while($fetch_clg=mysqli_fetch_array($Execute_select_clg))
+                                                                {
+
+                                                                ?>  
+                                                                <option style="font-size: 14px;" value = "<?php echo $fetch_clg['Collegeid'];?>"><?php echo $fetch_clg['CollegeName'];?></option>
+                                                                <?php
+                                                                }
+                                                            ?>
+                                                        </select>
                                                 </div>
                                             </div>
+                                            
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Course</label>
@@ -342,6 +422,7 @@
                             <a href="#" data-toggle="modal" data-target="#WorkDetails">Add Work Experience</a>
                         </div>
                         <!--Start WorkDetails popup -->
+                    <form method="POST" name="workform">
                         <div class="modal fade" id="WorkDetails">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -356,42 +437,42 @@
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label>Your Designation</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" name="txtdes" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label>Your Organization</label>
-                                                    <input type="text" class="form-control">
+                                                    <input type="text" name="txtorg" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label>Is this your current company?</label>
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <input type="radio" name="company" id="yes" value="yes">
+                                                    <input type="radio" name="txtccomp" id="yes" value="Yes">
                                                     <label for="yes">Yes</label>
                                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <input type="radio" name="company" id="no" value="no">
+                                                    <input type="radio" name="txtccomp" id="no" value="No">
                                                     <label for="no">No</label>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Started Working From</label>
-                                                    <input type="month" class="form-control">
+                                                    <input type="month" name="txtjdate" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Worked Till</label>
-                                                    <input type="month" class="form-control">
+                                                    <input type="month" name="txtldate" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label>Your Experience</label>
-                                                    <textarea id="your_message" class="form-control" rows="4" style="height:150px;"></textarea>
+                                                    <textarea id="your_message" name="your_message" class="form-control" rows="4" style="height:150px;"></textarea>
                                                 </div>
                                             </div> 
                                         </div>
@@ -399,7 +480,7 @@
                                     <!--End Modal body -->
                                     <!--Start Modal footer -->
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-success" data-dismiss="modal" style="width:45%;">Save</button>
+                                        <button type="submit" name="btnwork" class="btn btn-success" data-dismiss="modal" style="width:45%;">Save</button>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
                                         <button type="button" class="btn btn-danger" data-dismiss="modal" style="width:45%;">Close</button>
                                     </div>
@@ -407,6 +488,7 @@
                                 </div>
                             </div>
                         </div>
+                    </form>
                         <!--End WorkDetails popup -->
                     </div> 
 
@@ -461,8 +543,8 @@
                             </small>
                         </div>
                     </div> 
-
                 </div>
+            </form>
                 <!-- {% comment %}END WORK EXPERIENCE DETAILS{% endcomment %}
 
                 {% comment %}START SKILLS{% endcomment %} -->
