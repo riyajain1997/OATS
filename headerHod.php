@@ -34,6 +34,7 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
+<<<<<<< HEAD
                                     <a href="view_events.php" class="nav-link">Events</a>
                                     <ul class="dropdown-menu">
                                     <li class="nav-item">
@@ -42,6 +43,16 @@
                                         <li class="nav-item">
                                             <a href="event_create.php?Eid=0" class="nav-link">Create Event</a>
                                         </li>
+=======
+                                    <a href="#" class="nav-link">Events</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item">
+                                            <a href="event_create.php?Eid=0" class="nav-link">Create Event</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="view_events.php?Eid=0" class="nav-link">View Event</a>
+                                        </li>
+>>>>>>> ea9d2091204ebe41f4cddf1a06d804e4b3b5f1e5
                                     </ul>
                                 </li>&nbsp;
                                 <li class="nav-item">

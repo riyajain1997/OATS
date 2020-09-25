@@ -47,7 +47,7 @@
             </div>
         </div>
         <!-- End Page Title -->
-        <div class="container mt-5" >
+        <!-- <div class="container mt-5" >
             <div class="subscribe-item">
                 <form class="newsletter-form input-group" data-toggle="validator">
 
@@ -61,7 +61,7 @@
 
                 </form>
             </div>
-        </div>
+        </div> -->
         
 
          <!-- Profile -->
