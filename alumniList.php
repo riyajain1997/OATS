@@ -82,7 +82,7 @@
                             <div class="profile-inner">
                                 <h3><?php echo $Fnm; ?> <?php echo $Lnm; ?></h3>
                                 <span>Business Consultant</span>
-                                <a href="candidate-details.html">View Profile
+                                <a href="alumni_profile_details.php">View Profile
                                     <i class="icofont-swoosh-right"></i>
                                 </a>
                                 <div class="profile-heart">

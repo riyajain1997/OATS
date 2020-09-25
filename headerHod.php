@@ -35,6 +35,14 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="view_events.php" class="nav-link">Events</a>
+                                    <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                            <a href="view_events.php?Eid=0" class="nav-link">View Event</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="event_create.php?Eid=0" class="nav-link">Create Event</a>
+                                        </li>
+                                    </ul>
                                 </li>&nbsp;
                                 <li class="nav-item">
                                     <a href="#" class="nav-link dropdown-toggle">Student <i class="icofont-simple-down"></i></a>

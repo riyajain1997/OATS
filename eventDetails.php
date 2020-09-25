@@ -20,7 +20,7 @@
     <body>
 
         <!-- Preloader -->
-        <div class="loader">
+        <!-- <div class="loader">
             <div class="d-table">
                 <div class="d-table-cell">
                     <div class="spinner">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- End Preloader -->
 
         <!-- Start Navbar Area -->
@@ -61,7 +61,7 @@
                             <h2>Event Details</h2>
                             <ul>
                                 <li>
-                                    <a href="index.php">Home</a>
+                                    <a href="homepage.php">Home</a>
                                 </li>
                                 <li>
                                     <i class="icofont-simple-right"></i>
@@ -162,12 +162,13 @@
                                     <h2><?php echo $eventName;?></h2>
                                     <span><i class="icofont-location-pin"><?php echo $eventLocation;?></i></span><br></bt>
                                     <?php
-                                        $select_student = "SELECT * from tblstudentgroup WHERE Uid=$userid AND IsActive=1";
+                                        $select_student = "SELECT * from tblstudentgroup AS s,tblregister AS r WHERE s.Uid=$userid OR (r.Uid=$userid AND r.Usertype='Staff')";
                                         $Execute_student=mysqli_query($con,$select_student)or die(mysqli_error($con));
                                         $res=mysqli_fetch_array($Execute_student);
                                         $uid1=$res['Uid'];
+                                        $type=$res['Usertype'];
 
-                                        if($uid1==$userid)
+                                        if($uid1==$userid || $type=="Staff")
                                         {
                                     ?>
                                     <a href="event_create.php?Eid=<?php echo $eid; ?>">
@@ -176,7 +177,7 @@
                                     <button type="submit" name="eventSubmit" class="btn create-ac-btn" onclick="deleteopen()" style="height:54px;">
                                         Cancel Event
                                     </button>
-                                        <!-- Start card details popup fuction-->
+                                        <!-- Start delete popup fuction-->
                                         <script>
                                             function deleteopen() {
                                                 document.getElementById("deleteboard").style.display = "flex";
@@ -185,7 +186,7 @@
                                                 document.getElementById("deleteboard").style.display = "none";
                                             }
                                         </script>
-                                        <!-- End card details popup fuction-->
+                                        <!-- End delete popup fuction-->
                                     <?php
                                         }
                                     ?>
