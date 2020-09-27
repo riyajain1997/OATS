@@ -5,7 +5,8 @@
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
-    <?php include_once('cssLinks.php');?> 
+        <?php include_once('cssLinks.php');?> 
+        <title>Own groups</title>
     </head>
     <body>
 
@@ -27,32 +28,15 @@
         <!-- End Navbar Area -->
 
         <!-- Page Title -->
-        <div class="page-title-area" style= "height:350px;">
+        <div class="page-title-area">
             <div class="d-table">
                 <div class="d-table-cell">
                     <div class="container">
                         <div class="page-title-text">
-                            <?php
-                                $seldept="SELECT * FROM tblregister WHERE Uid='".$_SESSION['UserID']."' ";
-                                $result_dept=mysqli_query($con,$seldept) or die(mysqli_error($con));
-                                $rowdept=mysqli_fetch_array($result_dept);
-
-                                if(mysqli_num_rows($result_dept)==1)
-                                {
-                                    $seldeptname="SELECT * FROM tbldepartment WHERE Deptid='".$rowdept['Deptid']."' ";
-                                    $result=mysqli_query($con,$seldeptname) or die(mysqli_error($con));
-                                    $row=mysqli_fetch_array($result);
-                                    if(mysqli_num_rows($result)>0)
-                                    {
-                            ?>
-                                        <h2><?php echo $row['DeptName'];?></h2>
-                            <?php
-                                    }
-                                }
-                            ?>
+                            <h2>School of Mechanical Engineering</h2>
                             <ul>
                                 <li>
-                                    <a href="homepage.php">Home</a>
+                                    <a href="index.html">Thermodynamics</a>
                                 </li>
                                 <li>
                                     <i class="icofont-simple-right"></i>
@@ -69,63 +53,110 @@
         <!-- Companies -->
         <section class="companies-area companies-area-two pt-100" style="padding-bottom:0px; padding-top: 45px;">
             <div class="subscribe-item">
-                <center><h3>Approved and Verified Groups</h3></center>
+                <center><h2 style="color:green;">As A Leader</h2></center>
             </div>
             <br><br>
             <div class="container">
                 <div class="row">
                     <?php
-                        $groupdata="SELECT * FROM tblstudentgroup WHERE Deptid='".$rowdept['Deptid']."' ";
-                        $result_groupdata=mysqli_query($con,$groupdata) or die(mysqli_error($con));
-                        while($rowgroupdata=mysqli_fetch_array($result_groupdata))
+                        $leader="SELECT * from tblstudentgroup where Uid='".$_SESSION['UserID']."' AND IsActive=1 ORDER BY IsAccepted Desc";
+                        $result_leader=mysqli_query($con,$leader) or die(mysqli_error($con));
+                        while($rowleader=mysqli_fetch_array($result_leader))
                         {
-                            $selcoursename="SELECT * FROM tblcourse WHERE Courseid='".$rowgroupdata['Courseid']."' ";
-                            $resultcourse=mysqli_query($con,$selcoursename) or die(mysqli_error($con));
-                            $rowcourse=mysqli_fetch_array($resultcourse);
-                            if(mysqli_num_rows($resultcourse)>0)
-                            {
+                    ?>
+                            <div class="col-sm-6 col-lg-3">
+                                <div class="companies-item wow fadeInUp">
+                                    <img src="assets/logo.png" alt="Companies">
+                                    <h3>
+                                        <a href="company-details.html"><?php echo $rowleader['Sgname']; ?></a>
+                                    </h3>
+                                    <?php
+                                        if($rowleader['IsAccepted']==1)
+                                        {
+                                    ?>
+                                            <p style="color: green;">
+                                                <i class="far fa-check-circle"></i>
+                                                Approved
+                                            </p>
+                                    <?php
+                                        }
+                                        else
+                                        {
+                                    ?>
+                                            <p style="color: red;">
+                                                <i class="fas fa-times"></i>
+                                                Not Approved
+                                            </p>
+                                    <?php
+                                        }
+                                    ?>
+                                    
+                                    <a class="companies-btn" href="#">View More<i class="icofont-swoosh-right"></i></a>
+                                </div>
+                            </div>
+                    <?php
+                        }
+                    ?>
+                </div>
+            </div>
+        </section>
+
+        <section class="companies-area companies-area-two pt-100" style="padding-bottom:0px; padding-top: 45px;">
+            <div class="subscribe-item">
+                <center><h2 style="color:green;">As A Member</h2></center>
+            </div>
+            <br><br>
+            <div class="container">
+                <div class="row">
+                    <?php
+                        $member="SELECT * from tblgroupmember where Uid='".$_SESSION['UserID']."' AND LeaderMember='Member' AND IsActive=1 ";
+                        $result_member=mysqli_query($con,$member) or die(mysqli_error($con));
+                        while($rowmember=mysqli_fetch_array($result_member))
+                        {
+                            $membergroup="SELECT * from tblstudentgroup where Sgid='".$rowmember['Sgid']."' AND IsActive=1 ";
+                            $result_membergroup=mysqli_query($con,$membergroup) or die(mysqli_error($con)); 
+                            $rowmembergroup=mysqli_fetch_array($result_membergroup);
+
                     ?>
                                 <div class="col-sm-6 col-lg-3">
                                     <div class="companies-item wow fadeInUp">
-                                        <img src="assets/logo.png" alt="Group">
-                                        <h3><a href="#"><?php echo $rowgroupdata['Sgname']; ?></a></h3>
-                                        <p>
-                                            Course: <?php echo $rowcourse['CourseName']; ?><br>
-                                            <?php
-                                                if($rowgroupdata['Sgyear']==1)
-                                                {
-                                                    echo "1st Year";
-                                                }
-                                                elseif ($rowgroupdata['Sgyear']==2) 
-                                                {
-                                                    echo "2nd Year";
-                                                }
-                                                elseif ($rowgroupdata['Sgyear']==3) 
-                                                {
-                                                    echo "3rd Year";
-                                                }
-                                                else
-                                                {
-                                                    echo "4th Year";
-                                                }
-                                                $selbatch="SELECT * FROM tblregister WHERE Uid='".$rowgroupdata['Uid']."' ";
-                                                $resultbatch=mysqli_query($con,$selbatch) or die(mysqli_error($con));
-                                                $rowbatch=mysqli_fetch_array($resultbatch);
-                                                if(mysqli_num_rows($resultbatch)>0)
-                                                {
-                                            ?>
-                                                   <br> 
-                                                   Batch: 
-                                            <?php
-                                                    echo $rowbatch['JoinYear']."-".$rowbatch['PassYear'];
-                                                }
-                                            ?>
-                                        </p>
-                                        <a class="companies-btn" href="group_details.php?groupid=<?php echo $rowgroupdata['Sgid']; ?>">View More</a>
+                                        <img src="assets/logo.png" alt="Companies">
+                                        <h3>
+                                            <a href="#"><?php echo $rowmembergroup['Sgname']; ?></a>
+                                        </h3>
+                                        <?php
+                                            $membername="SELECT * from tblregister where Uid='".$rowmembergroup['Uid']."' AND IsActive=1 ";
+                                            $result_membername=mysqli_query($con,$membername) or die(mysqli_error($con)); 
+                                            $rowmembername=mysqli_fetch_array($result_membername);
+                                        ?>
+                                        <h6>
+                                            <i class="fas fa-user-circle"></i>
+                                            <?php echo $rowmembername['Fname']." ".$rowmembername['Lname']; ?>
+                                        </h6>
+                                        <?php
+                                            if($rowmembergroup['IsAccepted']==1)
+                                            {
+                                        ?>
+                                                <p style="color: green;">
+                                                    <i class="far fa-check-circle"></i>
+                                                    Approved
+                                                </p>
+                                        <?php
+                                            }
+                                            else
+                                            {
+                                        ?>
+                                                <p style="color: red;">
+                                                    <i class="fas fa-times"></i>
+                                                    Not Approved
+                                                </p>
+                                        <?php
+                                            }
+                                        ?>
+                                        <a class="companies-btn" href="#">View More<i class="icofont-swoosh-right"></i></a>
                                     </div>
                                 </div>
                     <?php
-                            }
                         }
                     ?>
                 </div>
@@ -140,5 +171,7 @@
         <!-- Start scripts -->
         <?php include_once('scriptsLinks.php');?>
         <!-- End scripts -->
+
+
     </body>
 </html>

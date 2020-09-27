@@ -159,7 +159,7 @@
 
                                                                 if(mysqli_num_rows($result)==1)
                                                                 {
-                                                                    $selname="SELECT * FROM tblregister WHERE PassYear='".$row['PassYear']."' ";
+                                                                    $selname="SELECT * FROM tblregister WHERE PassYear='".$row['PassYear']."' AND NOT Uid='".$_SESSION['UserID']."' ";
 
                                                                     $resultname=mysqli_query($con,$selname) or die(mysqli_error($con));
                                                                     while($rowname=mysqli_fetch_array($resultname))
@@ -209,11 +209,19 @@
                                             <small><?php echo $rowmemname['Fname']." ".$rowmemname['Lname']; ?></small><br>
                                             <small><?php echo $rowdetail['LeaderMember']; ?></small>
                                         </div>
+                                    <?php
+                                       if($rowdetail['LeaderMember']=="Member")
+                                       {
+                                    ?>
                                         <div class="col-lg-2">
                                             <a href="groupmember_remove.php?Gmid=<?php echo $rowdetail['Gmid']; ?>&Gid=<?php echo $Gid; ?>">
                                                 <i class='fas fa-trash-alt'></i>
                                             </a>
                                         </div>
+                                    <?php
+                                       }
+                                    ?>
+                                        
                                     </div>                            
                                 </div>
                             </div>
