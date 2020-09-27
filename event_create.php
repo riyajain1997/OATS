@@ -41,7 +41,7 @@
         elseif($Eid==0){
 
             $event_query = "Insert into tblevent(Ename,Location,Elink,Edate,Etime,Edescription,CreatedUid,AlumniUid,Deptid,IsAccepted,IsActive) values
-            ('$eventName','$eventLocation','$eventLink','$eventDate','$eventTime','$eventDesc',$uid,$Alumnidropdown,$Department,1,1)";
+            ('$eventName','$eventLocation','$eventLink','$eventDate','$eventTime','$eventDesc',$uid,$Alumnidropdown,$Department,0,1)";
             $execute_event=mysqli_query($con,$event_query);
             
             if($execute_event)

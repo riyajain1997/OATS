@@ -1,5 +1,6 @@
 <?php 
     include_once("DbConnection.php");
+    $Uid = $_GET['Uid'];
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +13,7 @@
     <body>
 
         <!-- Preloader -->
-        <div class="loader">
+        <!-- <div class="loader">
             <div class="d-table">
                 <div class="d-table-cell">
                     <div class="spinner">
@@ -24,7 +25,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- End Preloader -->
 
         <!-- Start Navbar Area -->
@@ -71,67 +72,45 @@
         <div class="single-profile-area pt-100">
             <div class="container">
                 <div class="row align-items-center">
+                    <?php
+                        $select_alumni_details = "SELECT * FROM tblregister  WHERE Uid=$Uid  AND IsActive=1 ";
+                        $exe_Alumni_details = mysqli_query($con,$select_alumni_details) or die(mysqli_error($con));
+                        $fetch_alumni_details = mysqli_fetch_array($exe_Alumni_details);
+
+                        $Fname = $fetch_alumni_details['Fname'];
+                        $Lname = $fetch_alumni_details['Lname'];
+                        $contact = $fetch_alumni_details['Phone'];
+                        $Email = $fetch_alumni_details['Email'];
+                        $About = $fetch_alumni_details['About']
+                        // $dept = $fetch_alumni_details['DeptName'];
+
+                    ?>
                     <div class="col-lg-5">
                         <div class="single-profile-item">
-                            <img src="assets/img/single-profile/2.jpg" alt="Profile">
+                            <img src="assets/img/home-1/profile/1.jpg" alt="Profile">
                             <div class="single-profile-left">
                                 <div class="single-profile-contact">
                                     <h3>Contact Info</h3>
                                     <ul>
                                         <li>
                                             <i class="icofont-ui-call"></i>
-                                            <a href="tel:+07554332322">Call : +07 554 332 322</a>
+                                            <a href="tel:+07554332322">Call : <?php echo $contact; ?></a>
                                         </li>
                                         <li>
                                             <i class="icofont-email"></i>
-                                            <a href="mailto:hello@gable.com">hello@gable.com</a>
+                                            <a href="mailto:hello@gable.com"><?php echo $Email; ?></a>
                                         </li>
-                                        <li>
+                                        <!-- <li>
                                             <i class="icofont-location-pin"></i>
                                             4th Floor, 408 No Chamber
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
-                                <div class="single-profile-social">
-                                    <h3>Social Links</h3>
-                                    <ul>
-                                        <li>
-                                            <i class="icofont-facebook"></i>
-                                            <a href="https://www.facebook.com" target="_blank">https://www.facebook.com</a>
-                                        </li>
-                                        <li>
-                                            <i class="icofont-instagram"></i>
-                                            <a href="https://www.instagram.com" target="_blank">https://www.instagram.com</a>
-                                        </li>
-                                        <li>
-                                            <i class="icofont-linkedin"></i>
-                                            <a href="https://www.linkedin.com" target="_blank">https://www.linkedin.com</a>
-                                        </li>
-                                        <li>
-                                            <i class="icofont-twitter"></i>
-                                            <a href="https://www.twitter.com" target="_blank">https://www.twitter.com</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                
                                 <div class="single-profile-skills">
                                     <h3>My Skills</h3>
                                     <div class="skill">
                                         <p>Frontend Design</p>
-                                        <div class="skill-bar skill1 wow slideInLeft animated">
-                                            <span class="skill-count1">70%</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill">
-                                        <p>Software Development</p>
-                                        <div class="skill-bar skill1 skill2 wow slideInLeft animated">
-                                            <span class="skill-count1">90%</span>
-                                        </div>
-                                    </div>
-                                    <div class="skill">
-                                        <p>UIUX Design</p>
-                                        <div class="skill-bar skill1 skill3 wow slideInLeft animated">
-                                            <span class="skill-count1">75%</span>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -141,17 +120,17 @@
                         <div class="single-profile-item">
                             <div class="single-profile-right">
                                 <div class="single-profile-name">
-                                    <h2>Jac Jacson</h2>
+                                    <h2><?php echo $Fname; ?> <?php echo $Lname; ?></h2>
                                     <span>Web Consultant</span>
-                                    <p>Bachelor of Business Administation university of Gable</p>
-                                    <a href="#">
+                                    <p></p>
+                                    <!-- <a href="#">
                                         View CV
                                         <i class="icofont-eye-alt"></i>
                                     </a>
                                     <a href="#">
                                         Download CV
                                         <i class="icofont-download"></i>
-                                    </a>
+                                    </a> -->
                                 </div>
                                 <div class="single-profile-textarea">
                                     <div class="single-profile-heading">
@@ -159,8 +138,7 @@
                                         <h3>Description</h3>
                                     </div>
                                     <div class="single-profile-paragraph">
-                                        <p class="single-profile-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
-                                        <p>Risus commodo viverra maecenas accumsan lacus vel facilisis.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                        <p class="single-profile-p"><?php echo $About; ?></p>
                                     </div>
                                     <div class="single-profile-heading">
                                         <span></span>
@@ -174,13 +152,7 @@
                                             <li>Higher Secondary Certificate at Gable International collage  (1991)</li>
                                         </ul>
                                     </div>
-                                    <div class="single-profile-heading">
-                                        <span></span>
-                                        <h3>Research</h3>
-                                    </div>
-                                    <div class="single-profile-paragraph">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra</p>
-                                    </div>
+                                    
                                     <div class="single-profile-heading">
                                         <span></span>
                                         <h3>Work Experiences</h3>

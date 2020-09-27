@@ -165,11 +165,13 @@
                                         $select_student = "SELECT * from tblstudentgroup AS s,tblregister AS r WHERE s.Uid=$userid OR (r.Uid=$userid AND r.Usertype='Staff')";
                                         $Execute_student=mysqli_query($con,$select_student)or die(mysqli_error($con));
                                         $res=mysqli_fetch_array($Execute_student);
+                                        
                                         $uid1=$res['Uid'];
                                         $type=$res['Usertype'];
-
+                                        
                                         if($uid1==$userid || $type=="Staff")
                                         {
+                                            
                                     ?>
                                     <a href="event_create.php?Eid=<?php echo $eid; ?>">
                                         Edit
