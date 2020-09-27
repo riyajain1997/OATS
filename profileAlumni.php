@@ -18,6 +18,32 @@
         }
     }
     /*Basic Information*/
+    if(isset($_POST['membersubmit']))
+    {
+        $userid=$_SESSION['UserID'];
+        $class=$_POST['ddclass'];
+        $board=$_POST['ddboard'];
+        $college=$_POST['ddcollege'];
+        $university=$_POST['dduniversity'];
+        $course=$_POST['ddcourse'];
+        $spec=$_POST['txtspe'];
+        $per=$_POST['txtper'];
+        $pyear=$_POST['txtpyear'];
+        $is=1;
+        
+        $edu="INSERT into tbleducation(Classid,Boardid,Universityid,Collegeid,Courseid,Specialization,Percentage,Year,IsActive,Uid)
+        values($class,$board,$university,$college,$course,'$spec',$per,'$pyear',$is,$userid)";
+        $exe=mysqli_query($con,$edu);
+
+        if($exe)
+        {
+            echo '<script type="text/javascript">alert("Data inserted successfully...");</script>';
+        }
+        else
+        {
+            echo "error".mysqli_error($con);
+        }
+    }
     /*if(isset($_POST['btnwork']))
     {
         $insert="INSERT into tblwork(Designation,Organization,CurrentComp,JoinDate,LeavingDate,Experience)values('".$_POST['txtdes']."','".$_POST['txtorg']."','".$_POST['txtccomp']."','".$_POST['txtjdate']."','".$_POST['txtldate']."','".$_POST['your_message']."')";
@@ -243,173 +269,243 @@
                 <!-- {% comment %}END BASIC INFORMATION {% endcomment %}
         
                 {% comment %}START EDUCATION DETAILS{% endcomment %} -->
-            <form>
-                <div class="create-education create-education-two">
-                    <div class="create-education-wrap container">
-                        <div class="create-education-left">
-                            <h3>Education</h3>
-                        </div>
-                        <div class="create-education-right">
-                            <a href="#" data-toggle="modal" data-target="#EducationDetails">Add Education</a>
-                        </div>
-                        <!--Start Education popup -->
-                        <div class="modal fade" id="EducationDetails">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <!--Start Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Education Details</h4>
-                                    </div>
-                                    <!--End Modal Header -->
-                                    <!--Start Modal body -->
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label>Education</label>
-                                                    <!-- <input type="text" class="form-control" placeholder="Under Graduate"> -->
-                                                    <div class="job-category-area" >
-                                                        <select name = "Departmentdropdown">
-                                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
-                                                            <?php 
-                                                                $select_class="SELECT * from tblclass";
-                                                                $Execute_select_class=mysqli_query($con,$select_class)or die(mysqli_error($con));
-                                                                while($fetch_class=mysqli_fetch_array($Execute_select_class))
-                                                                {
+                <!-- <form method="post"> -->
+                    <div class="container" style="margin-top:80px;">
+                        <div class="create-education create-education-two post-job-area pt-100">
+                            <div class="create-education-wrap container">
+                                <div class="create-education-left">
+                                    <h3>Education Details</h3>
+                                </div>
+                                <div class="create-education-right">
+                                    <a href="#" data-toggle="modal" data-target="#EducationDetails">Add Education</a>
+                                </div>
 
-                                                                ?>  
-                                                                <option style="font-size: 14px;" value = "<?php echo $fetch_class['Classid'];?>"><?php echo $fetch_class['ClassName'];?></option>
-                                                                <?php
-                                                                }
-                                                            ?>
-                                                        </select>
+                                <!--Start Education popup -->
+                                <div class="modal fade post-job-item" id="EducationDetails">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form method="post" action="" enctype="multipart/form-data" name="myform">
+                                                <!--Start Modal Header -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Education Details</h4>
+                                                </div>
+                                                <!--End Modal Header -->
+                                                <!--Start Modal body -->
+                                                <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>Education</label>
+                                                            <!-- <input type="text" class="form-control" placeholder="Under Graduate"> -->
+                                                            <div class="job-category-area" >
+                                                                <select name="ddclass">
+                                                                    <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
+                                                                    <?php 
+                                                                        $select_class="SELECT * from tblclass";
+                                                                        $Execute_select_class=mysqli_query($con,$select_class)or die(mysqli_error($con));
+                                                                        while($fetch_class=mysqli_fetch_array($Execute_select_class))
+                                                                        {
+
+                                                                        ?>  
+                                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_class['Classid'];?>"><?php echo $fetch_class['ClassName'];?></option>
+                                                                        <?php
+                                                                        }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label>Board</label>
-                                                    <!-- <input type="text" class="form-control" placeholder="MIT-WPU"> -->
-                                                    <select name = "Departmentdropdown">
-                                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
-                                                            <?php 
-                                                                $select_board="SELECT * from tblboard";
-                                                                $Execute_select_board=mysqli_query($con,$select_board)or die(mysqli_error($con));
-                                                                while($fetch_board=mysqli_fetch_array($Execute_select_board))
-                                                                {
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>Board</label>
+                                                            <!-- <input type="text" class="form-control" placeholder="Under Graduate"> -->
+                                                            <div class="job-category-area">
+                                                                <select name="ddboard">
+                                                                    <option style="font-size: 16px;" value="0" selected>--Select--</option>
+                                                                    <?php 
+                                                                        $select_board="SELECT * from tblboard";
+                                                                        $Execute_select_board=mysqli_query($con,$select_board)or die(mysqli_error($con));
+                                                                        while($fetch_board=mysqli_fetch_array($Execute_select_board))
+                                                                        {
 
-                                                                ?>  
-                                                                <option style="font-size: 14px;" value = "<?php echo $fetch_board['Boardid'];?>"><?php echo $fetch_board['BoardName'];?></option>
-                                                                <?php
-                                                                }
-                                                            ?>
-                                                        </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label>College</label>
-                                                    <!-- <input type="text" class="form-control" placeholder="MIT-World Peace University"> -->
-                                                    <select name = "Departmentdropdown">
-                                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
-                                                            <?php 
-                                                                $select_clg="SELECT * from tblcollege";
-                                                                $Execute_select_clg=mysqli_query($con,$select_clg)or die(mysqli_error($con));
-                                                                while($fetch_clg=mysqli_fetch_array($Execute_select_clg))
-                                                                {
+                                                                        ?>  
+                                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_board['Boardid'];?>"><?php echo $fetch_board['BoardName'];?></option>
+                                                                        <?php
+                                                                        }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>College</label>
+                                                            <!-- <input type="text" class="form-control" placeholder="Under Graduate"> -->
+                                                            <div class="job-category-area" >
+                                                                <select name="ddcollege">
+                                                                    <option style="font-size: 16px;" value="0" selected>--Select--</option>
+                                                                    <?php 
+                                                                        $select_college="SELECT * from tblcollege";
+                                                                        $Execute_select_college=mysqli_query($con,$select_college)or die(mysqli_error($con));
+                                                                        while($fetch_college=mysqli_fetch_array($Execute_select_college))
+                                                                        {
 
-                                                                ?>  
-                                                                <option style="font-size: 14px;" value = "<?php echo $fetch_clg['Collegeid'];?>"><?php echo $fetch_clg['CollegeName'];?></option>
-                                                                <?php
-                                                                }
-                                                            ?>
-                                                        </select>
+                                                                        ?>  
+                                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_college['Collegeid'];?>"><?php echo $fetch_college['CollegeName'];?></option>
+                                                                        <?php
+                                                                        }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>University</label>
+                                                            <!-- <input type="text" class="form-control" placeholder="Under Graduate"> -->
+                                                            <div class="job-category-area" >
+                                                                <select name="dduniversity">
+                                                                    <option style="font-size: 16px;" value="0" selected>--Select--</option>
+                                                                    <?php 
+                                                                        $select_uni="SELECT * from tbuniversity";
+                                                                        $Execute_select_uni=mysqli_query($con,$select_uni)or die(mysqli_error($con));
+                                                                        while($fetch_uni=mysqli_fetch_array($Execute_select_uni))
+                                                                        {
+
+                                                                        ?>  
+                                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_uni['Universityid'];?>"><?php echo $fetch_uni['UniversityName'];?></option>
+                                                                        <?php
+                                                                        }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>Course</label>
+                                                            <!-- <input type="text" class="form-control" placeholder="Under Graduate"> -->
+                                                            <div class="job-category-area" >
+                                                                <select name="ddcourse">
+                                                                    <option style="font-size: 16px;" value="0" selected>--Select--</option>
+                                                                    <?php 
+                                                                        $select_course="SELECT * from tblcourse";
+                                                                        $Execute_select_course=mysqli_query($con,$select_course)or die(mysqli_error($con));
+                                                                        while($fetch_course=mysqli_fetch_array($Execute_select_course))
+                                                                        {
+
+                                                                        ?>  
+                                                                        <option style="font-size: 14px;" value = "<?php echo $fetch_course['Courseid'];?>"><?php echo $fetch_course['CourseName'];?></option>
+                                                                        <?php
+                                                                        }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>Specialization</label>
+                                                            <input type="text" name="txtspe" class="form-control" placeholder="MIT WPU">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>Percentage(Out of 100)</label>
+                                                            <input type="text" name="txtper" class="form-control" placeholder="85">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>Passing Year</label>
+                                                            <input type="date" name="txtpyear" class="form-control" placeholder="2021">
+                                                        </div>
+                                                    </div>  
                                                 </div>
-                                            </div>
-                                            
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label>Course</label>
-                                                    <input type="text" class="form-control" placeholder="BSC">
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label>Specialization</label>
-                                                    <input type="text" class="form-control" placeholder="Computer Science">
+                                                <!--End Modal body -->
+                                                <!--Start Modal footer -->
+                                                <div class="modal-footer">
+                                                    <button type="submit" name="membersubmit" class="btn btn-success" style="width:45%;">Save</button>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="width:45%;">Close</button>
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label>Percentage(Out of 100)</label>
-                                                    <input type="text" class="form-control" placeholder="85">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label>Passing Year</label>
-                                                    <input type="month" class="form-control" placeholder="2021">
-                                                </div>
-                                            </div>  
+                                                <!--End Modal footer -->
+                                            </form>
                                         </div>
                                     </div>
-                                    <!--End Modal body -->
-                                    <!--Start Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-success" data-dismiss="modal" style="width:45%;">Save</button>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal" style="width:45%;">Close</button>
-                                    </div>
-                                    <!--End Modal footer -->
                                 </div>
+                                <!--End education popup -->
                             </div>
-                        </div>
-                        <!--End education popup -->
-                    </div>
+                        <?php
+                            $uid=$_SESSION['UserID'];
+                            $select="SELECT c.Classid,e.Classid,c.ClassName,e.Specialization,e.Boardid,b.Boardid,b.BoardName,e.Universityid,u.Universityid,u.UniversityName from tbleducation AS e,tbuniversity AS u,tblclass AS c,tblboard AS b WHERE e.Classid=c.Classid AND e.Boardid=b.Boardid AND e.Universityid=u.Universityid
+                            AND e.Uid=$uid";
+                            $res=mysqli_query($con,$select);
 
-                    <div class="card" style="width:600px;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-10">
-                                    <h5>B.Sc.(Mathematics with Computer Science)</h5>
-                                </div>
-                                <div class="col-lg-2">
-                                    <a href="#">
-                                        <i class='fas fa-edit'></i>
-                                    </a>&times;
-                                    <a href="#" data-toggle="modal" data-target="#deletepopup">
-                                        <i class='fas fa-trash-alt'></i>
-                                    </a>
-                                </div>
-                            </div>                            
-                            <small>Board/University: MIT-WPU</small><br>
-                            <small>Percentage: 85%</small><br>
-                            <small>Passing Year: 2021</small>
+                            if($res->num_rows>0)
+                            {
+                                while($data=$res->fetch_array()) 
+                                {
+                                    $class=$data['ClassName'];
+                                    $spe=$data['Specialization'];
+                                    $board=$data['BoardName'];
+                                    $uni=$data['UniversityName'];
+                                    /*$per=$data['Percentage'];
+                                    $pyear=$data['Year'];*/
+                        ?>
+                                    <div class="card">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-10">
+                                                    <h5><?php echo $class; ?>(<?php echo $spe; ?>)</h5>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <a href="#">
+                                                        <i class='fas fa-edit'></i>
+                                                    </a>&times;
+                                                    <a href="#" data-toggle="modal" data-target="#deletepopup">
+                                                        <i class='fas fa-trash-alt'></i>
+                                                    </a>
+                                                </div>
+                                            </div>                            
+                                            <small>Board/University : 
+                                            <?php 
+                                                if($board!=null)
+                                                    {
+                                                        echo $board;
+                                                    }
+                                                if($uni!=null)
+                                                    {
+                                                        echo $uni;
+                                                    }
+                                            ?>
+                                            </small>
+                                            <br>
+                                            <!-- <small>Percentage : <?php echo $per; ?>%</small>
+                                            <br>
+                                            <small>Passing Year : <?php $pyear; ?></small> -->
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <br>
+                        <?php
+                                }
+                            }
+                        ?>
+
                         </div>
+
+                        <!-- <div class="text-center">
+                            <a href="homepage.php" name="savedetail" class="btn create-ac-btn" style="width:200px;">Save</a>
+                            &nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn create-ac-btn" data-toggle="modal" data-target="#deletepopup" 
+                            style="width:200px;">Delete</button>
+                        </div> -->
+                
                     </div>
-                    <br>
-                    
-                    <div class="card" style="width:600px;">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-10">
-                                    <h5>B.Sc.(Mathematics with Computer Science)</h5>
-                                </div>
-                                <div class="col-lg-2">
-                                    <a href="#">
-                                        <i class='fas fa-edit'></i>
-                                    </a>&times;
-                                    <a href="#" data-toggle="modal" data-target="#deletepopup">
-                                        <i class='fas fa-trash-alt'></i>
-                                    </a>
-                                </div>
-                            </div>                            
-                            <small>Board/University: MIT-WPU</small><br>
-                            <small>Percentage: 85%</small><br>
-                            <small>Passing Year: 2021</small>
-                        </div>
-                    </div>
-                </div>
+                <!-- </form> -->
+
                 <!-- {% comment %}END EDUCATION DETAILS{% endcomment %}
 
                 {% comment %}START WORK EXPERIENCE DETAILS{% endcomment %} -->
@@ -544,7 +640,7 @@
                         </div>
                     </div> 
                 </div>
-            </form>
+            
                 <!-- {% comment %}END WORK EXPERIENCE DETAILS{% endcomment %}
 
                 {% comment %}START SKILLS{% endcomment %} -->
