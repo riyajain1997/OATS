@@ -28,7 +28,7 @@
         <!-- End Navbar Area -->
 
         <!-- Page Title -->
-        <div class="page-title-area">
+        <div class="page-title-area" style= "height:350px;">
             <div class="d-table">
                 <div class="d-table-cell">
                     <div class="container">
