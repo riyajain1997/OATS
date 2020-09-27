@@ -26,29 +26,36 @@
                                 <li class="nav-item">
                                     <a href="blog.php" class="nav-link">Blogs</a>
                                 </li>&nbsp;
-                                <li class="nav-item">
-                                    <a href="view_events.php" class="nav-link">Events</a>
-                                    <?php
-                                        $select_student = "SELECT * from tblstudentgroup WHERE Uid=$userid AND IsActive=1";
-                                        $Execute_student=mysqli_query($con,$select_student)or die(mysqli_error($con));
-                                        $res=mysqli_fetch_array($Execute_student);
-                                        $uid1=$res['Uid'];
+                                <?php
+                                    $select_student = "SELECT * from tblstudentgroup WHERE Uid=$userid AND IsActive=1";
+                                    $Execute_student=mysqli_query($con,$select_student)or die(mysqli_error($con));
+                                    $res=mysqli_fetch_array($Execute_student);
 
-                                        if($uid1==$userid)
-                                        {
-                                    ?>
-                                    <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                            <a href="view_events.php?Eid=0" class="nav-link">View Event</a>
-                                        </li>
+                                    if(mysqli_num_rows($Execute_student)>0)
+                                    {
+                                ?>
                                         <li class="nav-item">
-                                            <a href="event_create.php?Eid=0" class="nav-link">Create Event</a>
-                                        </li>
-                                    </ul>
-                                    <?php
-                                        }
-                                    ?>
-                                </li>&nbsp;
+                                            <a href="#" class="nav-link">Events</a>
+                                            <ul class="dropdown-menu">
+                                            <li class="nav-item">
+                                                    <a href="view_events.php?Eid=0" class="nav-link">View Event</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="event_create.php?Eid=0" class="nav-link">Create Event</a>
+                                                </li>
+                                            </ul>
+                                        </li>&nbsp;
+                                <?php
+                                    }
+                                    else
+                                    {
+                                ?>
+                                        <li class="nav-item">
+                                            <a href="view_events.php" class="nav-link">Events</a>
+                                        </li>&nbsp;
+                                <?php
+                                    }
+                                ?>
                                 <li class="nav-item">
                                     <a href="alumniList.php" class="nav-link">Alumni</a>
                                 </li>&nbsp;
@@ -72,7 +79,10 @@
                                                     <a href="group_create.php" class="nav-link">Create Group</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a href="group_details.php" class="nav-link">Group Details</a>
+                                                    <a href="group_list.php" class="nav-link">Own Group</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="group_approved.php" class="nav-link">Group Approved</a>
                                                 </li>
                                             </ul>
                                         </li>

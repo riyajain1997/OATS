@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2020 at 11:26 AM
+-- Generation Time: Sep 27, 2020 at 09:46 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -274,15 +274,23 @@ INSERT INTO `tbldesignation` (`Desigid`, `DesigName`) VALUES
 CREATE TABLE `tbleducation` (
   `Educationid` int(11) NOT NULL,
   `Classid` int(11) NOT NULL,
-  `Boardid` int(11) NOT NULL,
-  `Universityid` int(11) NOT NULL,
-  `Collegeid` int(11) NOT NULL,
-  `Year` year(4) NOT NULL,
+  `Boardid` int(11) DEFAULT NULL,
+  `Universityid` int(11) DEFAULT NULL,
+  `Collegeid` int(11) DEFAULT NULL,
+  `Year` date NOT NULL,
   `Percentage` float NOT NULL,
   `Uid` int(11) NOT NULL,
   `IsActive` tinyint(4) NOT NULL,
-  `Specialization` varchar(50) DEFAULT NULL
+  `Specialization` varchar(50) DEFAULT NULL,
+  `Courseid` int(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbleducation`
+--
+
+INSERT INTO `tbleducation` (`Educationid`, `Classid`, `Boardid`, `Universityid`, `Collegeid`, `Year`, `Percentage`, `Uid`, `IsActive`, `Specialization`, `Courseid`) VALUES
+(8, 1, 6, 0, 0, '2020-09-09', 99, 2, 1, 'CS', 0);
 
 -- --------------------------------------------------------
 
@@ -305,6 +313,14 @@ CREATE TABLE `tblevent` (
   `IsActive` tinyint(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tblevent`
+--
+
+INSERT INTO `tblevent` (`Eid`, `Ename`, `Location`, `Elink`, `Edate`, `Etime`, `Edescription`, `CreatedUid`, `AlumniUid`, `Deptid`, `IsAccepted`, `IsActive`) VALUES
+(1, 'Webinar on AI', 'mitwpu', 'mitwpu.com', '2020-09-04', '20:12:00', 'Event for project development', 1, 2, 2, 1, 1),
+(2, 'Webinar on AI', 'Vivekananda Auditorium', 'mitwpu.com', '2021-10-28', '10:00:00', 'Attend as earlier possible', 1, 2, 6, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -325,7 +341,33 @@ CREATE TABLE `tblgroupmember` (
 
 INSERT INTO `tblgroupmember` (`Gmid`, `Sgid`, `Uid`, `LeaderMember`, `IsActive`) VALUES
 (1, 18, 1, 'Leader', 1),
-(2, 18, 2, 'Member', 1);
+(2, 18, 2, 'Member', 1),
+(3, 19, 0, 'Leader', 1),
+(4, 20, 0, 'Leader', 1),
+(5, 21, 0, 'Leader', 1),
+(6, 22, 0, 'Leader', 1),
+(7, 23, 1, 'Leader', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblnotification`
+--
+
+CREATE TABLE `tblnotification` (
+  `Nid` int(11) NOT NULL,
+  `Eid` int(11) NOT NULL,
+  `UpdatedDate` date DEFAULT NULL,
+  `IsActive` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblnotification`
+--
+
+INSERT INTO `tblnotification` (`Nid`, `Eid`, `UpdatedDate`, `IsActive`) VALUES
+(1, 1, '0000-00-00', 1),
+(2, 2, '2020-09-15', 1);
 
 -- --------------------------------------------------------
 
@@ -360,7 +402,7 @@ CREATE TABLE `tblregister` (
 
 INSERT INTO `tblregister` (`Uid`, `PrnEmpno`, `Fname`, `Lname`, `Email`, `Password`, `Gender`, `Dob`, `Phone`, `Usertype`, `JoinYear`, `PassYear`, `Cousreid`, `Deptid`, `Desigid`, `About`, `IsActive`, `ProfilePic`) VALUES
 (1, 1042180522, 'Abhilasha', 'oso', 'ppoo@gmail.com', 'abhi', 'Female', '0000-00-00', 1112221112, 'Student', 2019, 2022, 1, 1, 0, NULL, 1, NULL),
-(2, 1223112211, 'Riya', 'Jain', 'riya@gmail.com', 'riya', 'Female', '2011-11-11', 123456, 'Alumni', 0000, 2011, 1, 0, 11, 'riya here', 1, 'Marksheet.jpg'),
+(2, 1223112211, 'riya', 'Jain', 'riya@gmail.com', 'riya', 'Female', '2011-11-11', 123456, 'Alumni', 0000, 2011, 1, 0, 11, 'riya here', 1, ''),
 (4, 1104, 'Jignesh', 'Mahadik', 'jignesh@gmail.com', 'jignesh', 'Male', '0000-00-00', 2211334455, 'Staff', 0000, 0000, 0, 1, 2, NULL, 1, NULL);
 
 -- --------------------------------------------------------
@@ -574,7 +616,7 @@ CREATE TABLE `tblstudentgroup` (
   `Deptid` int(11) NOT NULL,
   `Sgyear` tinyint(4) NOT NULL,
   `Uid` int(11) NOT NULL,
-  `IsAccpeted` tinyint(4) NOT NULL,
+  `IsAccepted` tinyint(4) NOT NULL,
   `IsActive` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -582,8 +624,13 @@ CREATE TABLE `tblstudentgroup` (
 -- Dumping data for table `tblstudentgroup`
 --
 
-INSERT INTO `tblstudentgroup` (`Sgid`, `Sgname`, `Courseid`, `Deptid`, `Sgyear`, `Uid`, `IsAccpeted`, `IsActive`) VALUES
-(18, 'Group MCA', 1, 1, 3, 1, 0, 1);
+INSERT INTO `tblstudentgroup` (`Sgid`, `Sgname`, `Courseid`, `Deptid`, `Sgyear`, `Uid`, `IsAccepted`, `IsActive`) VALUES
+(18, 'Group MCA', 1, 1, 3, 1, 0, 1),
+(19, 'New group', 1, 1, 2, 1, 0, 1),
+(20, 'New group2', 1, 1, 2, 1, 0, 1),
+(21, '', 1, 1, 0, 1, 0, 1),
+(22, '', 1, 1, 0, 1, 0, 1),
+(23, 'New group1', 1, 1, 1, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -710,6 +757,12 @@ ALTER TABLE `tblgroupmember`
   ADD PRIMARY KEY (`Gmid`);
 
 --
+-- Indexes for table `tblnotification`
+--
+ALTER TABLE `tblnotification`
+  ADD PRIMARY KEY (`Nid`);
+
+--
 -- Indexes for table `tblregister`
 --
 ALTER TABLE `tblregister`
@@ -813,19 +866,25 @@ ALTER TABLE `tbldesignation`
 -- AUTO_INCREMENT for table `tbleducation`
 --
 ALTER TABLE `tbleducation`
-  MODIFY `Educationid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Educationid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tblevent`
 --
 ALTER TABLE `tblevent`
-  MODIFY `Eid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tblgroupmember`
 --
 ALTER TABLE `tblgroupmember`
-  MODIFY `Gmid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Gmid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tblnotification`
+--
+ALTER TABLE `tblnotification`
+  MODIFY `Nid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tblregister`
@@ -855,7 +914,7 @@ ALTER TABLE `tblstudent`
 -- AUTO_INCREMENT for table `tblstudentgroup`
 --
 ALTER TABLE `tblstudentgroup`
-  MODIFY `Sgid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `Sgid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tbluserskill`
