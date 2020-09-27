@@ -21,56 +21,54 @@
                         </div>
                         <div class="faq-item">
                             <ul class="accordion">
-                                <li class="wow fadeInUp" >
-                                    <a>New Event: Event Name</a>
-                                    <p>Event Name: Webinar on Data Science
-                                        <br>Date: 03-09-2020 
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        Time: 11:00 a.m.
-                                        <br>Location: Zoom Meeting
-                                        <br>Link: www.zoom.com
-                                    </p>
-                                </li>
-                                 <li class="wow fadeInUp" >
-                                    <a>New Event: Event Name</a>
-                                    <p>Event Name: Webinar on Data Science
-                                        <br>Date: 03-09-2020 
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        Time: 11:00 a.m.
-                                        <br>Location: Zoom Meeting
-                                        <br>Link: www.zoom.com
-                                    </p>
-                                </li>
-                                 <li class="wow fadeInUp" >
-                                    <a>New Event: Event Name</a>
-                                    <p>Event Name: Webinar on Data Science
-                                        <br>Date: 03-09-2020 
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        Time: 11:00 a.m.
-                                        <br>Location: Zoom Meeting
-                                        <br>Link: www.zoom.com
-                                    </p>
-                                </li>
-                                 <li class="wow fadeInUp" >
-                                    <a>New Event: Event Name</a>
-                                    <p>Event Name: Webinar on Data Science
-                                        <br>Date: 03-09-2020 
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        Time: 11:00 a.m.
-                                        <br>Location: Zoom Meeting
-                                        <br>Link: www.zoom.com
-                                    </p>
-                                </li>
-                                 <li class="wow fadeInUp" >
-                                    <a>New Event: Event Name</a>
-                                    <p>Event Name: Webinar on Data Science
-                                        <br>Date: 03-09-2020 
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        Time: 11:00 a.m.
-                                        <br>Location: Zoom Meeting
-                                        <br>Link: www.zoom.com
-                                    </p>
-                                </li>                                
+                            <?php
+                                $sel="SELECT e.Ename,e.Edate,e.Etime,e.Location,e.Elink,n.UpdatedDate from dbnotification AS n,tblevent AS e WHERE e.Eid=n.Eid AND e.IsAccepted=1";
+                                $res=mysqli_query($con,$sel);
+
+                                if($res->num_rows>0)
+                                {
+                                    while($data=$res->fetch_array()) 
+                                    {
+                                        $ename=$data['Ename'];   
+                                        $date=$data['Edate'];
+                                        $time=$data['Etime'];
+                                        $loc=$data['Location'];
+                                        $link=$data['Elink'];
+                                        $udate=$data['UpdatedDate'];
+                            ?>
+                                        <li class="wow fadeInUp">
+                                            <?php
+                                                if($udate==0000-00-00)
+                                                {
+                                            ?>
+                                                    <a>New Event: <?php echo $ename; ?></a>
+                                            <?php
+                                                }
+                                                else
+                                                {
+                                            ?>
+                                                    <a>Updated Event: <?php echo $ename; ?></a>
+                                            <?php
+                                                }
+                                            ?>
+                                                <p>Event Name: <?php echo $ename; ?>
+                                                <br>Date: <?php echo $date; ?>
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                Time: <?php echo $time; ?>
+                                                <br>Location: <?php echo $loc; ?>
+                                                <br>Link: <?php echo $link; ?>
+                                            </p>
+                                        </li>
+                            <?php
+                                    }
+                                }
+                                if($res->num_rows==null)
+                                {
+                            ?>
+                                    <a>No Result...!</a>
+                            <?php
+                                }
+                            ?>
                             </ul>
                         </div>
                     </div>
