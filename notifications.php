@@ -22,7 +22,7 @@
                         <div class="faq-item">
                             <ul class="accordion">
                             <?php
-                                $sel="SELECT e.Ename,e.Edate,e.Etime,e.Location,e.Elink,n.UpdatedDate from dbnotification AS n,tblevent AS e WHERE e.Eid=n.Eid AND e.IsAccepted=1";
+                                $sel="SELECT e.Ename,e.Edate,e.Etime,e.Location,e.Elink,n.UpdatedDate from tblnotification AS n,tblevent AS e WHERE e.Eid=n.Eid AND e.IsAccepted=1";
                                 $res=mysqli_query($con,$sel);
 
                                 if($res->num_rows>0)
