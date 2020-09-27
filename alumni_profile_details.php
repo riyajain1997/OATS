@@ -108,10 +108,26 @@
                                 </div>
                                 
                                 <div class="single-profile-skills">
-                                    <h3>My Skills</h3>
+                                <h3>My Skills</h3>
+
+                                    <?php 
+                                        $select = "SELECT * FROM tbluserskill AS u, tblskill AS s WHERE u.Uid=$Uid AND u.Skillid=s.Skillid AND IsActive=1";
+                                        $exe_userSkill=mysqli_query($con,$select) or die(mysqli_error($con));
+                                        if($exe_userSkill->num_rows!=0)
+                                        {
+                                            while($row_userSkill=$exe_userSkill->fetch_array())
+                                            {
+                                                $skillName = $row_userSkill['SkillName'];
+                                            
+                                    ?>
+                                    
                                     <div class="skill">
-                                        <p>Frontend Design</p>
+                                        <p><?php echo $skillName; ?></p>
                                     </div>
+                                    <?php 
+                                        }
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
@@ -121,16 +137,9 @@
                             <div class="single-profile-right">
                                 <div class="single-profile-name">
                                     <h2><?php echo $Fname; ?> <?php echo $Lname; ?></h2>
-                                    <span>Web Consultant</span>
+                                    <!-- <span>Web Consultant</span> -->
                                     <p></p>
-                                    <!-- <a href="#">
-                                        View CV
-                                        <i class="icofont-eye-alt"></i>
-                                    </a>
-                                    <a href="#">
-                                        Download CV
-                                        <i class="icofont-download"></i>
-                                    </a> -->
+                                    
                                 </div>
                                 <div class="single-profile-textarea">
                                     <div class="single-profile-heading">
@@ -145,12 +154,117 @@
                                         <h3>Education</h3>
                                     </div>
                                     <div class="single-profile-paragraph">
-                                        <ul>
-                                            <li>PHD degree in Criminal Law at University of Gable Internatinal (2006)</li>
-                                            <li>Master of Family Law  at University of Gable International  (2002)</li>
-                                            <li>MBBS LLB (Hon’s) in  at University of Gable International (2002)</li>
-                                            <li>Higher Secondary Certificate at Gable International collage  (1991)</li>
-                                        </ul>
+                                        
+                                        <!-- Start Display Education Details -->
+
+                                        <?php
+                                            $seleducation="SELECT * From tbleducation WHERE Uid=$Uid ORDER BY Classid";
+                                            $resulteducation=mysqli_query($con,$seleducation) or die(mysqli_error($con));
+                                            if(mysqli_num_rows($resulteducation)>0)
+                                            {
+                                                while($roweducation=mysqli_fetch_array($resulteducation))
+                                                {
+                                                    if ($roweducation['Classid']==1 || $roweducation['Classid']==2) 
+                                                    {
+                                        ?>
+                                                        <div style="color: gray; font-size: 20px;">
+                                                            <div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-11">
+                                                            <?php
+                                                                $class="SELECT * From tblclass WHERE Classid='".$roweducation['Classid']."' ";
+                                                                $resultclass=mysqli_query($con,$class) or die(mysqli_error($con));
+                                                                $rowclass=mysqli_fetch_array($resultclass);
+                                                                if(mysqli_num_rows($resultclass)>0)
+                                                                {
+                                                            ?>
+                                                                        <span><?php echo $rowclass['ClassName']; ?></span>
+                                                            <?php
+                                                                }
+                                                            ?>
+                                                                    </div>
+                                                                </div>
+                                                            <?php
+                                                                $board="SELECT * From tblboard AS b, tbleducation AS e WHERE b.Boardid='".$roweducation['Boardid']."' AND b.Boardid=e.Boardid AND e.Uid=$Uid ";
+                                                                $resultboard=mysqli_query($con,$board) or die(mysqli_error($con));
+                                                                $rowboard=mysqli_fetch_array($resultboard);
+                                                                if(mysqli_num_rows($resultboard)>0)
+                                                                {
+                                                            ?>
+                                                                        <small>Board: <?php echo $rowboard['BoardName']; ?> </small><br>
+                                                            <?php
+                                                                }
+                                                            ?>                            
+                                                                
+                                                                <small>Specialization: <?php echo $roweducation['Specialization']; ?></small><br>
+                                                                <small>Percentage: <?php echo $roweducation['Percentage']; ?></small><br>
+                                                                <small>Passout: <?php echo $roweducation['Year']; ?> </small><br>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                        <?php
+                                                    }
+                                                    else
+                                                    {
+                                        ?>
+                                                        <div style="color: gray;font-size: 20px;">
+                                                            <div >
+                                                                <div class="row">
+                                                                    <div class="col-lg-11">
+                                                            <?php
+                                                                $class="SELECT * From tblclass WHERE Classid='".$roweducation['Classid']."' ";
+                                                                $resultclass=mysqli_query($con,$class) or die(mysqli_error($con));
+                                                                $rowclass=mysqli_fetch_array($resultclass);
+                                                                if(mysqli_num_rows($resultclass)>0)
+                                                                {
+                                                                    $course="SELECT * From tblcourse WHERE Courseid='".$roweducation['Courseid']."' ";
+                                                                    $resultcourse=mysqli_query($con,$course) or die(mysqli_error($con));
+                                                                    $rowcourse=mysqli_fetch_array($resultcourse);
+                                                                    if(mysqli_num_rows($resultcourse)>0)
+                                                                    {
+
+                                                            ?>
+                                                                        <span><?php echo $rowclass['ClassName']; ?>(<?php echo $rowcourse['CourseName']; ?>)</span>
+                                                            <?php
+                                                                    }
+                                                                }
+                                                            ?>
+                                                                    </div>
+                                                                </div> 
+                                                            <?php
+                                                                $college="SELECT * From tblcollege WHERE Collegeid='".$roweducation['Collegeid']."' ";
+                                                                $resultcollege=mysqli_query($con,$college) or die(mysqli_error($con));
+                                                                $rowcollege=mysqli_fetch_array($resultcollege);
+                                                                if(mysqli_num_rows($resultcollege)>0)
+                                                                {
+                                                            ?>
+                                                                    <small>College: <?php echo $rowcollege['CollegeName']; ?></small><br>
+                                                            <?php
+                                                                }
+
+                                                                $university="SELECT * From tbuniversity WHERE Universityid='".$roweducation['Universityid']."' ";
+                                                                $resultuni=mysqli_query($con,$university) or die(mysqli_error($con));
+                                                                $rowuni=mysqli_fetch_array($resultuni);
+                                                                if(mysqli_num_rows($resultuni)>0)
+                                                                {
+                                                            ?>                               
+                                                                    <small>University: <?php echo $rowuni['UniversityName']; ?></small><br>
+                                                            <?php
+                                                                }
+                                                            ?>
+                                                                <small>Percentage: <?php echo $roweducation['Percentage']; ?></small><br>
+                                                                <small>Passout: <?php echo $roweducation['Year']; ?> </small><br>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                        <?php
+                                                    }
+                                                }
+                                            }
+                                        ?>
+
+                                    <!-- End Display Education Details -->
+
                                     </div>
                                     
                                     <div class="single-profile-heading">
