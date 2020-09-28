@@ -72,6 +72,7 @@
                             {
                                 while($row_AlumniList=$Execute_List_alumni->fetch_array())
                                 {
+                                    $Uid = $row_AlumniList['Uid'];
                                     $Fnm = $row_AlumniList['Fname'];
                                     $Lnm = $row_AlumniList['Lname'];
                                 
@@ -82,6 +83,7 @@
                             <div class="profile-inner">
                                 <h3><?php echo $Fnm; ?> <?php echo $Lnm; ?></h3>
                                 <span>Business Consultant</span>
+                                <a href="alumni_profile_details.php?Uid=<?php echo $Uid?>">View Profile
                                 <!-- <a href="candidate-details.html">View Profile
                                     <i class="icofont-swoosh-right"></i>
                                 </a>

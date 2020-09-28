@@ -1,4 +1,8 @@
-
+<?php
+     include_once("DbConnection.php");
+     $userid=$_SESSION['UserID'];
+    
+?>
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -18,7 +22,7 @@
                             <h2>Invitations</h2>
                             <ul>
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="homepage.php">Home</a>
                                 </li>
                                 <li>
                                     <i class="icofont-simple-right"></i>
@@ -40,130 +44,66 @@
                 </div>
                 <div id="container">
                     <div class="row">
+                    <?php
+                        $selectInvitation = "SELECT * FROM tblevent AS e, tbldepartment As d WHERE e.Deptid=d.Deptid AND AlumniUid=$userid AND IsActive=1 AND IsAccepted!=2";
+                        $exe_Invitation = mysqli_query($con,$selectInvitation) or die(mysqli_error($con));
+                        if($exe_Invitation->num_rows != 0)
+                        {
+                            while($row_invite=$exe_Invitation->fetch_array())
+                            {   
+                                $eid = $row_invite['Eid'];
+                                $Ename = $row_invite['Ename'];
+                                $Date = $row_invite['Edate'];
+                                $Time = $row_invite['Etime'];
+                                $deptName = $row_invite['DeptName'];
+                                $IsAccepted=$row_invite['IsAccepted'];
+                                
+                    ?>
                         <div class="col-lg-6 mix ui ux">
                             <div class="job-item">
                                 <img src="assets/img/home-1/jobs/2.png" alt="Job">
                                 <div class="job-inner align-items-center">
                                     <div class="job-inner-left">
-                                        <h3>UX/UI Design</h3>
+                                        <h3><?php echo $Ename; ?></h3>
                                         <ul>
                                             <li>
-                                                Organised By: MCA(Science)
+                                                Organised By: <br> <?php echo $deptName; ?>
+                                                
                                             </li>
                                             <li>
-                                                Date: 23/05/2021
+                                                Date: <?php echo $Date; ?>
                                             </li>
                                             <li>
-                                                Time: 1:30 PM
+                                                Time: <?php echo $Time; ?>
                                             </li>
                                         </ul>
                                     </div>
+                                    <?php 
+                                        if($IsAccepted == 0)
+                                        {
+                                    ?>
                                     <div class="job-inner-right">
-                                        <ul>
-                                            <li>
-                                                <a href="#">Accept</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Decline</a>
-                                            </li>
-                                        </ul>
+                                        
+                                            <ul>
+                                                <li>
+                                                    <a href="invitationAccept.php?Eid=<?php echo $eid; ?>">Accept</a>
+                                                </li>
+                                                <li>
+                                                    <a href="invitationRemove.php?Eid=<?php echo $eid; ?>" >Decline</a>
+                                                </li>
+                                            </ul>     
                                     </div>
+                                    <?php
+                                        }
+                                    ?>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 mix ui ux">
-                            <div class="job-item">
-                                <img src="assets/img/home-1/jobs/2.png" alt="Job">
-                                <div class="job-inner align-items-center">
-                                    <div class="job-inner-left">
-                                        <h3>Android Development</h3>
-                                        <ul>
-                                            <li>
-                                                Organised By: MCA(Science)
-                                            </li>
-                                            <li>
-                                                Date: 23/05/2021
-                                            </li>
-                                            <li>
-                                                Time: 1:30 PM
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="job-inner-right">
-                                        <ul>
-                                            <li>
-                                                <a href="#">Accept</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Decline</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mix branding web">
-                            <div class="job-item">
-                                <img src="assets/img/home-1/jobs/3.png" alt="Job">
-                                <div class="job-inner align-items-center">
-                                    <div class="job-inner-left">
-                                        <h3>Cloud Technology</h3>
-                                        <ul>
-                                            <li>
-                                                Organised By: MCA(Science)
-                                            </li>
-                                            <li>
-                                                Date: 23/05/2021
-                                            </li>
-                                            <li>
-                                                Time: 1:30 PM
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="job-inner-right">
-                                        <ul>
-                                            <li>
-                                                <a href="#">Accept</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Decline</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mix ux wp">
-                            <div class="job-item">
-                                <img src="assets/img/home-1/jobs/2.png" alt="Job">
-                                <div class="job-inner align-items-center">
-                                    <div class="job-inner-left">
-                                        <h3>Web Development</h3>
-                                        <ul>
-                                            <li>
-                                                Organised By: MCA(Science)
-                                            </li>
-                                            <li>
-                                                Date: 23/05/2021
-                                            </li>
-                                            <li>
-                                                Time: 1:30 PM
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="job-inner-right">
-                                        <ul>
-                                            <li>
-                                                <a href="#">Accept</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Decline</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+                        <?php
+                            }
+                        }
+                        ?>
                     </div>
                     <br><br><br>
                 </div>

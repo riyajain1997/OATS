@@ -184,7 +184,7 @@
         <section class="container">
                 <div class="section-title">
                     <h2>Recent Blogs</h2>
-                    <a href="#">Read All</a>
+                    <a href="blog.php">View All</a>
                 </div>
                 <br>
                 <div class="row">
