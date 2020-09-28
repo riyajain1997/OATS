@@ -44,10 +44,69 @@
             echo "error".mysqli_error($con);
         }
     }
-    /*if(isset($_POST['btnwork']))
+    if(isset($_POST['btnwork']))
     {
-        $insert="INSERT into tblwork(Designation,Organization,CurrentComp,JoinDate,LeavingDate,Experience)values('".$_POST['txtdes']."','".$_POST['txtorg']."','".$_POST['txtccomp']."','".$_POST['txtjdate']."','".$_POST['txtldate']."','".$_POST['your_message']."')";
-    }*/
+        $userid=$_SESSION['UserID'];
+        $insert="INSERT into tblwork(Designation,Oragnisation,CurrentComp,JoinDate,LeavingDate,Experience,Uid,IsActive)
+        values('".$_POST['dddes']."','".$_POST['txtorg']."','".$_POST['comp']."','".$_POST['txtsyear']."',
+        '".$_POST['txtlyear']."','".$_POST['your_message']."',$userid,1)";
+        $exe=mysqli_query($con,$insert);
+
+        if($exe)
+        {
+            echo '<script type="text/javascript">alert("Data inserted successfully...");</script>';
+        }
+        else
+        {
+            echo "error".mysqli_error($con);
+        }
+    }
+    if(isset($_POST['btnskill']))
+    {
+        $userid=$_SESSION['UserID'];
+        $insert="INSERT into tbluserskill(Skillid,Uid,IsActive)
+        values('".$_POST['ddskill']."',$userid,1)";
+        $exe=mysqli_query($con,$insert);
+
+        if($exe)
+        {
+            echo '<script type="text/javascript">alert("Data inserted successfully...");</script>';
+        }
+        else
+        {
+            echo "error".mysqli_error($con);
+        }
+    }
+    if(isset($_POST['btnpwd']))
+    {
+        $pwd=$_POST['txtpwd'];
+        $npwd=$_POST['txtnpwd'];
+        $cnfpwd=$_POST['txtcnfpwd'];
+
+        $select="SELECT * from tblregister WHERE Uid='".$_SESSION['UserID']."'";
+        $exe=mysqli_query($con,$select);
+        $data=mysqli_fetch_array($exe);
+
+        $pwd1=$data['Password'];
+        if($pwd1==$pwd)
+        {
+            if($npwd==$cnfpwd)
+            {
+                $update="UPDATE tblregister set Password=$npwd WHERE Uid='".$_SESSION['UserID']."'";
+                $exe=mysqli_query($con,$update);
+                
+                echo '<script type="text/javascript">alert("Password changed successfully");</script>';          
+            }
+            else
+            {
+                echo '<script type="text/javascript">alert("Invalid New or Confirm Password!...");</script>';       
+            }
+        }
+        else
+        {
+            echo '<script type="text/javascript">alert("Invalid Current Password!...");</script>';
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -545,127 +604,135 @@
                             <a href="#" data-toggle="modal" data-target="#WorkDetails">Add Work Experience</a>
                         </div>
                         <!--Start WorkDetails popup -->
-                        <form method="POST" name="workform">
-                            <div class="modal fade" id="WorkDetails">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
+                        <div class="modal fade post-job-item" id="WorkDetails">
+                            <div class="modal-dialog">
+                                <div class="modal-content" style="width:100%;">
+                                    <form method="post" action="" enctype="multipart/form-data" name="workform">
                                         <!--Start Modal Header -->
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Work Details</h4>
+                                            <h4 class="modal-title">Work Experience</h4>
                                         </div>
                                         <!--End Modal Header -->
                                         <!--Start Modal body -->
                                         <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        <label>Your Designation</label>
-                                                        <input type="text" name="txtdes" class="form-control">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Your Designation</label>
+                                                    <!-- <input type="text" class="form-control" placeholder="Under Graduate"> -->
+                                                    <div class="job-category-area" >
+                                                        <select name="dddes">
+                                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
+                                                            <?php 
+                                                                $select_des="SELECT * from tbldesignation";
+                                                                $Execute_select_des=mysqli_query($con,$select_des)or die(mysqli_error($con));
+                                                                while($fetch_des=mysqli_fetch_array($Execute_select_des))
+                                                                {
+
+                                                                ?>  
+                                                                <option style="font-size: 14px;" value = "<?php echo $fetch_des['Desigid'];?>"><?php echo $fetch_des['DesigName'];?></option>
+                                                                <?php
+                                                                }
+                                                            ?>
+                                                        </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        <label>Your Organization</label>
-                                                        <input type="text" name="txtorg" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        <label>Is this your current company?</label>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <input type="radio" name="txtccomp" id="yes" value="Yes">
-                                                        <label for="yes">Yes</label>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <input type="radio" name="txtccomp" id="no" value="No">
-                                                        <label for="no">No</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label>Started Working From</label>
-                                                        <input type="month" name="txtjdate" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label>Worked Till</label>
-                                                        <input type="month" name="txtldate" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <div class="form-group">
-                                                        <label>Your Experience</label>
-                                                        <textarea id="your_message" name="your_message" class="form-control" rows="4" style="height:150px;"></textarea>
-                                                    </div>
-                                                </div> 
                                             </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Specialization</label>
+                                                    <input type="text" name="txtorg" class="form-control" placeholder="MIT WPU">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Is this your current company?</label>
+                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <!-- <input type="text" name="txtspe" class="form-control" placeholder="MIT WPU"> -->
+                                                    <input type="radio" name="comp" value="Yes" id="yes">
+                                                    <label>Yes</label>&nbsp;&nbsp;
+                                                    <input type="radio" name="comp" value="No" id="no">
+                                                    <label>No</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Started Working From</label>
+                                                    <input type="date" name="txtsyear" class="form-control">
+                                                </div>
+                                            </div>  
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Worked Till</label>
+                                                    <input type="date" name="txtlyear" class="form-control">
+                                                </div>
+                                            </div>  
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label>Your Experience</label>
+                                                    <textarea id="your_message" name="your_message" class="form-control" rows="8" ></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
                                         </div>
                                         <!--End Modal body -->
                                         <!--Start Modal footer -->
                                         <div class="modal-footer">
-                                            <button type="submit" name="btnwork" class="btn btn-success" data-dismiss="modal" style="width:45%;">Save</button>
+                                            <button type="submit" name="btnwork" class="btn btn-success" style="width:45%;">Save</button>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <button type="button" class="btn btn-danger" data-dismiss="modal" style="width:45%;">Close</button>
                                         </div>
                                         <!--End Modal footer -->
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                         <!--End WorkDetails popup -->
                     </div> 
 
+                    <?php
+                        $sel="SELECT d.DesigName,w.Oragnisation,w.JoinDate,w.LeavingDate,w.Experience from tblwork AS w,tbldesignation AS d WHERE w.Designation=d.Desigid AND w.IsActive=1";
+                        $exe=mysqli_query($con,$sel);
+
+                        if($exe->num_rows>0)
+                        {
+                            while($data=$exe->fetch_array())
+                            {
+                                $des=$data['DesigName'];
+                                $org=$data['Oragnisation'];
+                                $sdate=$data['JoinDate'];
+                                $ldate=$data['LeavingDate'];
+                                $exp=$data['Experience'];
+                    ?>
                     <div class="card">
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-10">
-                                    <h5>Designation, Organization</h5>
+                                    <h5><?php echo $des; ?>, <?php echo $org; ?></h5>
                                 </div>
-                                <div class="col-lg-2">
+                                <!-- <div class="col-lg-2">
                                     <a href="#">
                                         <i class='fas fa-edit'></i>
                                     </a>&times;
                                     <a href="#" data-toggle="modal" data-target="#deletepopup">
                                         <i class='fas fa-trash-alt'></i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>                            
-                            <small>Starting Date: dd-mm-yyyy</small>
+                            <small>Starting Date: <?php echo $sdate; ?></small>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <small>Worked Till: dd-mm-yyyy</small>
+                            <small>Worked Till: <?php echo $ldate; ?></small>
                             <br>
-                            <small>About: 
+                            <small>About: <?php echo $exp; ?>
                                 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 ------------------------------------------------------------------------------------
                             </small>
                         </div>
                     </div>
-                    <br>
-                    <div class="card">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-10">
-                                    <h5>Designation, Organization</h5>
-                                </div>
-                                <div class="col-lg-2">
-                                    <a href="#">
-                                        <i class='fas fa-edit'></i>
-                                    </a>&times;
-                                    <a href="#" data-toggle="modal" data-target="#deletepopup">
-                                        <i class='fas fa-trash-alt'></i>
-                                    </a>
-                                </div>
-                            </div>                            
-                            <small>Starting Date: dd-mm-yyyy</small>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <small>Worked Till: dd-mm-yyyy</small>
-                            <br>
-                            <small>About: 
-                                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                ------------------------------------------------------------------------------------
-                            </small>
-                        </div>
-                    </div> 
+                    <?php
+                        }
+                    }
+                    ?>
                 </div>
                 <!-- {% comment %}END WORK EXPERIENCE DETAILS{% endcomment %}
 
@@ -679,33 +746,53 @@
                             <a href="#" data-toggle="modal" data-target="#AddSkills">Add Skill</a>
                         </div>
                         <!--Start Add skills popup -->
-                        <div class="modal fade" id="AddSkills">
+                    <form method="post" name="skillform">
+                        <div class="modal fade post-job-item" id="AddSkills">
                             <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <!--Start Modal Header -->
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Add Skills</h4>
-                                    </div>
-                                    <!--End Modal Header -->
-                                    <!--Start Modal body -->
-                                    <div class="modal-body">
+                                <div class="modal-content" style="width:100%;">
+                                    <form method="post" action="" enctype="multipart/form-data" name="workform">
+                                        <!--Start Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Work Experience</h4>
+                                        </div>
+                                        <!--End Modal Header -->
+                                        <!--Start Modal body -->
+                                        <div class="modal-body">
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="form-group">
-                                                    <label>Title</label>
-                                                    <input type="text" class="form-control" placeholder="Javascript">
+                                                    <label>Skill</label>
+                                                    <!-- <input type="text" class="form-control" placeholder="Under Graduate"> -->
+                                                    <div class="job-category-area" >
+                                                        <select name="ddskill">
+                                                            <option style="font-size: 16px;" value="0" disabled selected>--Select--</option>
+                                                            <?php 
+                                                                $select_skill="SELECT * from tblskill";
+                                                                $Execute_select_skill=mysqli_query($con,$select_skill)
+                                                                or die(mysqli_error($con));
+                                                                while($fetch_skill=mysqli_fetch_array($Execute_select_skill))
+                                                                {
+
+                                                                ?>  
+                                                                <option style="font-size: 14px;" value = "<?php echo $fetch_skill['Skillid'];?>"><?php echo $fetch_skill['SkillName'];?></option>
+                                                                <?php
+                                                                }
+                                                            ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!--End Modal body -->
-                                    <!--Start Modal footer -->
-                                    <div class="modal-footer">
-                                        <button type="submit" class="btn btn-success" data-dismiss="modal" style="width:45%;">Save</button>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal" style="width:45%;">Close</button>
-                                    </div>
-                                    <!--End Modal footer -->
+                                        </div>
+                                        <!--End Modal body -->
+                                        <!--Start Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="submit" name="btnskill" class="btn btn-success" style="width:45%;">Save</button>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal" style="width:45%;">Close</button>
+                                        </div>
+                                        <!--End Modal footer -->
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -713,41 +800,42 @@
                     </div>
 
                     <!-- {% comment %} Start Div to display data {% endcomment %} -->
+                    <?php
+                        $sel="SELECT s.SkillName from tbluserskill AS us,tblskill AS s WHERE s.Skillid=us.Skillid AND us.IsActive=1";
+                        $res=mysqli_query($con,$sel);
+
+                        if($res->num_rows>0)
+                        {
+                            while($data=$res->fetch_array())
+                            {
+                                $sname=$data['SkillName'];
+                    ?>
                     <div class="card" style="width:380px;">
                         <div class="container">    
                             <div class="row">
                                 <div class="col-lg-10">
-                                    <h5>HTML</h5>
+                                    <h5><?php echo $sname; ?></h5>
                                 </div>
-                                <div class="col-lg-2">
+                                <!-- <div class="col-lg-2">
                                     <a href="#" data-toggle="modal" data-target="#deletepopup">
                                         <i class='fas fa-trash-alt'></i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
-                    &times; 
-                    <div class="card" style="width:380px;">
-                        <div class="container">    
-                            <div class="row">
-                                <div class="col-lg-10">
-                                    <h5>Javascript</h5>
-                                </div>
-                                <div class="col-lg-2" data-toggle="modal" data-target="#deletepopup">
-                                    <a href="#">
-                                        <i class='fas fa-trash-alt'></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <br>
+                    <?php
+                        }
+                    }
+                    ?>
                     <!-- {% comment %} End Div to display data {% endcomment %} -->
 
                 </div>
                 <!-- {% comment %}END SKILLS{% endcomment %}
 
                 {% comment %}START CHANGE PASSWORD{% endcomment %} -->
+            <form method="post">
                 <div class="create-skills">
                     <div class="create-skills-wrap">
                         <div class="create-skills-left">
@@ -758,26 +846,27 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label>Old Password</label>
-                                <input type="password" class="form-control">
+                                <input type="password" name="txtpwd" class="form-control">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>New Password</label>
-                                <input type="password" class="form-control">
+                                <input type="password" name="txtnpwd" class="form-control">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Confirm New Password</label>
-                                <input type="password" class="form-control">
+                                <input type="password" name="txtcnfpwd" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn create-ac-btn" style="width:400px;">Save</button>
+                        <button type="submit" name="btnpwd" class="btn create-ac-btn" style="width:400px;">Save</button>
                     </div>
                 </div>
+            </form>
                 <!-- {% comment %}END CHANGE PASSWORD{% endcomment %} -->
             </form>
         </div>

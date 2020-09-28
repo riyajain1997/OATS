@@ -38,7 +38,7 @@
                             ?>
                                         <li class="wow fadeInUp">
                                             <?php
-                                                if($udate==0000-00-00)
+                                                if($udate==0000-00-00 || $udate==null)
                                                 {
                                             ?>
                                                     <a>New Event: <?php echo $ename; ?></a>
