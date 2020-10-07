@@ -118,6 +118,157 @@
                 color: black;
             } 
         </style>
+
+        <!-- javascript validation start  -->
+        <script type="text/javascript">
+            function validate()
+            {
+                var fname = document.forms["myform"]["txtfname"].value;
+                var lname = document.forms["myform"]["txtlname"].value;
+                var email = document.forms["myform"]["txtemail"].value;
+                var phone = document.forms["myform"]["txtphone"].value;
+                var dob = document.forms["myform"]["txtdob"].value;
+                var gen = document.forms["myform"]["gender"].value;
+                var msg = document.forms["myform"]["your_message"].value;
+
+                if(fname == ""){
+                    document.getElementById('fnamespan').innerHTML =" ** Please enter first name";
+                    return false;
+                }else{
+                    document.getElementById('fnamespan').innerHTML ="";
+
+                }
+                if(lname == ""){
+                    document.getElementById('lnamespan').innerHTML =" ** Please enter last name";
+                    return false;
+                }else{
+                    document.getElementById('lnamespan').innerHTML ="";
+
+                }
+                if(email == ""){
+                    document.getElementById('emailspan').innerHTML =" ** Please enter your email";
+                    return false;
+                }else{
+                    document.getElementById('emailspan').innerHTML ="";
+
+                }
+                if(email.indexOf('@') <= 0){
+                    document.getElementById('emailspan').innerHTML =" ** @ Invalid Position";
+                    return false;
+                }
+                if((email.charAt(email.length-4)!='.') && (email.charAt(email.length-3)!='.'))
+                {
+                    document.getElementById('emailspan').innerHTML =" ** . Invalid Position";
+                    return false;
+                }
+                if(phone == ""){
+                    document.getElementById('phonespan').innerHTML =" ** Please enter phone number";
+                    return false;
+                }else{
+                    document.getElementById('phonespan').innerHTML ="";
+
+                }
+                if (phone.length!=10) {
+                    document.getElementById('phonespan').innerHTML =" ** Mobile number must be 10 digits only.";
+                    return false;
+                }
+                if (isNaN(phone)) {
+                    document.getElementById('phonespan').innerHTML =" ** User must write digits only not characters.";
+                    return false;
+                }
+                if(dob == 0){
+                    document.getElementById('dobspan').innerHTML =" ** Please enter your DOB";
+                    return false;
+                }else{
+                    document.getElementById('dobspan').innerHTML ="";
+
+                }
+                if(gen == 0){
+                    document.getElementById('genspan').innerHTML =" ** Please select gender";
+                    return false;
+                }else{
+                    document.getElementById('genspan').innerHTML ="";
+
+                }
+                if(msg == ""){
+                    document.getElementById('msgspan').innerHTML =" ** Please enter your message";
+                    return false;
+                }else{
+                    document.getElementById('msgspan').innerHTML ="";
+
+                }
+                return true;
+            }
+
+            function validatePwd()
+            {
+                var pwd = document.forms["pwdform"]["txtpwd"].value;
+                var npwd = document.forms["pwdform"]["txtnpwd"].value;
+                var cnfpwd = document.forms["pwdform"]["txtcnfpwd"].value;
+
+                if(pwd == ""){
+                    document.getElementById('pwdspan').innerHTML =" ** Please enter current password";
+                    return false;
+                }else{
+                    document.getElementById('pwdspan').innerHTML ="";
+
+                }
+                if(npwd == ""){
+                    document.getElementById('npwdspan').innerHTML =" ** Please enter new password";
+                    return false;
+                }else{
+                    document.getElementById('npwdspan').innerHTML ="";
+
+                }
+                if(cnfpwd == ""){
+                    document.getElementById('cnfpwdspan').innerHTML =" ** Please enter confirm password";
+                    return false;
+                }else{
+                    document.getElementById('cnfpwdspan').innerHTML ="";
+
+                }
+                return true;
+            } 
+            function validateEduPop()
+            {
+                var clas = document.forms["edupopform"]["ddclass"].value;
+                var spe = document.forms["edupopform"]["txtspe"].value;
+                var per = document.forms["edupopform"]["txtper"].value;
+                var pyear = document.forms["edupopform"]["txtpyear"].value;
+
+                if(clas == ""){
+                    document.getElementById('eduspan').innerHTML =" ** Please enter current password";
+                    return false;
+                }else{
+                    document.getElementById('eduspan').innerHTML ="";
+
+                }
+                if(spe == ""){
+                    document.getElementById('spespan').innerHTML =" ** Please enter current password";
+                    return false;
+                }else{
+                    document.getElementById('spespan').innerHTML ="";
+
+                }
+                if(per == ""){
+                    document.getElementById('perspan').innerHTML =" ** Please enter current password";
+                    return false;
+                }else{
+                    document.getElementById('perspan').innerHTML ="";
+
+                }
+                if(pyear == ""){
+                    document.getElementById('datespan').innerHTML =" ** Please enter current password";
+                    return false;
+                }else{
+                    document.getElementById('datespan').innerHTML ="";
+
+                }
+                return true;
+            } 
+        </script> 
+        <!--javascript validation ends  -->
+
     </head>
     <body>
 
@@ -210,30 +361,35 @@
                             <div class="form-group">
                                 <label>First Name</label>
                                 <input type="text" name="txtfname" value="<?php echo $fname; ?>" class="form-control" placeholder="">
+                                <span id="fnamespan" style="color: red"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Last Name</label>
                                 <input type="text" name="txtlname" value="<?php echo $lname; ?>" class="form-control" placeholder="">
+                                <span id="lnamespan" style="color: red"></span>
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label>Email</label>
                                 <input type="email" name="txtemail" value="<?php echo $email; ?>" class="form-control" placeholder="">
+                                <span id="emailspan" style="color: red"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Contact Number</label>
                                 <input type="text" name="txtphone" value="<?php echo $phone; ?>" class="form-control" placeholder="">
+                                <span id="phonespan" style="color: red"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Date of Birth</label>
                                 <input type="date" name="txtdob" value="<?php echo $dob; ?>" class="form-control" placeholder="">
+                                <span id="dobspan" style="color: red"></span>
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -286,17 +442,19 @@
                                     ?>
                                     <label for="others">Others</label>
                                 </div>
+                                <span id="genspan" style="color: red"></span>
                             </div>
                         </div>
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label>About</label>
                                 <textarea id="your_message" name="your_message" class="form-control" rows="8" ><?php echo $about; ?></textarea>
+                                <span id="msgspan" style="color: red"></span>
                             </div>
                         </div>
                     </div>
                     <div class="text-center">
-                        <button type="submit" name="btnsubmit" class="btn create-ac-btn" style="width:400px;">Save</button>
+                        <button type="submit" name="btnsubmit" class="btn create-ac-btn" style="width:400px;" onclick="return validate();">Save</button>
                     </div>
                 </div>
                 <?php
@@ -320,7 +478,7 @@
                         <div class="modal fade post-job-item" id="EducationDetails">
                             <div class="modal-dialog">
                                 <div class="modal-content" style="width:100%;">
-                                    <form method="post" action="" enctype="multipart/form-data" name="myform">
+                                    <form method="post" action="" enctype="multipart/form-data" name="edupopform">
                                         <!--Start Modal Header -->
                                         <div class="modal-header">
                                             <h4 class="modal-title">Education Details</h4>
@@ -348,6 +506,7 @@
                                                                 }
                                                             ?>
                                                         </select>
+                                                        <span id="eduspan" style="color: red"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -443,18 +602,21 @@
                                                 <div class="form-group">
                                                     <label>Specialization</label>
                                                     <input type="text" name="txtspe" class="form-control" placeholder="MIT WPU">
+                                                    <span id="spespan" style="color: red"></span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Percentage(Out of 100)</label>
                                                     <input type="text" name="txtper" class="form-control" placeholder="85">
+                                                    <span id="perspan" style="color: red"></span>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Passing Year</label>
                                                     <input type="date" name="txtpyear" class="form-control" placeholder="2021">
+                                                    <span id="datespan" style="color: red"></span>
                                                 </div>
                                             </div>  
                                         </div>
@@ -462,7 +624,8 @@
                                         <!--End Modal body -->
                                         <!--Start Modal footer -->
                                         <div class="modal-footer">
-                                            <button type="submit" name="membersubmit" class="btn btn-success" style="width:45%;">Save</button>
+                                            <button type="submit" name="membersubmit" class="btn btn-success" style="width:45%;" 
+                                            onclick="return validateEduPop();">Save</button>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
                                             <button type="button" class="btn btn-danger" data-dismiss="modal" style="width:45%;">Close</button>
                                         </div>
@@ -753,7 +916,7 @@
                                     <form method="post" action="" enctype="multipart/form-data" name="workform">
                                         <!--Start Modal Header -->
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Work Experience</h4>
+                                            <h4 class="modal-title">Skill</h4>
                                         </div>
                                         <!--End Modal Header -->
                                         <!--Start Modal body -->
@@ -835,7 +998,7 @@
                 <!-- {% comment %}END SKILLS{% endcomment %}
 
                 {% comment %}START CHANGE PASSWORD{% endcomment %} -->
-            <form method="post">
+            <form method="post" name="pwdform" enctype="multipart/form-data">
                 <div class="create-skills">
                     <div class="create-skills-wrap">
                         <div class="create-skills-left">
@@ -847,23 +1010,26 @@
                             <div class="form-group">
                                 <label>Old Password</label>
                                 <input type="password" name="txtpwd" class="form-control">
+                                <span id="pwdspan" style="color: red"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>New Password</label>
                                 <input type="password" name="txtnpwd" class="form-control">
+                                <span id="npwdspan" style="color: red"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Confirm New Password</label>
                                 <input type="password" name="txtcnfpwd" class="form-control">
+                                <span id="cnfpwdspan" style="color: red"></span>
                             </div>
                         </div>
                     </div>
                     <div class="text-center">
-                        <button type="submit" name="btnpwd" class="btn create-ac-btn" style="width:400px;">Save</button>
+                        <button type="submit" name="btnpwd" class="btn create-ac-btn" style="width:400px;" onclick="return validatePwd();">Save</button>
                     </div>
                 </div>
             </form>

@@ -100,7 +100,7 @@
 
                 }
 
-                if(Department){
+                if(Department == ""){
                     document.getElementById('span_eventDept').innerHTML =" ** Please fill Department";
                     return false;
                 }else{
@@ -141,7 +141,7 @@
 
                 }
 
-                if(Alumnidropdown){
+                if(Alumnidropdown == ""){
                     document.getElementById('span_eventAlumni').innerHTML =" ** Please fill Alumni Name";
                     return false;
                 }else{
@@ -233,7 +233,7 @@
                 <!-- ----------------------Update Data --------------------- -->
 
                 <div class="post-job-item">
-                    <form method="POST" name="myForm">
+                    <form method="POST" name="myForm" enctype="multipart/form-data">
                         <div class="row">
                             <!-- <div>
                                 <a href="#" style="background-color:green;">  
