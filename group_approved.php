@@ -232,7 +232,8 @@
                                                 }
                                             ?>
                                         </p>
-                                        <a class="btn btn-success" href="group_details.php?Sgid=<?php echo $rowgroupdata['Sgid']; ?>">View More</a> 
+                                        <a class="btn btn-success" href="group_details.php?Sgid=<?php echo $rowgroupdata['Sgid']; ?>">View More</a>
+                                        <a class="btn btn-danger" href="group_decline.php?Gid=<?php echo $rowgroupdata['Sgid']; ?>">Delete</a> 
                                     </div>
                                 </div>
 
