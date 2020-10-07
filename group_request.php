@@ -88,7 +88,7 @@
                                 <div class="col-sm-6 col-lg-3">
                                     <div class="companies-item wow fadeInUp">
                                         <img src="assets/logo.png" alt="Group">
-                                        <h3><a href="#"><?php echo $rowgroupdata['Sgname']; ?></a></h3>
+                                        <h3><a href="group_details.php?Sgid=<?php echo $rowgroupdata['Sgid']; ?>"><?php echo $rowgroupdata['Sgname']; ?></a></h3>
                                         <p>
                                             Course: <?php echo $rowcourse['CourseName']; ?><br>
                                             <?php
@@ -121,7 +121,8 @@
                                                 }
                                             ?>
                                         </p>
-                                        <a class="btn btn-success" href="#">View More</a> 
+                                        <a class="btn btn-success" href="group_accept.php?Gid=<?php echo $rowgroupdata['Sgid']; ?>">Accept</a>
+                                        <a class="btn btn-danger" href="group_decline.php?Gid=<?php echo $rowgroupdata['Sgid']; ?>">Decline</a> 
                                     </div>
                                 </div>
 
