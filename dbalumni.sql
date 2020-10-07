@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2020 at 09:03 AM
+-- Generation Time: Sep 27, 2020 at 09:46 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -313,6 +313,14 @@ CREATE TABLE `tblevent` (
   `IsActive` tinyint(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tblevent`
+--
+
+INSERT INTO `tblevent` (`Eid`, `Ename`, `Location`, `Elink`, `Edate`, `Etime`, `Edescription`, `CreatedUid`, `AlumniUid`, `Deptid`, `IsAccepted`, `IsActive`) VALUES
+(1, 'Webinar on AI', 'mitwpu', 'mitwpu.com', '2020-09-04', '20:12:00', 'Event for project development', 1, 2, 2, 1, 1),
+(2, 'Webinar on AI', 'Vivekananda Auditorium', 'mitwpu.com', '2021-10-28', '10:00:00', 'Attend as earlier possible', 1, 2, 6, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -339,6 +347,27 @@ INSERT INTO `tblgroupmember` (`Gmid`, `Sgid`, `Uid`, `LeaderMember`, `IsActive`)
 (5, 21, 0, 'Leader', 1),
 (6, 22, 0, 'Leader', 1),
 (7, 23, 1, 'Leader', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblnotification`
+--
+
+CREATE TABLE `tblnotification` (
+  `Nid` int(11) NOT NULL,
+  `Eid` int(11) NOT NULL,
+  `UpdatedDate` date DEFAULT NULL,
+  `IsActive` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblnotification`
+--
+
+INSERT INTO `tblnotification` (`Nid`, `Eid`, `UpdatedDate`, `IsActive`) VALUES
+(1, 1, '0000-00-00', 1),
+(2, 2, '2020-09-15', 1);
 
 -- --------------------------------------------------------
 
@@ -728,6 +757,12 @@ ALTER TABLE `tblgroupmember`
   ADD PRIMARY KEY (`Gmid`);
 
 --
+-- Indexes for table `tblnotification`
+--
+ALTER TABLE `tblnotification`
+  ADD PRIMARY KEY (`Nid`);
+
+--
 -- Indexes for table `tblregister`
 --
 ALTER TABLE `tblregister`
@@ -837,13 +872,19 @@ ALTER TABLE `tbleducation`
 -- AUTO_INCREMENT for table `tblevent`
 --
 ALTER TABLE `tblevent`
-  MODIFY `Eid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tblgroupmember`
 --
 ALTER TABLE `tblgroupmember`
   MODIFY `Gmid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `tblnotification`
+--
+ALTER TABLE `tblnotification`
+  MODIFY `Nid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tblregister`

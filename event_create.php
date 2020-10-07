@@ -36,12 +36,17 @@
             {
                 echo "error".mysqli_error($con);
             }
+
+            /*For inserting Eid with updated date into notification table*/ 
+            $insert="INSERT into tblnotification(Eid,UpdatedDate,IsActive)values($Eid,now(),1)";
+            $exe=mysqli_query($con,$insert);
+            /*For inserting Eid with updated date into notification table*/
         }
         
         elseif($Eid==0){
 
             $event_query = "Insert into tblevent(Ename,Location,Elink,Edate,Etime,Edescription,CreatedUid,AlumniUid,Deptid,IsAccepted,IsActive) values
-            ('$eventName','$eventLocation','$eventLink','$eventDate','$eventTime','$eventDesc',$uid,$Alumnidropdown,$Department,1,1)";
+            ('$eventName','$eventLocation','$eventLink','$eventDate','$eventTime','$eventDesc',$uid,$Alumnidropdown,$Department,0,1)";
             $execute_event=mysqli_query($con,$event_query);
             
             if($execute_event)
@@ -52,6 +57,16 @@
             {
                 echo "error".mysqli_error($con);
             }
+
+            /*For inserting Eid into notification table*/
+            $sel="SELECT Eid from tblevent WHERE IsAccepted=1 ORDER BY Eid DESC LIMIT 1";
+            $exe=mysqli_query($con,$sel);
+            $data=mysqli_fetch_array($exe);
+            $eid=$data['Eid'];
+
+            $insert="INSERT into tblnotification(Eid,IsActive)values($eid,1)";
+            $res=mysqli_query($con,$insert);
+            /*For inserting Eid into notification table*/
         }
     }
 ?>
