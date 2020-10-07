@@ -315,16 +315,9 @@
         <!-- End Page Title -->
 
         <!-- Create Account -->
-        <div class="post-job-area pt-100">
+        <div class="post-job-area pt-100" style="padding-top: 50px;">
             <div class="container">
                 <div class="create-photo">
-                <br><br><br>
-                    <div class="already-create">
-                        <span>Already have an account?</span>
-                        <a href="login.php">Log In</a>
-                    </div>
-                    <form name="myform" method="post"> 
-                    <form name="myform" method="POST" action="register.php"> 
                     <form name="myform" method="POST" action="" enctype="multipart/form-data"> 
             
                         <div class="create-information">

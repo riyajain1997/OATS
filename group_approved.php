@@ -113,7 +113,7 @@
                                             Course: <?php echo $row['CourseName']; ?><br> 
                                             Batch: <?php echo $joinuser."-".$passuser; ?>
                                         </p>
-                                        <a class="btn btn-success" href="#">View More</a> 
+                                        <a class="btn btn-success" href="group_details.php?Sgid=<?php echo $rowgroupdata['Sgid']; ?>">View More</a> 
                                     </div>
                                 </div>
                     <?php
@@ -232,7 +232,7 @@
                                                 }
                                             ?>
                                         </p>
-                                        <a class="btn btn-success" href="#">View More</a> 
+                                        <a class="btn btn-success" href="group_details.php?Sgid=<?php echo $rowgroupdata['Sgid']; ?>">View More</a> 
                                     </div>
                                 </div>
 

@@ -91,7 +91,7 @@
                                         }
                                     ?>
                                     
-                                    <a class="companies-btn" href="#">View More<i class="icofont-swoosh-right"></i></a>
+                                    <a class="companies-btn" href="group_details.php?Sgid=<?php echo $rowleader['Sgid']; ?>">View More<i class="icofont-swoosh-right"></i></a>
                                 </div>
                             </div>
                     <?php
@@ -153,7 +153,7 @@
                                         <?php
                                             }
                                         ?>
-                                        <a class="companies-btn" href="#">View More<i class="icofont-swoosh-right"></i></a>
+                                        <a class="companies-btn" href="group_details.php?Sgid=<?php echo $rowleader['Sgid']; ?>">View More<i class="icofont-swoosh-right"></i></a>
                                     </div>
                                 </div>
                     <?php

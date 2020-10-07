@@ -121,7 +121,7 @@
                                                 }
                                             ?>
                                         </p>
-                                        <a class="btn btn-success" href="#">View More</a> 
+                                        <a class="btn btn-success" href="group_details.php?Sgid=<?php echo $rowgroupdata['Sgid']; ?>">View More</a> 
                                     </div>
                                 </div>
 
