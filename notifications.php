@@ -1,3 +1,6 @@
+<?php
+    include_once("DbConnection.php");
+?>
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -7,7 +10,19 @@
     <body>
 
         <!-- Start Navbar Area -->
-        <?php include_once('headerAlumni.php');?> 
+        <?php 
+            if($_SESSION['Type']=="Student")
+            {
+                include_once('headerStudent.php');
+            }
+            else if($_SESSION['Type']=="Alumni")
+            {
+                include_once('headerAlumni.php');
+            }
+            else{
+                include_once('headerHod.php');
+            }
+        ?> 
         <!-- End Navbar Area -->
 
         <!-- Faq -->
