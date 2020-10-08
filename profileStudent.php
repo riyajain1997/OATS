@@ -87,6 +87,14 @@
                     document.getElementById('phonespan').innerHTML ="";
 
                 }
+                if (phone.length!=10) {
+                    document.getElementById('phonespan').innerHTML =" ** Mobile number must be 10 digits only.";
+                    return false;
+                }
+                if (isNaN(phone)) {
+                    document.getElementById('phonespan').innerHTML =" ** User must write digits only not characters.";
+                    return false;
+                }
                 if(prnno == ""){
                     document.getElementById('prnspan').innerHTML =" ** Please enter employee number";
                     return false;
