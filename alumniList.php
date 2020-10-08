@@ -75,23 +75,21 @@
                                     $Uid = $row_AlumniList['Uid'];
                                     $Fnm = $row_AlumniList['Fname'];
                                     $Lnm = $row_AlumniList['Lname'];
+                                    $profile = $row_AlumniList['ProfilePic'];
+
+                                    if($profile=="" || !file_exists("Uploaded/Images/$profile"))
+                                    {
+                                        $profile="no1.png";
+                                    }
                                 
                     ?>
                     <div class="col-sm-6 col-lg-3">
                         <div class="profile-item wow fadeInUp" data-wow-delay=".3s">
-                            <img src="assets/img/home-1/profile/1.jpg" alt="Profile">
+                            <img src="Uploaded/Images/<?php echo $profile; ?>" alt="Profile">
                             <div class="profile-inner">
                                 <h3><?php echo $Fnm; ?> <?php echo $Lnm; ?></h3>
                                 <span>Business Consultant</span>
                                 <a href="alumni_profile_details.php?Uid=<?php echo $Uid?>">View Profile
-                                <!-- <a href="candidate-details.html">View Profile
-                                    <i class="icofont-swoosh-right"></i>
-                                </a>
-                                <div class="profile-heart">
-                                    <a href="candidate-details.html">
-                                        <i class="icofont-heart-alt"></i>
-                                    </a>
-                                </div> -->
                             </div>
                         </div>
                     </div>

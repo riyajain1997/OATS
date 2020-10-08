@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2020 at 09:46 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- Generation Time: Oct 08, 2020 at 04:30 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,6 +36,14 @@ CREATE TABLE `tblblogs` (
   `Uid` int(11) NOT NULL,
   `IsActive` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tblblogs`
+--
+
+INSERT INTO `tblblogs` (`Bid`, `Title`, `Content`, `File`, `CreatedDate`, `Uid`, `IsActive`) VALUES
+(2, 'AWS Elastic Computing', 'Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides secure, resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers. Amazon EC2’s simple web service interface allows you to obtain and configure capacity with minimal friction. It provides you with complete control of your computing resources and lets you run on Amazon’s proven computing environment.\r\n\r\nAmazon EC2 offers the broadest and deepest compute platform with choice of processor, storage, networking, operating system, and purchase model. We offer the fastest processors in the cloud and we are the only cloud with 100 Gbps ethernet networking.', 'blog-img19.jpg', '2020-10-08', 3, 1),
+(3, 'Java', 'Java is a class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It is a general-purpose programming language intended to let application developers write once, run anywhere (WORA),[17] meaning that compiled Java code can run on all platforms that support Java without the need for recompilation.[18] Java applications are typically compiled to bytecode that can run on any Java virtual machine (JVM) regardless of the underlying computer architecture. The syntax of Java is similar to C and C++, but it has fewer low-level facilities than either of them. As of 2019, Java was one of the most popular programming languages in use according to GitHub,[19][20] particularly for client-server web applications, with a reported 9 million developers', 'blog-img29.jpg', '2020-10-08', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -319,7 +327,9 @@ CREATE TABLE `tblevent` (
 
 INSERT INTO `tblevent` (`Eid`, `Ename`, `Location`, `Elink`, `Edate`, `Etime`, `Edescription`, `CreatedUid`, `AlumniUid`, `Deptid`, `IsAccepted`, `IsActive`) VALUES
 (1, 'Webinar on AI', 'mitwpu', 'mitwpu.com', '2020-09-04', '20:12:00', 'Event for project development', 1, 2, 2, 1, 1),
-(2, 'Webinar on AI', 'Vivekananda Auditorium', 'mitwpu.com', '2021-10-28', '10:00:00', 'Attend as earlier possible', 1, 2, 6, 1, 1);
+(2, 'Webinar on cloud', 'Vivekananda Auditorium', 'mitwpu.com', '2021-10-28', '10:00:00', 'Attend as earlier possible', 1, 2, 6, 1, 1),
+(3, 'Digital Marketing', 'Virtual platform', 'link provided soon', '2020-10-21', '14:00:00', 'Digital marketing is the component of marketing that utilizes internet and online based digital technologies such as desktop computers, mobile phones and other digital media and platforms to promote products and services. Its development during the 1990s and 2000s, changed the way brands and businesses use technology for marketing. \r\n\r\nAs digital platforms became increasingly incorporated into marketing plans and everyday life,[3] and as people increasingly use digital devices instead of visiting physical shops,[4][5] digital marketing campaigns have become prevalent, employing combinations of search engine optimization (SEO), search engine marketing (SEM), content marketing, influencer marketing, content automation, campaign marketing, data-driven marketing, e-commerce marketing, social media marketing, social media optimization, e-mail direct marketing, display advertising, e–books, and optical disks and games have become commonplace. Digital marketing extends to non-Internet channels that provide digital media, such as television, mobile phones (SMS and MMS), callback, and on-hold mobile ring tones.', 1, 4, 8, 0, 1),
+(4, 'machine learning', 'Auditorium', '', '2020-10-29', '16:11:00', 'Introduction to machine learning', 1, 2, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -340,13 +350,8 @@ CREATE TABLE `tblgroupmember` (
 --
 
 INSERT INTO `tblgroupmember` (`Gmid`, `Sgid`, `Uid`, `LeaderMember`, `IsActive`) VALUES
-(1, 18, 1, 'Leader', 1),
-(2, 18, 2, 'Member', 1),
-(3, 19, 0, 'Leader', 1),
-(4, 20, 0, 'Leader', 1),
-(5, 21, 0, 'Leader', 1),
-(6, 22, 0, 'Leader', 1),
-(7, 23, 1, 'Leader', 1);
+(12, 26, 1, 'Leader', 1),
+(13, 26, 2, 'Member', 1);
 
 -- --------------------------------------------------------
 
@@ -401,9 +406,11 @@ CREATE TABLE `tblregister` (
 --
 
 INSERT INTO `tblregister` (`Uid`, `PrnEmpno`, `Fname`, `Lname`, `Email`, `Password`, `Gender`, `Dob`, `Phone`, `Usertype`, `JoinYear`, `PassYear`, `Cousreid`, `Deptid`, `Desigid`, `About`, `IsActive`, `ProfilePic`) VALUES
-(1, 1042180522, 'Abhilasha', 'oso', 'ppoo@gmail.com', 'abhi', 'Female', '0000-00-00', 1112221112, 'Student', 2019, 2022, 1, 1, 0, NULL, 1, NULL),
-(2, 1223112211, 'riya', 'Jain', 'riya@gmail.com', 'riya', 'Female', '2011-11-11', 123456, 'Alumni', 0000, 2011, 1, 0, 11, 'riya here', 1, ''),
-(4, 1104, 'Jignesh', 'Mahadik', 'jignesh@gmail.com', 'jignesh', 'Male', '0000-00-00', 2211334455, 'Staff', 0000, 0000, 0, 1, 2, NULL, 1, NULL);
+(1, 1042180522, 'Abhilasha', 'kumari', 'pooja@gmail.com', '123', 'Female', '2002-12-20', 8989234512, 'Student', 2019, 2021, 1, 1, 0, NULL, 1, NULL),
+(2, 1223112211, 'Riya', 'jain', 'riya@gmail.com', '123', 'Female', '1995-01-26', 1234567891, 'Alumni', 2008, 2011, 1, 0, 11, 'jack here', 1, ''),
+(3, 1104, 'Jignesh', 'Mahadik', 'jignesh@gmail.com', '123', 'Male', '0000-00-00', 2211334455, 'Staff', 0000, 0000, 0, 1, 2, NULL, 1, NULL),
+(4, 1042180336, 'Sneha', 'Patil', 'sneha@gmail.com', '123', 'Female', '2097-10-18', 7690123712, 'Alumni', 2007, 2010, 8, 4, 6, NULL, 1, NULL),
+(5, 1042180335, 'Shiva', 'Mahto', 'shiva@gmail.com', '123', 'Male', '2016-07-14', 7834239012, 'Student', 2015, 2018, 1, 1, 8, NULL, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -625,12 +632,7 @@ CREATE TABLE `tblstudentgroup` (
 --
 
 INSERT INTO `tblstudentgroup` (`Sgid`, `Sgname`, `Courseid`, `Deptid`, `Sgyear`, `Uid`, `IsAccepted`, `IsActive`) VALUES
-(18, 'Group MCA', 1, 1, 3, 1, 0, 1),
-(19, 'New group', 1, 1, 2, 1, 0, 1),
-(20, 'New group2', 1, 1, 2, 1, 0, 1),
-(21, '', 1, 1, 0, 1, 0, 1),
-(22, '', 1, 1, 0, 1, 0, 1),
-(23, 'New group1', 1, 1, 1, 1, 0, 1);
+(26, 'group one', 1, 1, 3, 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -818,7 +820,7 @@ ALTER TABLE `tbuniversity`
 -- AUTO_INCREMENT for table `tblblogs`
 --
 ALTER TABLE `tblblogs`
-  MODIFY `Bid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Bid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tblboard`
@@ -872,25 +874,25 @@ ALTER TABLE `tbleducation`
 -- AUTO_INCREMENT for table `tblevent`
 --
 ALTER TABLE `tblevent`
-  MODIFY `Eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Eid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tblgroupmember`
 --
 ALTER TABLE `tblgroupmember`
-  MODIFY `Gmid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Gmid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tblnotification`
 --
 ALTER TABLE `tblnotification`
-  MODIFY `Nid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Nid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tblregister`
 --
 ALTER TABLE `tblregister`
-  MODIFY `Uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tblskill`
@@ -914,7 +916,7 @@ ALTER TABLE `tblstudent`
 -- AUTO_INCREMENT for table `tblstudentgroup`
 --
 ALTER TABLE `tblstudentgroup`
-  MODIFY `Sgid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `Sgid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tbluserskill`

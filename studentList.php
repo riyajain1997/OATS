@@ -88,7 +88,7 @@
 
                     <div class="col-sm-6 col-lg-3">
                         <div class="profile-item wow fadeInUp" data-wow-delay=".3s">
-                            <img src="assets/img/home-1/profile/1.jpg" alt="Profile">
+                            <img src="Uploaded/Images/no.png" alt="Profile">
                             <div class="profile-inner">
                                 <h3><?php echo $SFnm; ?> <?php echo $SLnm; ?></h3>
                                 <span><?php echo $Sjoinyr; ?>-<?php echo $Spassyr; ?></span>

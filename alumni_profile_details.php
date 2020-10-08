@@ -81,13 +81,12 @@
                         $Lname = $fetch_alumni_details['Lname'];
                         $contact = $fetch_alumni_details['Phone'];
                         $Email = $fetch_alumni_details['Email'];
-                        $About = $fetch_alumni_details['About']
-                        // $dept = $fetch_alumni_details['DeptName'];
+                        $About = $fetch_alumni_details['About'];
 
                     ?>
                     <div class="col-lg-5">
                         <div class="single-profile-item">
-                            <img src="assets/img/home-1/profile/1.jpg" alt="Profile">
+                            <img src="Uploaded/Images/no1.png" alt="Profile">
                             <div class="single-profile-left">
                                 <div class="single-profile-contact">
                                     <h3>Contact Info</h3>

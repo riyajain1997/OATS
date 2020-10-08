@@ -59,15 +59,7 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link dropdown-toggle">Alumni <i class="icofont-simple-down"></i></a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a href="alumniList.php" class="nav-link">Alumni List</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">Invitations Sent</a>
-                                        </li>
-                                    </ul>
+                                    <a href="alumniList.php" class="nav-link dropdown-toggle">Alumni </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="contact.php" class="nav-link">Contact</a>
